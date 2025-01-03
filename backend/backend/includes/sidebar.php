@@ -28,12 +28,6 @@
                         <p>Dashboard</p>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="index.php">
-                        <i class="fas fa-address-book"></i>
-                        <p>การจอง</p>
-                    </a>
-                </li>
                 <li class="nav-section">
                     <span class="sidebar-mini-icon">
                         <i class="fa fa-ellipsis-h"></i>
@@ -41,30 +35,160 @@
                     <h4 class="text-section">รายละเอียด</h4>
                 </li>
                 <li class="nav-item">
-                    <a href="index.php">
+                    <a data-bs-toggle="collapse" href="#base">
+                        <i class="fas fa-address-book"></i>
+                        <p>การจอง</p>
+                        <span class="caret"></span>
+                    </a>
+                    <div class="collapse" id="base">
+                        <ul class="nav nav-collapse">
+                            <li>
+                                <a href="components/avatars.html">
+                                    <span class="sub-item">การจอง</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="components/buttons.html">
+                                    <span class="sub-item">ปฏิทิน</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="components/gridsystem.html">
+                                    <span class="sub-item">Grid System</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a data-bs-toggle="collapse" href="#service">
+                        <i class="fas fa-book-open"></i>
+                        <p>บริการ</p>
+                        <span class="caret"></span>
+                    </a>
+                    <div class="collapse" id="service">
+                        <ul class="nav nav-collapse">
+                            <li>
+                                <a href="components/avatars.html">
+                                    <span class="sub-item">บริการ</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="components/buttons.html">
+                                    <span class="sub-item">หมวดหมู่</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="components/gridsystem.html">
+                                    <span class="sub-item">Grid System</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a data-bs-toggle="collapse" href="#course">
+                        <i class="fas fa-suitcase"></i>
+                        <p>คอร์ส</p>
+                        <span class="caret"></span>
+                    </a>
+                    <div class="collapse" id="course">
+                        <ul class="nav nav-collapse">
+                            <li>
+                                <a href="components/avatars.html">
+                                    <span class="sub-item">คอร์ส</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="components/buttons.html">
+                                    <span class="sub-item">หมวดหมู่</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="components/gridsystem.html">
+                                    <span class="sub-item">Grid System</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a data-bs-toggle="collapse" href="#customer">
                         <i class="fas fa-user"></i>
                         <p>ลูกค้า</p>
+                        <span class="caret"></span>
                     </a>
+                    <div class="collapse" id="customer">
+                        <ul class="nav nav-collapse">
+                            <li>
+                                <a href="table/datatable.php">
+                                    <span class="sub-item">รายชื่อทั้งหมด</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="components/buttons.html">
+                                    <span class="sub-item">รายละเอียด</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="components/gridsystem.html">
+                                    <span class="sub-item">Grid System</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </li>
                 <li class="nav-item">
-                    <a href="index.php">
-                        <i class="fas fa-user-tie"></i>
+                    <a data-bs-toggle="collapse" href="#employee">
+                        <i class="fas fa-id-card"></i>
                         <p>พนักงาน</p>
+                        <span class="caret"></span>
                     </a>
+                    <div class="collapse" id="employee">
+                        <ul class="nav nav-collapse">
+                            <li>
+                                <a href="components/avatars.html">
+                                    <span class="sub-item">รายชื่อทั้งหมด</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="components/buttons.html">
+                                    <span class="sub-item">รายละเอียด</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="components/gridsystem.html">
+                                    <span class="sub-item">Grid System</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </li>
                 <li class="nav-item">
-                    <a href="index.php">
-                        <i class="fas fa-file"></i>
-                        <p>บริการ</p>
-                        <span class="badge badge-secondary">1</span>
+                    <a data-bs-toggle="collapse" href="#money">
+                        <i class="fas fa-wallet"></i>
+                        <p>การเงิน</p>
+                        <span class="caret"></span>
                     </a>
-                </li>
-                <li class="nav-item">
-                    <a href="index.php">
-                        <i class="fas fa-file"></i>
-                        <p>คอร์ส</p>
-                        <span class="badge badge-secondary">1</span>
-                    </a>
+                    <div class="collapse" id="money">
+                        <ul class="nav nav-collapse">
+                            <li>
+                                <a href="components/avatars.html">
+                                    <span class="sub-item">รายการการเงิน</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="components/buttons.html">
+                                    <span class="sub-item">สลิป</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="components/gridsystem.html">
+                                    <span class="sub-item">Grid System</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </li>
             </ul>
         </div>
