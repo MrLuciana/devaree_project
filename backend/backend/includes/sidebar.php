@@ -30,7 +30,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="index.php">
-                        <i class="fas fa-home"></i>
+                        <i class="fas fa-address-book"></i>
                         <p>การจอง</p>
                     </a>
                 </li>
@@ -42,13 +42,13 @@
                 </li>
                 <li class="nav-item">
                     <a href="index.php">
-                        <i class="fas fa-home"></i>
+                        <i class="fas fa-user"></i>
                         <p>ลูกค้า</p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="index.php">
-                        <i class="fas fa-home"></i>
+                        <i class="fas fa-user-tie"></i>
                         <p>พนักงาน</p>
                     </a>
                 </li>
