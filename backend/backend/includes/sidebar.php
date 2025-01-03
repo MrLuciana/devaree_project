@@ -23,7 +23,7 @@
         <div class="sidebar-content">
             <ul class="nav nav-secondary">
                 <li class="nav-item active">
-                    <a href="index.php">
+                    <a href="?page=home" class="<?php echo $home; ?>">
                         <i class="fas fa-home"></i>
                         <p>Dashboard</p>
                     </a>
@@ -34,6 +34,7 @@
                     </span>
                     <h4 class="text-section">รายละเอียด</h4>
                 </li>
+                <!-- การจอง -->
                 <li class="nav-item">
                     <a data-bs-toggle="collapse" href="#base">
                         <i class="fas fa-address-book"></i>
@@ -60,6 +61,7 @@
                         </ul>
                     </div>
                 </li>
+                <!-- บริการ -->
                 <li class="nav-item">
                     <a data-bs-toggle="collapse" href="#service">
                         <i class="fas fa-book-open"></i>
@@ -86,6 +88,7 @@
                         </ul>
                     </div>
                 </li>
+                <!-- คอร์ส -->
                 <li class="nav-item">
                     <a data-bs-toggle="collapse" href="#course">
                         <i class="fas fa-suitcase"></i>
@@ -112,6 +115,7 @@
                         </ul>
                     </div>
                 </li>
+                <!-- ลูกค้า -->
                 <li class="nav-item">
                     <a data-bs-toggle="collapse" href="#customer">
                         <i class="fas fa-user"></i>
@@ -121,7 +125,7 @@
                     <div class="collapse" id="customer">
                         <ul class="nav nav-collapse">
                             <li>
-                                <a href="table/datatable.php">
+                                <a href="?page=all-customer">
                                     <span class="sub-item">รายชื่อทั้งหมด</span>
                                 </a>
                             </li>
@@ -138,6 +142,7 @@
                         </ul>
                     </div>
                 </li>
+                <!-- พนักงาน -->
                 <li class="nav-item">
                     <a data-bs-toggle="collapse" href="#employee">
                         <i class="fas fa-id-card"></i>
@@ -164,6 +169,7 @@
                         </ul>
                     </div>
                 </li>
+                <!-- การเงิน -->
                 <li class="nav-item">
                     <a data-bs-toggle="collapse" href="#money">
                         <i class="fas fa-wallet"></i>
