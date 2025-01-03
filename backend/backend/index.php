@@ -16,18 +16,30 @@ $act = $_GET['act'];
             <?php include "includes/navbar.php"; ?>
          </div>
          <?php
-         if ($page == '' || $page == 'home') {
-            include "home.php";
-         } else if ($page == 'profile') {
-            include "profile.php";
-         } else {
-            include "notfound.php";
-         }
-         ?>
+            if($page == '' || $page=='home'){
+               include "home.php";
+            }else if($page == 'booking'){
+               include "booking.php";
+            }else if($page == 'calendar'){
+               include "calendar.php";
+            }else if($page == ''){
+               include ".php";
+            }else if($page == ''){
+               include ".php";
+            }else if($page == 'all-customer'){
+               include "all-customer.php";
+            }else if($page == 'logout'){
+               session_destroy(); 
+               header("location:../login");
+            }else{
+               include "notfound.php";
+            }
+            ?>
          <?php include "includes/footer.php"; ?>
       </div>
    </div>
 </body>
 
 </html>
+<?php include "includes/modal.php"; ?>
 <?php include "includes/scripts.php"; ?>
