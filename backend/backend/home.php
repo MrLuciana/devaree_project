@@ -1,3 +1,13 @@
+<?php
+include 'includes/conn.php';
+
+//แสดงจํานวนผู้ใช้
+$sql = "SELECT COUNT(id) AS total_users FROM customers";
+$result = $conn->query($sql);
+$row = $result->fetch_assoc();
+$total_users = $row['total_users'];
+?>
+
 <div class="container">
   <div class="page-inner">
     <div
@@ -24,8 +34,8 @@
               </div>
               <div class="col col-stats ms-3 ms-sm-0">
                 <div class="numbers">
-                  <p class="card-category">Visitors</p>
-                  <h4 class="card-title">1,294</h4>
+                  <p class="card-category">Users</p>
+                  <h4 class="card-title"><?php echo number_format($total_users); ?></h4>
                 </div>
               </div>
             </div>
