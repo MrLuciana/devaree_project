@@ -28,11 +28,8 @@ $act = $_GET['act'];
                include ".php";
             }else if($page == 'all-customer'){
                include "all-customer.php";
-            }else if($page == 'logout'){
-               session_destroy(); 
-               header("location:../login");
-            }else{
-               include "notfound.php";
+            }else if($page == '404'){
+               include "404.php";
             }
             ?>
          <?php include "includes/footer.php"; ?>
