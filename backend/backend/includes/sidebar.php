@@ -23,7 +23,7 @@
         <div class="sidebar-content">
             <ul class="nav nav-secondary">
                 <li class="nav-item active">
-                    <a href="?page=home" class="<?php echo $home; ?>">
+                    <a href="?page=home">
                         <i class="fas fa-home"></i>
                         <p>Dashboard</p>
                     </a>
