@@ -1,0 +1,11 @@
+.center-card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+.card {
+    width: 50%; /* ปรับความกว้างของ card (ลองเปลี่ยนค่าได้) */
+    max-width: 600px; /* กำหนดขนาดสูงสุด */
+    padding: 30px; /* เพิ่มพื้นที่ด้านใน card */
+}

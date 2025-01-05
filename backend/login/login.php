@@ -24,43 +24,41 @@ include("../backend/includes/conn.php");
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link href="css/style.css" rel="stylesheet">
 </head>
 
 <body class="bg-gradient-primary">
     <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-xl-10 col-lg-12 col-md-9">
-                <div class="card o-hidden border-0 shadow-lg my-5">
-                    <div class="card-body p-0">
-                        <div class="row">
-                            <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
-                            <div class="col-lg-6">
-                                <div class="p-5">
-                                    <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
-                                    </div>
-                                    <form class="user" method="POST">
-                                        <div class="form-group">
-                                            <input type="text" name="username" class="form-control form-control-user"
-                                                placeholder="Username" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="password" name="password" class="form-control form-control-user"
-                                                placeholder="Password" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="custom-control custom-checkbox small">
-                                                <input type="checkbox" class="custom-control-input" id="customCheck">
-                                                <label class="custom-control-label" for="customCheck">Remember Me</label>
-                                            </div>
-                                        </div>
-                                        <button type="submit" class="btn btn-primary btn-user btn-block">
-                                            Login
-                                        </button>
-                                    </form>
-                                    <hr>
+        <div class="center-card">
+            <div class="card o-hidden border-0 shadow-lg my-5">
+                <div class="card-body p-0">
+                    <div class="row">
+                        <div class="col">
+                            <div class="p-5">
+                                <div class="text-center">
+                                    <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                                 </div>
+                                <form class="user" method="POST">
+                                    <div class="form-group">
+                                        <input type="text" name="username" class="form-control form-control-user"
+                                            placeholder="Username" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="password" name="password" class="form-control form-control-user"
+                                            placeholder="Password" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="custom-control custom-checkbox small">
+                                            <input type="checkbox" class="custom-control-input" id="customCheck">
+                                            <label class="custom-control-label" for="customCheck">Remember Me</label>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary btn-user btn-block">
+                                        Login
+                                    </button>
+                                </form>
+                                <hr>
                             </div>
                         </div>
                     </div>
@@ -68,10 +66,6 @@ include("../backend/includes/conn.php");
             </div>
         </div>
     </div>
-    <!-- Custom scripts for all pages-->
-    <script src="js/sb-admin-2.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
 </body>
 
 </html>
@@ -103,19 +97,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo '<script type="text/javascript">
         Swal.fire({
               icon: "success",
-              title: "กำลังเข้าสู่ระบบ",
-              text: "กรุณารอสักครู่..",
+              title: "สำเร็จ",
+              text: "กำลังเข้าสู่ระบบ..",
               showConfirmButton: false,
               timer: 1500
         });
         </script>';
         echo '<meta http-equiv="refresh" content="2;url=../backend/" />';
-
     } else {
         echo '<script type="text/javascript">
         Swal.fire({
               icon: "error",
-              title: "เข้าสู่ระบบไม่สำเร็จ",
+              title: "ไม่สำเร็จ",
               text: "Username หรือ Password ไม่ถูกต้อง!",
               showConfirmButton: false,
               timer: 1500
