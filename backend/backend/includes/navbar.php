@@ -308,9 +308,8 @@
               class="avatar-img rounded-circle" />
           </div>
           <span class="profile-username">
-            <span class="op-7">Hi,</span>
-            <span class="fw-bold">Hizrian</span>
-          </span>
+            <span class="fw-bold">Admin</span>
+        </span>
         </a>
         <ul class="dropdown-menu dropdown-user animated fadeIn">
           <div class="dropdown-user-scroll scrollbar-outer">
@@ -323,21 +322,11 @@
                     class="avatar-img rounded" />
                 </div>
                 <div class="u-text">
-                  <h4>Hizrian</h4>
-                  <p class="text-muted">hello@example.com</p>
-                  <a
-                    href="profile.html"
-                    class="btn btn-xs btn-secondary btn-sm">View Profile</a>
+                  <h4>Admin</h4>
                 </div>
               </div>
             </li>
             <li>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">My Profile</a>
-              <a class="dropdown-item" href="#">My Balance</a>
-              <a class="dropdown-item" href="#">Inbox</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">Account Setting</a>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="logout.php">Logout</a>
             </li>
