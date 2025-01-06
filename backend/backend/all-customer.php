@@ -29,19 +29,19 @@ include 'includes/conn.php'; // เชื่อมต่อฐานข้อม
               </thead>
               <tbody>
                 <?php
-                $sql = "SELECT id, first_name, last_name, email, phone, address, city, country FROM customers";
+                $sql = "SELECT * FROM customers";
                 $result = $conn->query($sql);
                 if ($result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) {
                         echo "<tr>
-                            <td>" . $row["id"] . "</td>
-                            <td>" . $row["first_name"] . "</td>
-                            <td>" . $row["last_name"] . "</td>
-                            <td>" . $row["email"] . "</td>
-                            <td>" . $row["phone"] . "</td>
-                            <td>" . $row["address"] . "</td>
-                            <td>" . $row["city"] . "</td>
-                            <td>" . $row["country"] . "</td>
+                            <td>" . $row["cus_id"] . "</td>
+                            <td>" . $row["cus_fname"] . "</td>
+                            <td>" . $row["cus_lname"] . "</td>
+                            <td>" . $row["cus_email"] . "</td>
+                            <td>" . $row["cus_phone"] . "</td>
+                            <td>" . $row["cus_address"] . "</td>
+                            <td>" . $row["cus_city"] . "</td>
+                            <td>" . $row["cus_country"] . "</td>
                         </tr>";
                     }
                 } else {

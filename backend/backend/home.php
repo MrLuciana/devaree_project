@@ -2,7 +2,7 @@
 include 'includes/conn.php';
 
 //แสดงจํานวนผู้ใช้
-$sql = "SELECT COUNT(id) AS total_users FROM customers";
+$sql = "SELECT COUNT(cus_id) AS total_users FROM customers";
 $result = $conn->query($sql);
 $row = $result->fetch_assoc();
 $total_users = $row['total_users'];

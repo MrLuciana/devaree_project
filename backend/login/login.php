@@ -78,7 +78,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $adm_password = trim($_POST['password']);
 
     // ใช้ Prepared Statement ป้องกัน SQL Injection
-    $stmt = $conn->prepare("SELECT adm_id, adm_username, adm_password FROM db_admin WHERE adm_username = ?");
+    $stmt = $conn->prepare("SELECT adm_id, adm_username, adm_password FROM admin WHERE adm_username = ?");
     $stmt->bind_param("s", $adm_username);
     $stmt->execute();
 
