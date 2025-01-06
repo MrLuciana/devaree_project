@@ -4,11 +4,13 @@ include 'includes/conn.php';
 //แสดงจํานวน
 $sql = "SELECT 
     (SELECT COUNT(cus_id) FROM customers) AS total_customers, 
-    (SELECT COUNT(service_id) FROM services) AS total_services";
+    (SELECT COUNT(service_id) FROM services) AS total_services, 
+    (SELECT COUNT(course_id) FROM courses) AS total_courses";
 $result = $conn->query($sql);
 $row = $result->fetch_assoc();
 $total_customers = $row['total_customers'];
 $total_services = $row['total_services'];
+$total_courses = $row['total_courses'];
 ?>
 
 <div class="container">
@@ -22,8 +24,8 @@ $total_services = $row['total_services'];
     </div>
 
     <?php
-    include 'widget-total.php';
-    include 'widget-payment.php';
+    include 'widgets/widget-total.php';
+    include 'widgets/widget-payment.php';
     ?>
   </div>
 </div>
