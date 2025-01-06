@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jan 06, 2025 at 05:49 AM
+-- Generation Time: Jan 06, 2025 at 06:44 PM
 -- Server version: 8.0.17
 -- PHP Version: 7.3.10
 
@@ -68,6 +68,37 @@ CREATE TABLE `admin` (
 
 INSERT INTO `admin` (`adm_id`, `adm_title`, `adm_fname`, `adm_lname`, `adm_username`, `adm_password`, `adm_avatar`) VALUES
 (1, 'นาย', 'ศุภกฤต', 'บรรจงดัด', 'admin', '$2y$10$zDH9Q70sjwTWEgSZMEWN4.unv5eOD7sh8R1ez7bPijbj6qiPQQAKy', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `courses`
+--
+
+CREATE TABLE `courses` (
+  `course_id` int(11) NOT NULL,
+  `course_name` varchar(100) NOT NULL,
+  `course_description` text CHARACTER SET utf8 COLLATE utf8_general_ci,
+  `course_duration_minutes` int(11) NOT NULL,
+  `course_price` decimal(10,2) NOT NULL,
+  `course_category` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `course_created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `course_updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `courses`
+--
+
+INSERT INTO `courses` (`course_id`, `course_name`, `course_description`, `course_duration_minutes`, `course_price`, `course_category`, `course_created_at`, `course_updated_at`) VALUES
+(1, 'Aroma Therapy', 'Relaxing full-body massage with essential oils.', 60, '1500.00', 'Massage', '2025-01-06 13:47:01', '2025-01-06 13:47:01'),
+(2, 'Thai Traditional Massage', 'Ancient Thai massage technique for muscle relaxation.', 90, '1200.00', 'Massage', '2025-01-06 13:47:01', '2025-01-06 13:47:01'),
+(3, 'Herbal Compress Therapy', 'Massage with heated herbal compress for pain relief.', 90, '1800.00', 'Therapy', '2025-01-06 13:47:01', '2025-01-06 13:47:01'),
+(4, 'Facial Rejuvenation', 'Deep cleansing facial treatment for glowing skin.', 45, '1000.00', 'Facial', '2025-01-06 13:47:01', '2025-01-06 13:47:01'),
+(5, 'Body Scrub & Wrap', 'Exfoliation and moisturizing treatment for smooth skin.', 60, '2000.00', 'Body Treatment', '2025-01-06 13:47:01', '2025-01-06 13:47:01'),
+(6, 'Hot Stone Therapy', 'Therapeutic massage with heated stones for deep relaxation.', 75, '2200.00', 'Massage', '2025-01-06 13:47:01', '2025-01-06 13:47:01'),
+(7, 'Foot Reflexology', 'Massage targeting pressure points in the feet.', 30, '800.00', 'Reflexology', '2025-01-06 13:47:01', '2025-01-06 13:47:01'),
+(8, 'Couple’s Retreat', 'Special package for two with massage and aromatherapy.', 120, '4000.00', 'Package', '2025-01-06 13:47:01', '2025-01-06 13:47:01');
 
 -- --------------------------------------------------------
 
@@ -232,6 +263,12 @@ ALTER TABLE `admin`
   ADD PRIMARY KEY (`adm_id`);
 
 --
+-- Indexes for table `courses`
+--
+ALTER TABLE `courses`
+  ADD PRIMARY KEY (`course_id`);
+
+--
 -- Indexes for table `customers`
 --
 ALTER TABLE `customers`
@@ -253,6 +290,12 @@ ALTER TABLE `services`
 --
 ALTER TABLE `admin`
   MODIFY `adm_id` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `courses`
+--
+ALTER TABLE `courses`
+  MODIFY `course_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `customers`
