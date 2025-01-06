@@ -24,8 +24,8 @@ $act = $_GET['act'];
                include "calendar.php";
             }else if($page == ''){
                include ".php";
-            }else if($page == ''){
-               include ".php";
+            }else if($page == 'all-service'){
+               include "all-service.php";
             }else if($page == 'all-customer'){
                include "all-customer.php";
             }else if($page == '404'){

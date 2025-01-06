@@ -71,7 +71,7 @@
                     <div class="collapse" id="service">
                         <ul class="nav nav-collapse">
                             <li>
-                                <a href="components/avatars.html">
+                                <a href="?page=all-service">
                                     <span class="sub-item">บริการ</span>
                                 </a>
                             </li>
