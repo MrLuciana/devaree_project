@@ -23,7 +23,7 @@ $total_services = $row['total_services'];
 
     <?php
     include 'widget-total.php';
-    include 'widget2.php';
+    include 'widget-payment.php';
     ?>
   </div>
 </div>
