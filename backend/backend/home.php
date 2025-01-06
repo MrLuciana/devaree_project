@@ -2,10 +2,13 @@
 include 'includes/conn.php';
 
 //แสดงจํานวนผู้ใช้
-$sql = "SELECT COUNT(cus_id) AS total_users FROM customers";
+$sql = "SELECT 
+    (SELECT COUNT(cus_id) FROM customers) AS total_customers, 
+    (SELECT COUNT(service_id) FROM services) AS total_services";
 $result = $conn->query($sql);
 $row = $result->fetch_assoc();
-$total_users = $row['total_users'];
+$total_customers = $row['total_customers'];
+$total_services = $row['total_services'];
 ?>
 
 <div class="container">
@@ -17,50 +20,10 @@ $total_users = $row['total_users'];
         <h6 class="op-7 mb-2">ภาพรวม</h6>
       </div>
     </div>
-    <div class="row">
-      <!-- แสดงจํานวนผู้ใช้ -->
-      <div class="col-sm-6 col-md-3">
-        <div class="card card-stats card-round">
-          <div class="card-body">
-            <div class="row align-items-center">
-              <div class="col-icon">
-                <div
-                  class="icon-big text-center icon-primary bubble-shadow-small">
-                  <i class="fas fa-users"></i>
-                </div>
-              </div>
-              <div class="col col-stats ms-3 ms-sm-0">
-                <div class="numbers">
-                  <p class="card-category">Users</p>
-                  <h4 class="card-title"><?php echo number_format($total_users); ?></h4>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
 
-      <!-- แสดงจํานวนผู้ใช้ -->
-      <div class="col-sm-6 col-md-3">
-        <div class="card card-stats card-round">
-          <div class="card-body">
-            <div class="row align-items-center">
-              <div class="col-icon">
-                <div
-                  class="icon-big text-center icon-primary bubble-shadow-small">
-                  <i class="fas fa-users"></i>
-                </div>
-              </div>
-              <div class="col col-stats ms-3 ms-sm-0">
-                <div class="numbers">
-                  <p class="card-category">Users</p>
-                  <h4 class="card-title"><?php echo number_format($total_users); ?></h4>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <?php
+    include 'widget1.php';
+    include 'widget2.php';
+    ?>
   </div>
 </div>

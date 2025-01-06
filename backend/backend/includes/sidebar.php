@@ -71,7 +71,7 @@
                     <div class="collapse" id="service">
                         <ul class="nav nav-collapse">
                             <li>
-                                <a href="?page=all-service">
+                                <a href="?page=service">
                                     <span class="sub-item">บริการ</span>
                                 </a>
                             </li>
@@ -125,7 +125,7 @@
                     <div class="collapse" id="customer">
                         <ul class="nav nav-collapse">
                             <li>
-                                <a href="?page=all-customer">
+                                <a href="?page=customer">
                                     <span class="sub-item">รายชื่อทั้งหมด</span>
                                 </a>
                             </li>
