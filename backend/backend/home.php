@@ -1,7 +1,7 @@
 <?php
 include 'includes/conn.php';
 
-//แสดงจํานวนผู้ใช้
+//แสดงจํานวน
 $sql = "SELECT 
     (SELECT COUNT(cus_id) FROM customers) AS total_customers, 
     (SELECT COUNT(service_id) FROM services) AS total_services";
@@ -22,7 +22,7 @@ $total_services = $row['total_services'];
     </div>
 
     <?php
-    include 'widget1.php';
+    include 'widget-total.php';
     include 'widget2.php';
     ?>
   </div>
