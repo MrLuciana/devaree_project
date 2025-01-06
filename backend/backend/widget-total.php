@@ -43,6 +43,8 @@
             </div>
         </div>
     </div>
+
+    <!-- แสดงจํานวนคอร์ส -->
     <div class="col-sm-6 col-md-3">
         <div class="card card-stats card-round">
             <div class="card-body">
@@ -56,7 +58,7 @@
                     <div class="col col-stats ms-3 ms-sm-0">
                         <div class="numbers">
                             <p class="card-category">คอร์ส</p>
-                            <h4 class="card-title">45</h4>
+                            <h4 class="card-title"><?php echo number_format($total_courses); ?></h4>
                         </div>
                     </div>
                 </div>
