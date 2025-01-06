@@ -29,19 +29,19 @@ include 'includes/conn.php'; // เชื่อมต่อฐานข้อม
               <tbody>
                 <?php
                 // ดึงข้อมูลจากตาราง services
-                $sql = "SELECT id, name, description, price, category, status, created_at FROM services";
+                $sql = "SELECT * FROM services";
                 $result = $conn->query($sql);
 
                 if ($result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) {
                         echo "<tr>
-                            <td>" . $row["id"] . "</td>
-                            <td>" . $row["name"] . "</td>
-                            <td>" . $row["description"] . "</td>
-                            <td>" . number_format($row["price"], 2) . "</td>
-                            <td>" . $row["category"] . "</td>
-                            <td>" . ucfirst($row["status"]) . "</td>
-                            <td>" . $row["created_at"] . "</td>
+                            <td>" . $row["service_id"] . "</td>
+                            <td>" . $row["service_name"] . "</td>
+                            <td>" . $row["service_description"] . "</td>
+                            <td>" . number_format($row["service_price"], 2) . "</td>
+                            <td>" . $row["service_category"] . "</td>
+                            <td>" . ucfirst($row["service_status"]) . "</td>
+                            <td>" . $row["service_created_at"] . "</td>
                         </tr>";
                     }
                 } else {
