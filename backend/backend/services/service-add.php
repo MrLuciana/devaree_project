@@ -10,23 +10,29 @@ if (!$conn) {
 <div class="modal-body" style="padding: 30px 15px 20px 15px;">
     <div class="row">
         <div class="col">
-            <label for="service_name">ชื่อบริการ</label>
-            <input onkeyup="checkNull();" type="text" id="service_name" class="form-control">
+            <label for="name">ชื่อบริการ</label>
+            <input onkeyup="checkNull();" type="text" id="name" class="form-control">
         </div>
         <div class="col">
-            <label for="service_description">รายละเอียด</label>
-            <input onkeyup="checkNull();" type="text" id="service_description" class="form-control">
+            <label for="price">ราคา</label>
+            <input onkeyup="checkNull();" type="text" id="price" class="form-control">
         </div>
     </div>
     
     <div class="row mt-3 mb-3">
         <div class="col">
-            <label for="email">อีเมล์</label>
-            <input onkeyup="checkNull();" type="email" id="email" class="form-control">
+            <label for="description">รายละเอียด</label>
+            <input onkeyup="checkNull();" type="text" id="description" class="form-control">
         </div>
         <div class="col">
-            <label for="password">รหัสผ่าน</label>
-            <input onkeyup="checkNull();" type="password" id="password" class="form-control">
+            <label for="catagory">หมวดหมู่</label>
+            <select id="catagory" name="catagory" class="form-control">
+                <option value="นาย">นาย</option>
+                <option value="นาง">นาง</option>
+                <option value="นางสาว">นางสาว</option>
+                <option value="ผู้ช่วยศาสตราจารย์">ผู้ช่วยศาสตราจารย์</option>
+                <option value="ผู้ช่วยศาสตราจารย์ ดร.">ผู้ช่วยศาสตราจารย์ ดร.</option>
+            </select>
         </div>
     </div>
 </div>
@@ -42,20 +48,20 @@ if (!$conn) {
 
 <script>
     function checkNull() {
-        const fname = document.getElementById('fname').value.trim();
-        const lname = document.getElementById('lname').value.trim();
-        const email = document.getElementById('email').value.trim();
-        const password = document.getElementById('password').value.trim();
+        const name = document.getElementById('name').value.trim();
+        const price = document.getElementById('price').value.trim();
+        const description = document.getElementById('description').value.trim();
+        const catagory = document.getElementById('catagory').value.trim();
         const btnSubmit = document.getElementById('btnSubmit');
 
-        btnSubmit.disabled = !(fname && lname && email && password);
+        btnSubmit.disabled = !(name && price && description && catagory);
     }
 
     function clearForm() {
-        document.getElementById('fname').value = "";
-        document.getElementById('lname').value = "";
-        document.getElementById('email').value = "";
-        document.getElementById('password').value = "";
+        document.getElementById('name').value = "";
+        document.getElementById('price').value = "";
+        document.getElementById('description').value = "";
+        document.getElementById('catagory').value = "";
 
         document.getElementById('btnSubmit').disabled = true;
     }
