@@ -17,13 +17,6 @@ if (!$conn) {
             <label for="price">ราคา</label>
             <input onkeyup="checkNull();" type="text" id="price" class="form-control">
         </div>
-    </div>
-    
-    <div class="row mt-3 mb-3">
-        <div class="col">
-            <label for="description">รายละเอียด</label>
-            <input onkeyup="checkNull();" type="text" id="description" class="form-control">
-        </div>
         <div class="col">
             <label for="catagory">หมวดหมู่</label>
             <select id="catagory" name="catagory" class="form-control">
@@ -33,6 +26,13 @@ if (!$conn) {
                 <option value="ผู้ช่วยศาสตราจารย์">ผู้ช่วยศาสตราจารย์</option>
                 <option value="ผู้ช่วยศาสตราจารย์ ดร.">ผู้ช่วยศาสตราจารย์ ดร.</option>
             </select>
+        </div>
+    </div>
+    
+    <div class="row mt-3 mb-3">
+        <div class="col">
+            <label for="description">รายละเอียด</label>
+            <input onkeyup="checkNull();" type="text" id="description" class="form-control">
         </div>
     </div>
 </div>
