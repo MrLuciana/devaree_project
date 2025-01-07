@@ -82,31 +82,13 @@ if (!$conn) {
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <!-- เนื้อหาจาก service-add.php จะโหลดมาใส่ตรงนี้ -->
+        <!-- เนื้อหาจาก service-form.php จะโหลดมาใส่ตรงนี้ -->
       </div>
     </div>
   </div>
 </div>
 
 <?php
+include('services/service-action.php');
 $conn->close();
 ?>
-
-<!-- JavaScript -->
-<script>
-function serviceModalForm(title) {
-    document.getElementById('ModalTitle').innerHTML = title;
-
-    $.ajax({
-        url: "services/service-add.php",
-        type: "GET",
-        success: function (data) {
-            $('#addRowModal .modal-body').html(data);
-            $('#addRowModal').modal('show');
-        },
-        error: function () {
-            alert("เกิดข้อผิดพลาดในการโหลดข้อมูล");
-        }
-    });
-}
-</script>
