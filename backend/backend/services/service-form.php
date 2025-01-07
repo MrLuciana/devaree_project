@@ -15,20 +15,17 @@ if (!$conn) {
         </div>
         <div class="col">
             <label for="price">ราคา</label>
-            <input onkeyup="checkNull();" type="text" id="price" class="form-control">
+            <input onkeyup="checkNull();" type="int" id="price" class="form-control">
         </div>
         <div class="col">
             <label for="catagory">หมวดหมู่</label>
             <select id="catagory" name="catagory" class="form-control">
                 <option value="นาย">นาย</option>
                 <option value="นาง">นาง</option>
-                <option value="นางสาว">นางสาว</option>
-                <option value="ผู้ช่วยศาสตราจารย์">ผู้ช่วยศาสตราจารย์</option>
-                <option value="ผู้ช่วยศาสตราจารย์ ดร.">ผู้ช่วยศาสตราจารย์ ดร.</option>
             </select>
         </div>
     </div>
-    
+
     <div class="row mt-3 mb-3">
         <div class="col">
             <label for="description">รายละเอียด</label>
@@ -38,7 +35,7 @@ if (!$conn) {
 </div>
 
 <div class="modal-footer">
-    <button onclick="memberAdd();" id="btnSubmit" data-bs-dismiss="modal" disabled class="btn btn-primary" style="font-size:12pt;width:150px;">
+    <button onclick="serviceAdd();" id="btnSubmit" data-bs-dismiss="modal" disabled class="btn btn-primary" style="font-size:12pt;width:150px;">
         บันทึกรายการ
     </button>
     <button class="btn btn-light" onclick="clearForm();" style="font-size:12pt;width:100px;">
@@ -54,7 +51,11 @@ if (!$conn) {
         const catagory = document.getElementById('catagory').value.trim();
         const btnSubmit = document.getElementById('btnSubmit');
 
-        btnSubmit.disabled = !(name && price && description && catagory);
+        if (name && price && catagory && description) {
+            document.getElementById('btnSubmit').disabled = false;
+        } else {
+            document.getElementById('btnSubmit').disabled = true;
+        }
     }
 
     function clearForm() {
