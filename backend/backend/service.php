@@ -17,90 +17,11 @@ if (!$conn) {
           <div class="d-flex align-items-center">
             <h4 class="card-title">บริการทั้งหมด</h4>
             <button
-              class="btn btn-primary btn-round ms-auto"
-              data-bs-toggle="modal"
-              data-bs-target="#addRowModal">
+              onclick="serviceModalForm('เพิ่มบริการ')"
+              class="btn btn-primary btn-round ms-auto">
               <i class="fa fa-plus"></i>
               เพิ่มบริการ
             </button>
-            <div
-              class="modal fade"
-              id="addRowModal"
-              tabindex="-1"
-              role="dialog"
-              aria-hidden="true">
-              <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                  <div class="modal-header border-0">
-                    <h5 class="modal-title">
-                      <span class="fw-mediumbold"> New</span>
-                      <span class="fw-light"> Row </span>
-                    </h5>
-                    <button
-                      type="button"
-                      class="close"
-                      data-dismiss="modal"
-                      aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
-                  <div class="modal-body">
-                    <p class="small">
-                      Create a new row using this form, make sure you
-                      fill them all
-                    </p>
-                    <form>
-                      <div class="row">
-                        <div class="col-sm-12">
-                          <div class="form-group form-group-default">
-                            <label>Name</label>
-                            <input
-                              id="addName"
-                              type="text"
-                              class="form-control"
-                              placeholder="fill name" />
-                          </div>
-                        </div>
-                        <div class="col-md-6 pe-0">
-                          <div class="form-group form-group-default">
-                            <label>Position</label>
-                            <input
-                              id="addPosition"
-                              type="text"
-                              class="form-control"
-                              placeholder="fill position" />
-                          </div>
-                        </div>
-                        <div class="col-md-6">
-                          <div class="form-group form-group-default">
-                            <label>Office</label>
-                            <input
-                              id="addOffice"
-                              type="text"
-                              class="form-control"
-                              placeholder="fill office" />
-                          </div>
-                        </div>
-                      </div>
-                    </form>
-                  </div>
-                  <div class="modal-footer border-0">
-                    <button
-                      type="button"
-                      id="addRowButton"
-                      class="btn btn-primary">
-                      Add
-                    </button>
-                    <button
-                      type="button"
-                      class="btn btn-danger"
-                      data-dismiss="modal">
-                      Close
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
         <div class="card-body">
@@ -152,6 +73,40 @@ if (!$conn) {
   </div>
 </div>
 
+<!-- Modal -->
+<div class="modal fade" id="addRowModal" tabindex="-1" aria-labelledby="ModalTitle" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="ModalTitle">เพิ่มบริการ</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <!-- เนื้อหาจาก service-add.php จะโหลดมาใส่ตรงนี้ -->
+      </div>
+    </div>
+  </div>
+</div>
+
 <?php
 $conn->close();
 ?>
+
+<!-- JavaScript -->
+<script>
+function serviceModalForm(title) {
+    document.getElementById('ModalTitle').innerHTML = title;
+
+    $.ajax({
+        url: "services/service-add.php",
+        type: "GET",
+        success: function (data) {
+            $('#addRowModal .modal-body').html(data);
+            $('#addRowModal').modal('show');
+        },
+        error: function () {
+            alert("เกิดข้อผิดพลาดในการโหลดข้อมูล");
+        }
+    });
+}
+</script>
