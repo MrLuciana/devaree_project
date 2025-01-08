@@ -40,7 +40,7 @@ if (!$conn) {
               </thead>
               <tbody>
                 <?php
-                $sql = "SELECT * FROM services";
+                $sql = "SELECT * FROM services, service_category WHERE services.scat_id = service_category.scat_id ORDER BY service_id DESC";
                 $result = $conn->query($sql);
 
                 if ($result === false) {
@@ -52,7 +52,7 @@ if (!$conn) {
                       <td><?php echo htmlspecialchars($row["service_name"]); ?></td>
                       <td><?php echo htmlspecialchars($row["service_description"]); ?></td>
                       <td><?php echo number_format($row["service_price"], 2); ?></td>
-                      <td><?php echo htmlspecialchars($row["service_category"]); ?></td>
+                      <td><?php echo htmlspecialchars($row["scat_name"]); ?></td>
                       <td><?php echo mb_convert_case(htmlspecialchars($row["service_status"]), MB_CASE_TITLE, "UTF-8"); ?></td>
                       <td>
                         <a href="service-edit.php?service_id=<?php echo $row["service_id"]; ?>" class="btn btn-primary btn-sm">แก้ไข</a>
