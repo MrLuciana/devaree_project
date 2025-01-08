@@ -48,7 +48,7 @@ if (!$conn) {
                 } elseif ($result->num_rows > 0) {
                   while ($row = $result->fetch_assoc()) { ?>
                     <tr>
-                      <td><?php echo htmlspecialchars($row["service_id"]); ?></td>
+                      <td><?php echo htmlspecialchars($i = $i + 1); ?></td>
                       <td><?php echo htmlspecialchars($row["service_name"]); ?></td>
                       <td><?php echo htmlspecialchars($row["service_description"]); ?></td>
                       <td><?php echo number_format($row["service_price"], 2); ?></td>
@@ -56,7 +56,8 @@ if (!$conn) {
                       <td><?php echo mb_convert_case(htmlspecialchars($row["service_status"]), MB_CASE_TITLE, "UTF-8"); ?></td>
                       <td>
                         <a href="service-edit.php?service_id=<?php echo $row["service_id"]; ?>" class="btn btn-primary btn-sm">แก้ไข</a>
-                        <a href="service-delete.php?service_id=<?php echo $row["service_id"]; ?>" class="btn btn-danger btn-sm">ลบ</a>
+                        <!-- <a href="./services/service-delete.php?service_id=<?php echo $row["service_id"]; ?>" class="btn btn-danger btn-sm">ลบ</a> -->
+                        <button class="btn btn-danger btn-sm" onclick="serviceModalDelete('<?php echo $row['service_id']; ?>');">ลบ</button>
                       </td>
                     </tr>
                 <?php }

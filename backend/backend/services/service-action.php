@@ -74,4 +74,56 @@
             }
         });
     }
+
+    // ฟังก์ชันลบบริการ
+    function serviceModalDelete(id) {
+        Swal.fire({
+            text: "ยืนยันการลบรายการนี้",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "ยืนยัน",
+            cancelButtonText: "ยกเลิก"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: "./services/service-delete.php",
+                    type: 'POST',
+                    data: {
+                        id: id
+                    },
+                    dataType: "json", // บอกว่าเราคาดหวัง JSON กลับมา
+                    success: function(response) {
+                        if (response.status === "success") {
+                            Swal.fire({
+                                icon: "success",
+                                title: "สำเร็จ!",
+                                text: response.message,
+                                showConfirmButton: false,
+                                timer: 2000
+                            }).then(() => {
+                                location.reload(); // รีโหลดหน้า
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: "error",
+                                title: "เกิดข้อผิดพลาด!",
+                                text: response.message,
+                                confirmButtonText: "ตกลง"
+                            });
+                        }
+                    },
+                    error: function() {
+                        Swal.fire({
+                            icon: "error",
+                            title: "เกิดข้อผิดพลาด!",
+                            text: "ไม่สามารถบันทึกข้อมูลได้ กรุณาลองใหม่อีกครั้ง",
+                            confirmButtonText: "ตกลง"
+                        });
+                    }
+                });
+            }
+        });
+    }
 </script>
