@@ -18,8 +18,8 @@ if (!$conn) {
             <input onkeyup="checkNull();" type="int" id="price" class="form-control">
         </div>
         <div class="col">
-            <label for="catagory">หมวดหมู่</label>
-            <select id="catagory" name="catagory" class="form-control">
+            <label for="category">หมวดหมู่</label>
+            <select id="category" name="category" class="form-control">
                 <option value="นาย">นาย</option>
                 <option value="นาง">นาง</option>
             </select>
@@ -48,10 +48,10 @@ if (!$conn) {
         const name = document.getElementById('name').value.trim();
         const price = document.getElementById('price').value.trim();
         const description = document.getElementById('description').value.trim();
-        const catagory = document.getElementById('catagory').value.trim();
+        const category = document.getElementById('category').value.trim();
         const btnSubmit = document.getElementById('btnSubmit');
 
-        if (name && price && catagory && description) {
+        if (name && price && category && description) {
             document.getElementById('btnSubmit').disabled = false;
         } else {
             document.getElementById('btnSubmit').disabled = true;
@@ -62,7 +62,7 @@ if (!$conn) {
         document.getElementById('name').value = "";
         document.getElementById('price').value = "";
         document.getElementById('description').value = "";
-        document.getElementById('catagory').value = "";
+        document.getElementById('category').value = "";
 
         document.getElementById('btnSubmit').disabled = true;
     }
