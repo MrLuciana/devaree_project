@@ -51,7 +51,7 @@ if (!$conn) {
                       <td><?php echo htmlspecialchars($i = $i + 1); ?></td>
                       <td><?php echo htmlspecialchars($row["service_name"]); ?></td>
                       <td><?php echo htmlspecialchars($row["service_description"]); ?></td>
-                      <td><?php echo number_format($row["service_price"], 2); ?></td>
+                      <td><?php echo number_format($row["service_price"]); ?></td>
                       <td><?php echo htmlspecialchars($row["scat_name"]); ?></td>
                       <td><?php echo mb_convert_case(htmlspecialchars($row["service_status"]), MB_CASE_TITLE, "UTF-8"); ?></td>
                       <td>

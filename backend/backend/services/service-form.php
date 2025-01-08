@@ -15,7 +15,7 @@ if (!$conn) {
         </div>
         <div class="col">
             <label for="price">ราคา</label>
-            <input onkeyup="checkNull();" type="int" id="price" class="form-control">
+            <input onkeyup="checkNull();" type="number" id="price" class="form-control">
         </div>
         <div class="col">
             <label for="scat_id">หมวดหมู่</label>
