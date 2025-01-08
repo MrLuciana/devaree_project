@@ -16,12 +16,24 @@
         });
     }
 
-    // เพิ่มบริการ 
+    // ฟังก์ชันเพิ่มบริการ
     function serviceAdd() {
-        var name = $('#name').val();
-        var price = $('#price').val();
+        var name = $('#name').val().trim();
+        var price = $('#price').val().trim();
         var scat_id = $('#scat_id').val();
-        var description = $('#description').val();
+        var description = $('#description').val().trim();
+
+        // ตรวจสอบว่ากรอกข้อมูลครบหรือไม่
+        if (name === "" || price === "" || scat_id === "" || description === "") {
+            Swal.fire({
+                icon: "warning",
+                title: "กรุณากรอกข้อมูลให้ครบ!",
+                text: "กรุณากรอกข้อมูลให้ครบทุกช่องก่อนบันทึก",
+                confirmButtonText: "ตกลง"
+            });
+            return;
+        }
+
         $.ajax({
             url: "./services/service-add.php",
             type: 'POST',
@@ -31,12 +43,34 @@
                 scat_id: scat_id,
                 description: description,
             },
-            success: function(data) {
-                alert("เพิ่มบริการสำเร็จ!"); // แจ้งเตือนเมื่อเพิ่มข้อมูลสำเร็จ
-                window.location.href = "index.php?page=service"; // โหลดหน้า service.php ใหม่
+            dataType: "json", // บอกว่าเราคาดหวัง JSON กลับมา
+            success: function(response) {
+                if (response.status === "success") {
+                    Swal.fire({
+                        icon: "success",
+                        title: "สำเร็จ!",
+                        text: response.message,
+                        showConfirmButton: false,
+                        timer: 2000
+                    }).then(() => {
+                        location.reload(); // รีโหลดหน้า
+                    });
+                } else {
+                    Swal.fire({
+                        icon: "error",
+                        title: "เกิดข้อผิดพลาด!",
+                        text: response.message,
+                        confirmButtonText: "ตกลง"
+                    });
+                }
             },
             error: function() {
-                alert("เกิดข้อผิดพลาดในการบันทึกข้อมูล");
+                Swal.fire({
+                    icon: "error",
+                    title: "เกิดข้อผิดพลาด!",
+                    text: "ไม่สามารถบันทึกข้อมูลได้ กรุณาลองใหม่อีกครั้ง",
+                    confirmButtonText: "ตกลง"
+                });
             }
         });
     }

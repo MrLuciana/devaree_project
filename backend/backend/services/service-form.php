@@ -41,6 +41,7 @@ if (!$conn) {
             <input onkeyup="checkNull();" type="text" id="description" class="form-control">
         </div>
     </div>
+
 </div>
 
 <div class="modal-footer">
