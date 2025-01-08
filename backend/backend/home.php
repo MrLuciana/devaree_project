@@ -25,7 +25,7 @@ $total_courses = $row['total_courses'];
 
     <?php
     include 'widgets/widget-total.php';
-    include 'widgets/widget-payment.php';
+    include 'widgets/widget-service-history.php';
     ?>
   </div>
 </div>
