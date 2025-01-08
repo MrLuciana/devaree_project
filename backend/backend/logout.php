@@ -16,7 +16,7 @@ session_start();
         }).then((result) => {
             if (result.isConfirmed) {
                 // ถ้าผู้ใช้กด "ใช่" ให้ไปที่ logout.php
-                window.location.href = "logout_action.php";
+                window.location.href = "logout-action.php";
             } else {
                 // ถ้าผู้ใช้กด "ยกเลิก" ให้กลับไปหน้าก่อนหน้า
                 window.history.back();

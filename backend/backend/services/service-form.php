@@ -18,10 +18,19 @@ if (!$conn) {
             <input onkeyup="checkNull();" type="int" id="price" class="form-control">
         </div>
         <div class="col">
-            <label for="category">หมวดหมู่</label>
-            <select id="category" name="category" class="form-control">
-                <option value="นาย">นาย</option>
-                <option value="นาง">นาง</option>
+            <label for="scat_id">หมวดหมู่</label>
+            <select id="scat_id" class="form-control">
+                <?php
+                $sql = "SELECT scat_id, scat_name FROM service_category";
+                $stmt = $conn->prepare($sql);
+                $stmt->execute();
+                $result = $stmt->get_result();
+
+                while ($row = $result->fetch_assoc()) {
+                    echo "<option value='" . htmlspecialchars($row['scat_id']) . "'>" . htmlspecialchars($row['scat_name']) . "</option>";
+                }
+                $stmt->close();
+                ?>
             </select>
         </div>
     </div>
@@ -48,10 +57,10 @@ if (!$conn) {
         const name = document.getElementById('name').value.trim();
         const price = document.getElementById('price').value.trim();
         const description = document.getElementById('description').value.trim();
-        const category = document.getElementById('category').value.trim();
+        const scat_id = document.getElementById('scat_id').value.trim();
         const btnSubmit = document.getElementById('btnSubmit');
 
-        if (name && price && category && description) {
+        if (name && price && description && scat_id) {
             document.getElementById('btnSubmit').disabled = false;
         } else {
             document.getElementById('btnSubmit').disabled = true;
@@ -62,7 +71,7 @@ if (!$conn) {
         document.getElementById('name').value = "";
         document.getElementById('price').value = "";
         document.getElementById('description').value = "";
-        document.getElementById('category').value = "";
+        document.getElementById('scat_id').value = "";
 
         document.getElementById('btnSubmit').disabled = true;
     }
