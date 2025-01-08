@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jan 08, 2025 at 12:08 PM
+-- Generation Time: Jan 08, 2025 at 04:44 PM
 -- Server version: 8.0.17
 -- PHP Version: 7.3.10
 
@@ -235,7 +235,7 @@ CREATE TABLE `services` (
   `service_id` int(11) NOT NULL,
   `service_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `service_description` text CHARACTER SET utf8 COLLATE utf8_general_ci,
-  `service_price` decimal(10,2) DEFAULT NULL,
+  `service_price` int(5) DEFAULT NULL,
   `scat_id` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `service_status` enum('active','inactive') CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT 'active',
   `service_created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP
@@ -246,16 +246,10 @@ CREATE TABLE `services` (
 --
 
 INSERT INTO `services` (`service_id`, `service_name`, `service_description`, `service_price`, `scat_id`, `service_status`, `service_created_at`) VALUES
-(1, 'นวดแผนไทย', 'นวดแผนไทยเพื่อผ่อนคลายและกระตุ้นการไหลเวียนโลหิต', '600.00', '1', 'active', '2025-01-06 02:57:23'),
-(2, 'นวดน้ำมันอโรมา', 'นวดน้ำมันหอมระเหยเพื่อผ่อนคลายกล้ามเนื้อและบรรเทาความเครียด', '1200.00', '1', 'active', '2025-01-06 02:57:23'),
-(3, 'นวดเท้า', 'นวดเท้าเพื่อกระตุ้นจุดสะท้อนและบรรเทาอาการเมื่อยล้า', '500.00', '1', 'active', '2025-01-06 02:57:23'),
-(4, 'สปาหน้า', 'ทำทรีตเมนต์บำรุงผิวหน้าให้สดชื่นและกระจ่างใส', '1500.00', '1', 'active', '2025-01-06 02:57:23'),
-(5, 'ขัดตัวและพอกผิว', 'สครับขัดผิวและพอกผิวด้วยสมุนไพรธรรมชาติ', '1800.00', '1', 'active', '2025-01-06 02:57:23'),
-(6, 'sdf', 'sdf', '0.00', '1', 'active', '2025-01-07 16:30:24'),
-(7, 'sdf', 'sdf', '0.00', '1', 'active', '2025-01-07 16:32:17'),
-(8, 'sdf', 'sdf', '0.00', '1', 'active', '2025-01-07 16:35:44'),
-(9, 'sdf', 'sdf', '0.00', '1', 'active', '2025-01-07 16:36:41'),
-(10, 'asd', 'asd', '0.00', '1', 'active', '2025-01-08 12:01:22');
+(1, 'นวดแผนไทย', 'นวดแผนไทยเพื่อผ่อนคลายและกระตุ้นการไหลเวียนโลหิต', 600, '1', 'active', '2025-01-06 02:57:23'),
+(2, 'นวดน้ำมันอโรมา', 'นวดน้ำมันหอมระเหยเพื่อผ่อนคลายกล้ามเนื้อและบรรเทาความเครียด', 1200, '1', 'active', '2025-01-06 02:57:23'),
+(3, 'นวดเท้า', 'นวดเท้าเพื่อกระตุ้นจุดสะท้อนและบรรเทาอาการเมื่อยล้า', 500, '1', 'active', '2025-01-06 02:57:23'),
+(4, 'สปาหน้า', 'ทำทรีตเมนต์บำรุงผิวหน้าให้สดชื่นและกระจ่างใส', 1500, '1', 'active', '2025-01-06 02:57:23');
 
 -- --------------------------------------------------------
 
@@ -337,7 +331,7 @@ ALTER TABLE `customers`
 -- AUTO_INCREMENT for table `services`
 --
 ALTER TABLE `services`
-  MODIFY `service_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `service_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `service_category`
