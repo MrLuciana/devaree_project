@@ -20,7 +20,7 @@
     function serviceAdd() {
         var name = $('#name').val();
         var price = $('#price').val();
-        var catagory = $('#catagory').val();
+        var category = $('#category').val();
         var description = $('#description').val();
         $.ajax({
             url: "./services/service-add.php",
@@ -28,7 +28,7 @@
             data: {
                 name: name,
                 price: price,
-                catagory: catagory,
+                category: category,
                 description: description,
             },
             success: function(data) {
