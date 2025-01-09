@@ -2,6 +2,7 @@
     $(document).ready(function() {
         serviceList();
     })
+    
     // ฟอร์มบริการ
     function serviceModalForm(title) {
         document.getElementById('ModalTitle').innerHTML = title;
@@ -71,10 +72,9 @@
                         title: "สำเร็จ!",
                         text: response.message,
                         showConfirmButton: false,
-                        timer: 2000
+                        timer: 500
                     }).then(() => {
                         serviceList();
-                        // location.reload(); // รีโหลดหน้า
                     });
                 } else {
                     Swal.fire({
@@ -122,7 +122,7 @@
                                 title: "สำเร็จ!",
                                 text: response.message,
                                 showConfirmButton: false,
-                                timer: 2000
+                                timer: 500
                             }).then(() => {
                                 serviceList(); // รีโหลดหน้า
                             });
@@ -149,44 +149,6 @@
     }
 
     // // ฟังก์ชัน Toggle สถานะ
-    // function toggleStatus(id) {
-    //     var button = document.getElementById('statusButton-' + id);
-
-    //     // ตรวจสอบสถานะปัจจุบันของปุ่ม
-    //     var currentStatus = button.getAttribute('data-status'); // ดึงค่าปัจจุบันจาก data-status
-    //     var status = currentStatus === 'active' ? 'inactive' : 'active'; // สลับสถานะ
-
-    //     // ส่งคำสั่ง AJAX ไปยัง PHP เพื่ออัปเดตสถานะ
-    //     $.ajax({
-    //         url: './services/service-status.php',
-    //         type: 'POST',
-    //         dataType: 'json', // ให้ jQuery แปลง JSON อัตโนมัติ
-    //         data: {
-    //             id: id,
-    //             status: status
-    //         },
-    //         success: function(response) {
-    //             console.log(response);
-    //             if (response.status === 'active') {
-    //                 button.innerHTML = 'เปิด'; // เปลี่ยนข้อความปุ่ม
-    //                 button.setAttribute('data-status', 'active'); // อัปเดต data-status
-    //                 button.classList.remove('btn-danger'); // ลบคลาส btn-danger
-    //                 button.classList.add('btn-success'); // เพิ่มคลาส btn-success
-    //             } else if (response.status === 'inactive') {
-    //                 button.innerHTML = 'ปิด'; // เปลี่ยนข้อความปุ่ม
-    //                 button.setAttribute('data-status', 'inactive'); // อัปเดต data-status
-    //                 button.classList.remove('btn-success'); // ลบคลาส btn-success
-    //                 button.classList.add('btn-danger'); // เพิ่มคลาส btn-danger
-    //             } else {
-    //                 alert('เกิดข้อผิดพลาด: ' + response.message); // แสดงข้อความผิดพลาด
-    //             }
-    //         },
-    //         error: function() {
-    //             alert('ไม่สามารถอัปเดตสถานะได้'); // แจ้งเตือนเมื่อมีข้อผิดพลาด
-    //         }
-    //     });
-    // }
-
     function toggleStatus(serviceId, newStatus) {
         fetch('./services/service-status.php', {
                 method: 'POST',
