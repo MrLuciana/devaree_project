@@ -1,10 +1,5 @@
 <?php
 require_once('../includes/conn.php');
-
-// ตรวจสอบการเชื่อมต่อฐานข้อมูล
-if (!$conn) {
-    die("<p class='text-danger text-center'>เกิดข้อผิดพลาดในการเชื่อมต่อฐานข้อมูล</p>");
-}
 ?>
 
 <div class="modal-body" style="padding: 30px 15px 20px 15px;">

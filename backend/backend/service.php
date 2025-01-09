@@ -1,11 +1,3 @@
-<?php
-include 'includes/conn.php'; // เชื่อมต่อฐานข้อมูล
-
-if (!$conn) {
-  die("<p class='text-danger text-center'>เกิดข้อผิดพลาดในการเชื่อมต่อฐานข้อมูล: " . mysqli_connect_error() . "</p>");
-}
-?>
-
 <div class="container">
   <div class="page-inner">
     <div class="page-header">

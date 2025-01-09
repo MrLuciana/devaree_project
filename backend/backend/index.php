@@ -1,4 +1,6 @@
 <?php
+include "includes/conn.php";
+
 $page = $_GET['page'];
 $act = $_GET['act'];
 
