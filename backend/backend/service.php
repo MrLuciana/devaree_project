@@ -24,11 +24,7 @@ if (!$conn) {
             </button>
           </div>
         </div>
-        <div class="card-body" id="Bdatatables">
-          <div>
-            
-          </div>
-        </div>
+        <div class="card-body" id="Bdatatables"></div>
       </div>
     </div>
   </div>

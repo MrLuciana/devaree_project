@@ -4,9 +4,7 @@
     })
 
     // ฟอร์มบริการ
-    function serviceModalForm(title) {
-        document.getElementById('ModalTitle').innerHTML = title;
-
+    function serviceModalForm() {
         $.ajax({
             url: "./services/service-form.php",
             type: "GET",
@@ -21,14 +19,9 @@
     }
     
     // ฟังก์ชันดึงข้อมูล
-    function serviceList(page) {
-        var keyword = 1
+    function serviceList() {
         $.ajax({
             type: "POST",
-            data: {
-                keyword: keyword,
-
-            },
             url: "./services/service-fetch.php",
             success: (data, res) => {
                 $('#Bdatatables').html(data);
