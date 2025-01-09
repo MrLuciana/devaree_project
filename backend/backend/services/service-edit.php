@@ -30,7 +30,7 @@ $row = $result->fetch_assoc();
                 while ($row_scat = $result->fetch_assoc()) { 
                     $selected = ($row_scat['scat_id'] == $selected_scat) ? 'selected' : '';
                     ?>
-                    <option onchange="checkNull();" value="<?php echo htmlspecialchars($row_scat['scat_id']); ?>"<?php echo $selected; ?>>
+                    <option value="<?php echo htmlspecialchars($row_scat['scat_id']); ?>"<?php echo $selected; ?>>
                         <?php echo htmlspecialchars($row_scat['scat_name']); ?>
                     </option>
                 <?php }
@@ -65,10 +65,8 @@ $row = $result->fetch_assoc();
         const name = document.getElementById('name').value.trim();
         const price = document.getElementById('price').value.trim();
         const description = document.getElementById('description').value.trim();
-        const scat_id = document.getElementById('scat_id').value;
 
-        // ✅ ปลดล็อกปุ่มเมื่อมีการกรอกข้อมูลหรือเลือกหมวดหมู่
-        if (name || price || description || scat_id) {
+        if (name && price && description) {
             document.getElementById('btnSubmit').disabled = false;
         } else {
             document.getElementById('btnSubmit').disabled = true;
