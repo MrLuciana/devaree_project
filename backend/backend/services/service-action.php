@@ -26,7 +26,7 @@
             type: "POST",
             url: "./services/service-fetch.php",
             success: (data, res) => {
-                $('#Bdatatables').html(data);
+                $('#serviceTables').html(data);
             }
         })
     }

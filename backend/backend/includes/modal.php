@@ -6,9 +6,7 @@
         <h5 class="modal-title" id="ModalTitle"></h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
-        <!-- เนื้อหาจาก service-form.php จะโหลดมาใส่ตรงนี้ -->
-      </div>
+      <div class="modal-body"></div>
     </div>
   </div>
 </div>
