@@ -2,7 +2,7 @@
     $(document).ready(function() {
         serviceList();
     })
-    
+
     // ฟอร์มบริการ
     function serviceModalForm(title) {
         document.getElementById('ModalTitle').innerHTML = title;
@@ -19,11 +19,10 @@
             }
         });
     }
-
+    
+    // ฟังก์ชันดึงข้อมูล
     function serviceList(page) {
         var keyword = 1
-
-
         $.ajax({
             type: "POST",
             data: {
@@ -36,6 +35,7 @@
             }
         })
     }
+
     // ฟังก์ชันเพิ่มบริการ
     function serviceAdd() {
         var name = $('#name').val().trim();
