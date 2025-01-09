@@ -1,4 +1,7 @@
 <script>
+    $(document).ready(function() {
+        serviceList();
+    })
     // ฟอร์มบริการ
     function serviceModalForm(title) {
         document.getElementById('ModalTitle').innerHTML = title;
@@ -16,6 +19,22 @@
         });
     }
 
+    function serviceList(page) {
+        var keyword = 1
+
+
+        $.ajax({
+            type: "POST",
+            data: {
+                keyword: keyword,
+
+            },
+            url: "./services/service-fetch.php",
+            success: (data, res) => {
+                $('#Bdatatables').html(data);
+            }
+        })
+    }
     // ฟังก์ชันเพิ่มบริการ
     function serviceAdd() {
         var name = $('#name').val().trim();
@@ -45,6 +64,7 @@
             },
             dataType: "json", // บอกว่าเราคาดหวัง JSON กลับมา
             success: function(response) {
+
                 if (response.status === "success") {
                     Swal.fire({
                         icon: "success",
@@ -53,7 +73,8 @@
                         showConfirmButton: false,
                         timer: 2000
                     }).then(() => {
-                        location.reload(); // รีโหลดหน้า
+                        serviceList();
+                        // location.reload(); // รีโหลดหน้า
                     });
                 } else {
                     Swal.fire({
@@ -103,7 +124,7 @@
                                 showConfirmButton: false,
                                 timer: 2000
                             }).then(() => {
-                                location.reload(); // รีโหลดหน้า
+                                serviceList(); // รีโหลดหน้า
                             });
                         } else {
                             Swal.fire({
