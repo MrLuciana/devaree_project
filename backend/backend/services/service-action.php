@@ -3,95 +3,35 @@
         serviceList();
     })
 
+    //=========== Modal Function ===========//
     // ฟอร์มบริการ
     function serviceModalForm(title) {
         document.getElementById('ModalTitle').innerHTML = title;
-
         $.ajax({
             url: "./services/service-form.php",
             type: "GET",
             success: function(data) {
-                $('#addRowModal .modal-body').html(data);
-                $('#addRowModal').modal('show');
+                $('#IModal .modal-body').html(data);
+                $('#IModal').modal('show');
             },
             error: function() {
                 alert("เกิดข้อผิดพลาดในการโหลดข้อมูล");
             }
         });
     }
-    
-    // ฟังก์ชันดึงข้อมูล
-    function serviceList(page) {
-        var keyword = 1
+
+    // ฟอร์มแก้ไขบริการ
+    function serviceModalEdit(id, title) {
+        document.getElementById('ModalTitle').innerHTML = title;
         $.ajax({
+            url: "./services/service-edit.php",
             type: "POST",
             data: {
-                keyword: keyword,
-
+                id: id
             },
-            url: "./services/service-fetch.php",
-            success: (data, res) => {
-                $('#Bdatatables').html(data);
-            }
-        })
-    }
-
-    // ฟังก์ชันเพิ่มบริการ
-    function serviceAdd() {
-        var name = $('#name').val().trim();
-        var price = $('#price').val().trim();
-        var scat_id = $('#scat_id').val();
-        var description = $('#description').val().trim();
-
-        // ตรวจสอบว่ากรอกข้อมูลครบหรือไม่
-        if (name === "" || price === "" || scat_id === "" || description === "") {
-            Swal.fire({
-                icon: "warning",
-                title: "กรุณากรอกข้อมูลให้ครบ!",
-                text: "กรุณากรอกข้อมูลให้ครบทุกช่องก่อนบันทึก",
-                confirmButtonText: "ตกลง"
-            });
-            return;
-        }
-
-        $.ajax({
-            url: "./services/service-add.php",
-            type: 'POST',
-            data: {
-                name: name,
-                price: price,
-                scat_id: scat_id,
-                description: description,
-            },
-            dataType: "json", // บอกว่าเราคาดหวัง JSON กลับมา
-            success: function(response) {
-
-                if (response.status === "success") {
-                    Swal.fire({
-                        icon: "success",
-                        title: "สำเร็จ!",
-                        text: response.message,
-                        showConfirmButton: false,
-                        timer: 500
-                    }).then(() => {
-                        serviceList();
-                    });
-                } else {
-                    Swal.fire({
-                        icon: "error",
-                        title: "เกิดข้อผิดพลาด!",
-                        text: response.message,
-                        confirmButtonText: "ตกลง"
-                    });
-                }
-            },
-            error: function() {
-                Swal.fire({
-                    icon: "error",
-                    title: "เกิดข้อผิดพลาด!",
-                    text: "ไม่สามารถบันทึกข้อมูลได้ กรุณาลองใหม่อีกครั้ง",
-                    confirmButtonText: "ตกลง"
-                });
+            success: function(data) {
+                $('#IModal .modal-body').html(data);
+                $('#IModal').modal('show');
             }
         });
     }
@@ -147,8 +87,90 @@
             }
         });
     }
+    //=========== End Modal Function ===========//
 
-    // // ฟังก์ชัน Toggle สถานะ
+    // ฟังก์ชันดึงข้อมูล
+    function serviceList() {
+        $.ajax({
+            type: "POST",
+            url: "./services/service-fetch.php",
+            success: (data, res) => {
+                $('#serviceTables').html(data);
+            }
+        })
+    }
+
+    // ฟังก์ชันเพิ่มบริการ
+    function serviceAdd() {
+        var name = $('#name').val().trim();
+        var price = $('#price').val().trim();
+        var scat_id = $('#scat_id').val();
+        var description = $('#description').val().trim();
+        $.ajax({
+            url: "./services/service-add.php",
+            type: 'POST',
+            data: {
+                name: name,
+                price: price,
+                scat_id: scat_id,
+                description: description,
+            },
+            dataType: "json", // บอกว่าเราคาดหวัง JSON กลับมา
+            success: function(response) {
+
+                if (response.status === "success") {
+                    Swal.fire({
+                        icon: "success",
+                        title: "สำเร็จ!",
+                        text: response.message,
+                        showConfirmButton: false,
+                        timer: 500
+                    }).then(() => {
+                        serviceList();
+                    });
+                } else {
+                    Swal.fire({
+                        icon: "error",
+                        title: "เกิดข้อผิดพลาด!",
+                        text: response.message,
+                        confirmButtonText: "ตกลง"
+                    });
+                }
+            },
+            error: function() {
+                Swal.fire({
+                    icon: "error",
+                    title: "เกิดข้อผิดพลาด!",
+                    text: "ไม่สามารถบันทึกข้อมูลได้ กรุณาลองใหม่อีกครั้ง",
+                    confirmButtonText: "ตกลง"
+                });
+            }
+        });
+    }
+
+    // ฟังก์ชันแก้ไขบริการ
+    function serviceUpdate(id) {
+        var name = $('#name').val().trim();
+        var price = $('#price').val().trim();
+        var scat_id = $('#scat_id').val();
+        var description = $('#description').val().trim();
+        $.ajax({
+            url: "./services/service-update.php",
+            type: 'POST',
+            data: {
+                id: id,
+                name: name,
+                price: price,
+                scat_id: scat_id,
+                description: description,
+            },
+            success: function(response) {
+                serviceList();
+            }
+        });
+    }
+
+    // ฟังก์ชัน Toggle สถานะ
     function toggleStatus(serviceId, newStatus) {
         fetch('./services/service-status.php', {
                 method: 'POST',

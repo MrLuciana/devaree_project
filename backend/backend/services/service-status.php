@@ -1,9 +1,5 @@
 <?php
-include '../includes/conn.php'; // เชื่อมต่อฐานข้อมูล
-
-if (!$conn) {
-  die("Connection failed: " . mysqli_connect_error());
-}
+require_once '../includes/conn.php'; // เชื่อมต่อฐานข้อมูล
 
 $service_id = $_POST['service_id'];
 $new_status = $_POST['status'];
