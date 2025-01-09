@@ -4,13 +4,14 @@
     })
 
     // ฟอร์มบริการ
-    function serviceModalForm() {
+    function serviceModalForm(title) {
+        document.getElementById('ModalTitle').innerHTML = title;
         $.ajax({
             url: "./services/service-form.php",
             type: "GET",
             success: function(data) {
-                $('#addRowModal .modal-body').html(data);
-                $('#addRowModal').modal('show');
+                $('#IModal .modal-body').html(data);
+                $('#IModal').modal('show');
             },
             error: function() {
                 alert("เกิดข้อผิดพลาดในการโหลดข้อมูล");

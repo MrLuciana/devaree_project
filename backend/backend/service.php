@@ -16,30 +16,15 @@ if (!$conn) {
         <div class="card-header">
           <div class="d-flex align-items-center">
             <h4 class="card-title">บริการทั้งหมด</h4>
-            <button
-              onclick="serviceModalForm('เพิ่มบริการ')"
+            <button data-toggle="modal" data-target="#IModal"
+              onclick="serviceModalForm('เพิ่มบริการ')" type="button"
               class="btn btn-primary btn-round ms-auto">
               <i class="fa fa-plus"></i>
-              เพิ่มบริการ
+              เพิ่มรายการ
             </button>
           </div>
         </div>
         <div class="card-body" id="Bdatatables"></div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Modal -->
-<div class="modal fade" id="addRowModal" tabindex="-1" aria-labelledby="ModalTitle" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="ModalTitle">เพิ่มบริการ</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <!-- เนื้อหาจาก service-form.php จะโหลดมาใส่ตรงนี้ -->
       </div>
     </div>
   </div>
