@@ -1,13 +1,24 @@
 <script>
+    var page;
     $(document).ready(function() {
-        serviceList();
+        serviceList(page);
     })
 
     $("#keyWord").keyup(function(event) {
         if (event.keyCode === 13) {
-            serviceList();
+            serviceList(page);
         }
     });
+
+    // กําหนดหน้า
+    $(document).on("click", ".pagination a", function() {
+        page = $(this).attr('id')
+        serviceList(page);
+    });
+    // เปลี่ยนข้อมูลแต่ละหน้า
+    $("#perPage").change(function() {
+        serviceList();
+    })
 
     function checkKeyWord() {
         var keyword = document.getElementById('keyWord').value;
@@ -22,7 +33,7 @@
     function clearSearch() {
         document.getElementById('btnClear').hidden = true;
         document.getElementById('keyWord').value = "";
-        serviceList();
+        serviceList(page);
     }
 
     //=========== Modal Function ===========//
@@ -112,13 +123,17 @@
     //=========== End Modal Function ===========//
 
     // ฟังก์ชันดึงข้อมูล
-    function serviceList() {
+    function serviceList(page) {
         var keyword = $('#keyWord').val();
+        var perPage = document.getElementById("perPage").value;
+
 
         $.ajax({
             type: "POST",
             data: {
                 keyword: keyword,
+                per_page: perPage,
+                page_no: page
             },
             url: "./services/service-fetch.php",
             success: (data, res) => {
