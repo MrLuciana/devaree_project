@@ -71,11 +71,6 @@ if ($result->num_rows > 0) { ?>
             <div class="col">
                 <nav>
                     <ul class="pagination justify-content-center"> <!-- เพิ่ม justify-content-center -->
-                        <li class="page-item disabled">
-                            <div style="margin:10px 10px 10px 0px; width:100pt;">
-                                <?php echo "pages " . $page . " of " . $total_page; ?>
-                            </div>
-                        </li>
                         <?php
                         $range_page = 2;
                         $last_show_page = $page + $range_page;
