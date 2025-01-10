@@ -3,6 +3,28 @@
         serviceList();
     })
 
+    $("#keyWord").keyup(function(event) {
+        if (event.keyCode === 13) {
+            serviceList();
+        }
+    });
+
+    function checkKeyWord() {
+        var keyword = document.getElementById('keyWord').value;
+        if (keyword) {
+            document.getElementById('btnClear').hidden = false;
+
+        } else {
+            document.getElementById('btnClear').hidden = true;
+        }
+    }
+
+    function clearSearch() {
+        document.getElementById('btnClear').hidden = true;
+        document.getElementById('keyWord').value = "";
+        serviceList();
+    }
+
     //=========== Modal Function ===========//
     // ฟอร์มบริการ
     function serviceModalForm(title) {
@@ -91,8 +113,13 @@
 
     // ฟังก์ชันดึงข้อมูล
     function serviceList() {
+        var keyword = $('#keyWord').val();
+
         $.ajax({
             type: "POST",
+            data: {
+                keyword: keyword,
+            },
             url: "./services/service-fetch.php",
             success: (data, res) => {
                 $('#serviceTables').html(data);
