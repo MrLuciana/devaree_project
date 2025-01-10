@@ -50,5 +50,4 @@ if ($result->num_rows > 0) { ?>
 } else {
     echo "<tr><td colspan='7' class='text-center text-muted'>ไม่มีข้อมูลบริการ</td></tr>";
 }
-// include '../includes/scripts.php';
 ?>
