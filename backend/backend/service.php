@@ -40,7 +40,7 @@
                   </option>
                 <?php } ?>
               </select>
-              &nbsp; entries
+              &nbsp; entries testets
             </div>
             <div class='col d-flex justify-content-end align-items-center'>
               <ul class="nav" style="display: flex; justify-content: flex-end; align-items: center; margin-right: 10px;">
