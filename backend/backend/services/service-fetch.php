@@ -2,7 +2,6 @@
 require_once('../includes/conn.php');
 $keyword = $_POST['keyword'];
 $sql = "SELECT * FROM services INNER JOIN service_category WHERE services.scat_id = service_category.scat_id AND service_name LIKE '%{$keyword}%' ORDER BY service_id DESC";
-// $sql = "SELECT * FROM services INNER JOIN service_category WHERE services.scat_id = service_category.scat_id ORDER BY service_id DESC";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) { ?>
