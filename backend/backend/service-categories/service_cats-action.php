@@ -1,23 +1,23 @@
 <script>
     var page;
     $(document).ready(function() {
-        serviceList(page);
+        service_catsList(page);
     })
 
     $("#keyWord").keyup(function(event) {
         if (event.keyCode === 13) {
-            serviceList(page);
+            service_catsList(page);
         }
     });
 
     // กําหนดหน้า
     $(document).on("click", ".pagination a", function() {
         page = $(this).attr('id')
-        serviceList(page);
+        service_catsList(page);
     });
     // เปลี่ยนข้อมูลแต่ละหน้า
     $("#perPage").change(function() {
-        serviceList();
+        service_catsList();
     })
 
     function checkKeyWord() {
@@ -33,15 +33,15 @@
     function clearSearch() {
         document.getElementById('btnClear').hidden = true;
         document.getElementById('keyWord').value = "";
-        serviceList(page);
+        service_catsList(page);
     }
 
     //=========== Modal Function ===========//
     // ฟอร์มบริการ
-    function serviceModalForm(title) {
+    function service_catsModalForm(title) {
         document.getElementById('ModalTitle').innerHTML = title;
         $.ajax({
-            url: "./services/service-form.php",
+            url: "./service-categories/service_cats-form.php",
             type: "GET",
             success: function(data) {
                 $('#IModal .modal-body').html(data);
@@ -54,10 +54,10 @@
     }
 
     // ฟอร์มแก้ไขบริการ
-    function serviceModalEdit(id, title) {
+    function service_catsModalEdit(id, title) {
         document.getElementById('ModalTitle').innerHTML = title;
         $.ajax({
-            url: "./services/service-edit.php",
+            url: "./service-categories/service_cats-edit.php",
             type: "POST",
             data: {
                 id: id
@@ -70,7 +70,7 @@
     }
 
     // ฟังก์ชันลบบริการ
-    function serviceModalDelete(id) {
+    function service_catsModalDelete(id) {
         Swal.fire({
             text: "ยืนยันการลบรายการนี้",
             icon: "warning",
@@ -82,7 +82,7 @@
         }).then((result) => {
             if (result.isConfirmed) {
                 $.ajax({
-                    url: "./services/service-delete.php",
+                    url: "./service-categories/service_cats-delete.php",
                     type: 'POST',
                     data: {
                         id: id
@@ -97,7 +97,7 @@
                                 showConfirmButton: false,
                                 timer: 500
                             }).then(() => {
-                                serviceList(); // รีโหลดหน้า
+                                service_catsList(); // รีโหลดหน้า
                             });
                         } else {
                             Swal.fire({
@@ -123,10 +123,9 @@
     //=========== End Modal Function ===========//
 
     // ฟังก์ชันดึงข้อมูล
-    function serviceList(page) {
+    function service_catsList(page) {
         var keyword = $('#keyWord').val();
         var perPage = document.getElementById("perPage").value;
-
 
         $.ajax({
             type: "POST",
@@ -135,26 +134,22 @@
                 per_page: perPage,
                 page_no: page
             },
-            url: "./services/service-fetch.php",
+            url: "./service-categories/service_cats-fetch.php",
             success: (data, res) => {
-                $('#serviceTables').html(data);
+                $('#service_catsTables').html(data);
             }
         })
     }
 
     // ฟังก์ชันเพิ่มบริการ
-    function serviceAdd() {
+    function service_catsAdd() {
         var name = $('#name').val().trim();
-        var price = $('#price').val().trim();
-        var service_cats_id = $('#service_cats_id').val();
         var description = $('#description').val().trim();
         $.ajax({
-            url: "./services/service-add.php",
+            url: "./service-categories/service_cats-add.php",
             type: 'POST',
             data: {
                 name: name,
-                price: price,
-                service_cats_id: service_cats_id,
                 description: description,
             },
             dataType: "json", // บอกว่าเราคาดหวัง JSON กลับมา
@@ -168,7 +163,7 @@
                         showConfirmButton: false,
                         timer: 500
                     }).then(() => {
-                        serviceList();
+                        service_catsList();
                     });
                 } else {
                     Swal.fire({
@@ -191,35 +186,31 @@
     }
 
     // ฟังก์ชันแก้ไขบริการ
-    function serviceUpdate(id) {
+    function service_catsUpdate(id) {
         var name = $('#name').val().trim();
-        var price = $('#price').val().trim();
-        var service_cats_id = $('#service_cats_id').val();
         var description = $('#description').val().trim();
         $.ajax({
-            url: "./services/service-update.php",
+            url: "./service-categories/service_cats-update.php",
             type: 'POST',
             data: {
                 id: id,
                 name: name,
-                price: price,
-                service_cats_id: service_cats_id,
                 description: description,
             },
             success: function(response) {
-                serviceList();
+                service_catsList();
             }
         });
     }
 
     // ฟังก์ชัน Toggle สถานะ
-    function toggleStatus(serviceId, newStatus) {
-        fetch('./services/service-status.php', {
+    function toggleStatus(service_catsId, newStatus) {
+        fetch('./service-categories/service_cats-status.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
-                body: `service_cats_id=${serviceId}&status=${newStatus ? 1 : 0}`
+                body: `service_cats_id=${service_catsId}&status=${newStatus ? 1 : 0}`
             })
             .then(response => response.json())
             .then(data => {
@@ -227,10 +218,10 @@
                     console.error(data.error);
                 } else {
                     console.log(data.message);
-                    const button = document.getElementById(`statusButton${serviceId}`);
+                    const button = document.getElementById(`statusButton${service_catsId}`);
                     button.textContent = newStatus ? 'เปิด' : 'ปิด';
                     button.className = `btn btn-${newStatus ? 'success' : 'danger'} btn-sm`;
-                    button.setAttribute('onclick', `toggleStatus(${serviceId}, ${!newStatus})`);
+                    button.setAttribute('onclick', `toggleStatus(${service_catsId}, ${!newStatus})`);
                 }
             });
     }

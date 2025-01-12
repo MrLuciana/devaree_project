@@ -1,23 +1,23 @@
 <script>
     var page;
     $(document).ready(function() {
-        scatList(page);
+        serviceList(page);
     })
 
     $("#keyWord").keyup(function(event) {
         if (event.keyCode === 13) {
-            scatList(page);
+            serviceList(page);
         }
     });
 
     // กําหนดหน้า
     $(document).on("click", ".pagination a", function() {
         page = $(this).attr('id')
-        scatList(page);
+        serviceList(page);
     });
     // เปลี่ยนข้อมูลแต่ละหน้า
     $("#perPage").change(function() {
-        scatList();
+        serviceList();
     })
 
     function checkKeyWord() {
@@ -33,15 +33,15 @@
     function clearSearch() {
         document.getElementById('btnClear').hidden = true;
         document.getElementById('keyWord').value = "";
-        scatList(page);
+        serviceList(page);
     }
 
     //=========== Modal Function ===========//
     // ฟอร์มบริการ
-    function scatModalForm(title) {
+    function serviceModalForm(title) {
         document.getElementById('ModalTitle').innerHTML = title;
         $.ajax({
-            url: "./service-categories/scat-form.php",
+            url: "./services/service-form.php",
             type: "GET",
             success: function(data) {
                 $('#IModal .modal-body').html(data);
@@ -54,10 +54,10 @@
     }
 
     // ฟอร์มแก้ไขบริการ
-    function scatModalEdit(id, title) {
+    function serviceModalEdit(id, title) {
         document.getElementById('ModalTitle').innerHTML = title;
         $.ajax({
-            url: "./service-categories/scat-edit.php",
+            url: "./services/service-edit.php",
             type: "POST",
             data: {
                 id: id
@@ -70,7 +70,7 @@
     }
 
     // ฟังก์ชันลบบริการ
-    function scatModalDelete(id) {
+    function serviceModalDelete(id) {
         Swal.fire({
             text: "ยืนยันการลบรายการนี้",
             icon: "warning",
@@ -82,7 +82,7 @@
         }).then((result) => {
             if (result.isConfirmed) {
                 $.ajax({
-                    url: "./service-categories/scat-delete.php",
+                    url: "./services/service-delete.php",
                     type: 'POST',
                     data: {
                         id: id
@@ -97,7 +97,7 @@
                                 showConfirmButton: false,
                                 timer: 500
                             }).then(() => {
-                                scatList(); // รีโหลดหน้า
+                                serviceList(); // รีโหลดหน้า
                             });
                         } else {
                             Swal.fire({
@@ -123,9 +123,10 @@
     //=========== End Modal Function ===========//
 
     // ฟังก์ชันดึงข้อมูล
-    function scatList(page) {
+    function serviceList(page) {
         var keyword = $('#keyWord').val();
         var perPage = document.getElementById("perPage").value;
+
 
         $.ajax({
             type: "POST",
@@ -134,22 +135,26 @@
                 per_page: perPage,
                 page_no: page
             },
-            url: "./service-categories/scat-fetch.php",
+            url: "./services/service-fetch.php",
             success: (data, res) => {
-                $('#scatTables').html(data);
+                $('#serviceTables').html(data);
             }
         })
     }
 
     // ฟังก์ชันเพิ่มบริการ
-    function scatAdd() {
+    function serviceAdd() {
         var name = $('#name').val().trim();
+        var price = $('#price').val().trim();
+        var scat_id = $('#scat_id').val();
         var description = $('#description').val().trim();
         $.ajax({
-            url: "./service-categories/scat-add.php",
+            url: "./services/service-add.php",
             type: 'POST',
             data: {
                 name: name,
+                price: price,
+                scat_id: scat_id,
                 description: description,
             },
             dataType: "json", // บอกว่าเราคาดหวัง JSON กลับมา
@@ -163,7 +168,7 @@
                         showConfirmButton: false,
                         timer: 500
                     }).then(() => {
-                        scatList();
+                        serviceList();
                     });
                 } else {
                     Swal.fire({
@@ -186,31 +191,35 @@
     }
 
     // ฟังก์ชันแก้ไขบริการ
-    function scatUpdate(id) {
+    function serviceUpdate(id) {
         var name = $('#name').val().trim();
+        var price = $('#price').val().trim();
+        var scat_id = $('#scat_id').val();
         var description = $('#description').val().trim();
         $.ajax({
-            url: "./service-categories/scat-update.php",
+            url: "./services/service-update.php",
             type: 'POST',
             data: {
                 id: id,
                 name: name,
+                price: price,
+                scat_id: scat_id,
                 description: description,
             },
             success: function(response) {
-                scatList();
+                serviceList();
             }
         });
     }
 
     // ฟังก์ชัน Toggle สถานะ
-    function toggleStatus(scatId, newStatus) {
-        fetch('./service-categories/scat-status.php', {
+    function toggleStatus(serviceId, newStatus) {
+        fetch('./services/service-status.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
-                body: `scat_id=${scatId}&status=${newStatus ? 1 : 0}`
+                body: `service_id=${serviceId}&status=${newStatus ? 1 : 0}`
             })
             .then(response => response.json())
             .then(data => {
@@ -218,10 +227,10 @@
                     console.error(data.error);
                 } else {
                     console.log(data.message);
-                    const button = document.getElementById(`statusButton${scatId}`);
+                    const button = document.getElementById(`statusButton${serviceId}`);
                     button.textContent = newStatus ? 'เปิด' : 'ปิด';
                     button.className = `btn btn-${newStatus ? 'success' : 'danger'} btn-sm`;
-                    button.setAttribute('onclick', `toggleStatus(${scatId}, ${!newStatus})`);
+                    button.setAttribute('onclick', `toggleStatus(${serviceId}, ${!newStatus})`);
                 }
             });
     }

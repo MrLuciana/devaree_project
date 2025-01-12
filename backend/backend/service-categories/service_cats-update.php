@@ -6,8 +6,8 @@ $name = $_POST['name'];
 $description = $_POST['description'];
 
 $sql = "UPDATE service_categories SET 
-        scat_name = '$name', 
-        scat_description = '$description' 
-        WHERE service_categories.scat_id = '$id'";
+        service_cats_name = '$name', 
+        service_cats_description = '$description' 
+        WHERE service_categories.service_cats_id = '$id'";
 
 $result = $conn->query($sql);

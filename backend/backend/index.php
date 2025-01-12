@@ -29,10 +29,10 @@ if (!isset($_SESSION['user_id'])) {
             include "service.php";
          } else if ($page == 'service-categories') {
             include "service-categories.php";
-         } else if ($page == 'booking') {
-            include "booking.php";
-         } else if ($page == 'calendar') {
-            include "calendar.php";
+         } else if ($page == 'course') {
+            include "course.php";
+         } else if ($page == 'course-categories') {
+            include "course-categories.php";
          } else if ($page == '') {
             include ".php";
          } else if ($page == 'customer') {

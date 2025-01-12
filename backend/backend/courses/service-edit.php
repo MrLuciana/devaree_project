@@ -2,7 +2,7 @@
 require_once('../includes/conn.php');
 
 $id = $_POST['id'];
-$sql = "SELECT * FROM services INNER JOIN service_categories WHERE services.service_cats_id = service_categories.service_cats_id AND service_id = '$id'";
+$sql = "SELECT * FROM services INNER JOIN service_categories WHERE services.scat_id = service_categories.scat_id AND service_id = '$id'";
 $result = $conn->query($sql);
 $row = $result->fetch_assoc();
 ?>
@@ -18,20 +18,20 @@ $row = $result->fetch_assoc();
             <input onkeyup="checkNull();" value="<?php echo $row['service_price']; ?>" type="number" id="price" class="form-control">
         </div>
         <div class="col">
-            <label for="service_cats_id">หมวดหมู่</label>
-            <select id="service_cats_id" class="form-control">
+            <label for="scat_id">หมวดหมู่</label>
+            <select id="scat_id" class="form-control">
                 <?php
-                $selected_service_cats = $row['service_cats_id'];
+                $selected_scat = $row['scat_id'];
                 $sql = "SELECT * FROM service_categories";
                 $stmt = $conn->prepare($sql);
                 $stmt->execute();
                 $result = $stmt->get_result();
 
-                while ($row_service_cats = $result->fetch_assoc()) { 
-                    $selected = ($row_service_cats['service_cats_id'] == $selected_service_cats) ? 'selected' : '';
+                while ($row_scat = $result->fetch_assoc()) { 
+                    $selected = ($row_scat['scat_id'] == $selected_scat) ? 'selected' : '';
                     ?>
-                    <option value="<?php echo htmlspecialchars($row_service_cats['service_cats_id']); ?>"<?php echo $selected; ?>>
-                        <?php echo htmlspecialchars($row_service_cats['service_cats_name']); ?>
+                    <option value="<?php echo htmlspecialchars($row_scat['scat_id']); ?>"<?php echo $selected; ?>>
+                        <?php echo htmlspecialchars($row_scat['scat_name']); ?>
                     </option>
                 <?php }
                 $stmt->close();
@@ -73,13 +73,13 @@ $row = $result->fetch_assoc();
         }
     }
 
-    document.getElementById('service_cats_id').addEventListener('change', checkNull); // ตรวจจับการเปลี่ยนแปลง service_cats_id
+    document.getElementById('scat_id').addEventListener('change', checkNull); // ตรวจจับการเปลี่ยนแปลง scat_id
 
     function clearForm() {
         document.getElementById('name').value = "";
         document.getElementById('price').value = "";
         document.getElementById('description').value = "";
-        document.getElementById('service_cats_id').value = "";
+        document.getElementById('scat_id').value = "";
 
         document.getElementById('btnSubmit').disabled = true;
     }
