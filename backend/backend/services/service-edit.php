@@ -2,7 +2,7 @@
 require_once('../includes/conn.php');
 
 $id = $_POST['id'];
-$sql = "SELECT * FROM services INNER JOIN service_category WHERE services.scat_id = service_category.scat_id AND service_id = '$id'";
+$sql = "SELECT * FROM services INNER JOIN service_categories WHERE services.scat_id = service_categories.scat_id AND service_id = '$id'";
 $result = $conn->query($sql);
 $row = $result->fetch_assoc();
 ?>
@@ -22,7 +22,7 @@ $row = $result->fetch_assoc();
             <select id="scat_id" class="form-control">
                 <?php
                 $selected_scat = $row['scat_id'];
-                $sql = "SELECT * FROM service_category";
+                $sql = "SELECT * FROM service_categories";
                 $stmt = $conn->prepare($sql);
                 $stmt->execute();
                 $result = $stmt->get_result();

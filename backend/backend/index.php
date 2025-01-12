@@ -33,6 +33,8 @@ if (!isset($_SESSION['user_id'])) {
                include ".php";
             }else if($page == 'service'){
                include "service.php";
+            }else if($page == 'service-categories'){
+               include "service-categories.php";
             }else if($page == 'customer'){
                include "customer.php";
             }else if($page == '404'){

@@ -50,13 +50,8 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="components/buttons.html">
+                                <a href="?page=service-categories">
                                     <span class="sub-item">หมวดหมู่</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="components/gridsystem.html">
-                                    <span class="sub-item">Grid System</span>
                                 </a>
                             </li>
                         </ul>

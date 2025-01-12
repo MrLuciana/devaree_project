@@ -1,15 +1,15 @@
 <div class="container">
   <div class="page-inner">
     <div class="page-header">
-      <h3 class="fw-bold mb-3">บริการ</h3>
+      <h3 class="fw-bold mb-3">หมวดหมู่บริการ</h3>
     </div>
     <div class="col-md-12">
       <div class="card">
         <div class="card-header">
           <div class="d-flex align-items-center">
-            <h4 class="card-title">บริการทั้งหมด</h4>
+            <h4 class="card-title">หมวดหมู่บริการทั้งหมด</h4>
             <button data-toggle="modal" data-target="#IModal"
-              onclick="serviceModalForm('เพิ่มบริการ')" type="button"
+              onclick="scatModalForm('เพิ่มบริการ')" type="button"
               class="btn btn-primary btn-round ms-auto">
               <i class="fa fa-plus"></i>
               เพิ่มรายการ
@@ -38,7 +38,7 @@
                     class="form-control" style="height: 28px; font-size: 10pt; width: 150px;">
                   <button class="btn btn-primary" id="btnSearch"
                     style="height: 28px; font-size: 10pt; margin-left: 4px; padding: 2px 8px;"
-                    onclick="serviceList(page)">ค้นหา</button>
+                    onclick="categoryList(page)">ค้นหา</button>
                   <button class="btn btn-warning" id="btnClear" onclick="clearSearch();"
                     style="height: 28px; margin-left: 4px; padding: 2px 8px;" hidden>
                     <i class="fas fa-times-circle" style="color:#fff; font-size: 12pt;"></i>
@@ -48,13 +48,13 @@
             </div>
           </div>
         </div>
-        <div class="card-body" id="serviceTables"></div>
+        <div class="card-body" id="scatTables"></div>
       </div>
     </div>
   </div>
 </div>
 
 <?php
-include('services/service-action.php');
+include('service-categories/scat-action.php');
 $conn->close();
 ?>
