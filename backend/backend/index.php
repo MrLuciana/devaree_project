@@ -23,22 +23,24 @@ if (!isset($_SESSION['user_id'])) {
             <?php include "includes/navbar.php"; ?>
          </div>
          <?php
-            if($page == '' || $page=='home'){
-               include "home.php";
-            }else if($page == 'booking'){
-               include "booking.php";
-            }else if($page == 'calendar'){
-               include "calendar.php";
-            }else if($page == ''){
-               include ".php";
-            }else if($page == 'service'){
-               include "service.php";
-            }else if($page == 'customer'){
-               include "customer.php";
-            }else if($page == '404'){
-               include "404.php";
-            }
-            ?>
+         if ($page == '' || $page == 'home') {
+            include "home.php";
+         } else if ($page == 'service') {
+            include "service.php";
+         } else if ($page == 'service-categories') {
+            include "service-categories.php";
+         } else if ($page == 'course') {
+            include "course.php";
+         } else if ($page == 'course-categories') {
+            include "course-categories.php";
+         } else if ($page == '') {
+            include ".php";
+         } else if ($page == 'customer') {
+            include "customer.php";
+         } else if ($page == '404') {
+            include "404.php";
+         }
+         ?>
          <?php include "includes/footer.php"; ?>
       </div>
    </div>

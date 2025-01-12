@@ -2,10 +2,7 @@
 require_once('../includes/conn.php');
 
 $id = $_POST['id'];
-$sql = "SELECT * FROM services 
-        INNER JOIN service_categories 
-        WHERE services.service_cats_id = service_categories.service_cats_id 
-        AND service_id = '$id'";
+$sql = "SELECT * FROM courses INNER JOIN course_categories WHERE courses.course_cats_id = course_categories.course_cats_id AND course_id = '$id'";
 $result = $conn->query($sql);
 $row = $result->fetch_assoc();
 ?>
@@ -14,27 +11,27 @@ $row = $result->fetch_assoc();
     <div class="row">
         <div class="col">
             <label for="name">ชื่อบริการ</label>
-            <input onkeyup="checkNull();" value="<?php echo $row['service_name']; ?>" type="text" id="name" class="form-control">
+            <input onkeyup="checkNull();" value="<?php echo $row['course_name']; ?>" type="text" id="name" class="form-control">
         </div>
         <div class="col">
             <label for="price">ราคา</label>
-            <input onkeyup="checkNull();" value="<?php echo $row['service_price']; ?>" type="number" id="price" class="form-control">
+            <input onkeyup="checkNull();" value="<?php echo $row['course_price']; ?>" type="number" id="price" class="form-control">
         </div>
         <div class="col">
-            <label for="service_cats_id">หมวดหมู่</label>
-            <select id="service_cats_id" class="form-control">
+            <label for="course_cats_id">หมวดหมู่</label>
+            <select id="course_cats_id" class="form-control">
                 <?php
-                $selected_service_cats = $row['service_cats_id'];
-                $sql = "SELECT * FROM service_categories WHERE service_cats_status = '1'";
+                $selected_course_cats = $row['course_cats_id'];
+                $sql = "SELECT * FROM course_categories WHERE course_cats_status = '1'";
                 $stmt = $conn->prepare($sql);
                 $stmt->execute();
                 $result = $stmt->get_result();
 
-                while ($row_service_cats = $result->fetch_assoc()) {
-                    $selected = ($row_service_cats['service_cats_id'] == $selected_service_cats) ? 'selected' : '';
-                ?>
-                    <option value="<?php echo htmlspecialchars($row_service_cats['service_cats_id']); ?>" <?php echo $selected; ?>>
-                        <?php echo htmlspecialchars($row_service_cats['service_cats_name']); ?>
+                while ($row_course_cats = $result->fetch_assoc()) { 
+                    $selected = ($row_course_cats['course_cats_id'] == $selected_course_cats) ? 'selected' : '';
+                    ?>
+                    <option value="<?php echo htmlspecialchars($row_course_cats['course_cats_id']); ?>"<?php echo $selected; ?>>
+                        <?php echo htmlspecialchars($row_course_cats['course_cats_name']); ?>
                     </option>
                 <?php }
                 $stmt->close();
@@ -46,7 +43,7 @@ $row = $result->fetch_assoc();
     <div class="row mt-3 mb-3">
         <div class="col">
             <label for="description">รายละเอียด</label>
-            <input onkeyup="checkNull();" value="<?php echo $row['service_description']; ?>"
+            <input onkeyup="checkNull();" value="<?php echo $row['course_description']; ?>"
                 type="text" id="description" class="form-control">
         </div>
     </div>
@@ -54,7 +51,7 @@ $row = $result->fetch_assoc();
 </div>
 
 <div class="modal-footer">
-    <button onclick="serviceUpdate('<?php echo $id; ?>');" id="btnSubmit"
+    <button onclick="courseUpdate('<?php echo $id; ?>');" id="btnSubmit"
         data-bs-dismiss="modal" disabled class="btn btn-primary" style="font-size:12pt;width:150px;">
         อัปเดตรายการ
     </button>
@@ -76,13 +73,13 @@ $row = $result->fetch_assoc();
         }
     }
 
-    document.getElementById('service_cats_id').addEventListener('change', checkNull); // ตรวจจับการเปลี่ยนแปลง service_cats_id
+    document.getElementById('course_cats_id').addEventListener('change', checkNull); // ตรวจจับการเปลี่ยนแปลง course_cats_id
 
     function clearForm() {
         document.getElementById('name').value = "";
         document.getElementById('price').value = "";
         document.getElementById('description').value = "";
-        document.getElementById('service_cats_id').value = "";
+        document.getElementById('course_cats_id').value = "";
 
         document.getElementById('btnSubmit').disabled = true;
     }
