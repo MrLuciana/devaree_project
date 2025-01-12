@@ -2,7 +2,10 @@
 require_once('../includes/conn.php');
 
 $id = $_POST['id'];
-$sql = "SELECT * FROM services INNER JOIN service_categories WHERE services.service_cats_id = service_categories.service_cats_id AND service_id = '$id'";
+$sql = "SELECT * FROM services 
+        INNER JOIN service_categories 
+        WHERE services.service_cats_id = service_categories.service_cats_id 
+        AND service_id = '$id'";
 $result = $conn->query($sql);
 $row = $result->fetch_assoc();
 ?>
@@ -22,15 +25,15 @@ $row = $result->fetch_assoc();
             <select id="service_cats_id" class="form-control">
                 <?php
                 $selected_service_cats = $row['service_cats_id'];
-                $sql = "SELECT * FROM service_categories";
+                $sql = "SELECT * FROM service_categories WHERE service_cats_status = '1'";
                 $stmt = $conn->prepare($sql);
                 $stmt->execute();
                 $result = $stmt->get_result();
 
-                while ($row_service_cats = $result->fetch_assoc()) { 
+                while ($row_service_cats = $result->fetch_assoc()) {
                     $selected = ($row_service_cats['service_cats_id'] == $selected_service_cats) ? 'selected' : '';
-                    ?>
-                    <option value="<?php echo htmlspecialchars($row_service_cats['service_cats_id']); ?>"<?php echo $selected; ?>>
+                ?>
+                    <option value="<?php echo htmlspecialchars($row_service_cats['service_cats_id']); ?>" <?php echo $selected; ?>>
                         <?php echo htmlspecialchars($row_service_cats['service_cats_name']); ?>
                     </option>
                 <?php }

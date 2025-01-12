@@ -16,7 +16,7 @@ require_once('../includes/conn.php');
             <label for="service_cats_id">หมวดหมู่</label>
             <select id="service_cats_id" class="form-control">
                 <?php
-                $sql = "SELECT service_cats_id, service_cats_name FROM service_categories";
+                $sql = "SELECT * FROM service_categories WHERE service_cats_status = '1'";
                 $stmt = $conn->prepare($sql);
                 $stmt->execute();
                 $result = $stmt->get_result();

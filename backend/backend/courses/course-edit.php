@@ -22,7 +22,7 @@ $row = $result->fetch_assoc();
             <select id="course_cats_id" class="form-control">
                 <?php
                 $selected_course_cats = $row['course_cats_id'];
-                $sql = "SELECT * FROM course_categories";
+                $sql = "SELECT * FROM course_categories WHERE course_cats_status = '1'";
                 $stmt = $conn->prepare($sql);
                 $stmt->execute();
                 $result = $stmt->get_result();
