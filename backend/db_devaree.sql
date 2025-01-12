@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jan 09, 2025 at 08:44 PM
+-- Generation Time: Jan 12, 2025 at 03:03 PM
 -- Server version: 8.0.17
 -- PHP Version: 7.3.10
 
@@ -81,7 +81,8 @@ CREATE TABLE `courses` (
   `course_description` text CHARACTER SET utf8 COLLATE utf8_general_ci,
   `course_duration_minutes` int(11) NOT NULL,
   `course_price` decimal(10,2) NOT NULL,
-  `course_category` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `course_cats_id` int(11) DEFAULT NULL,
+  `course_status` tinyint(1) NOT NULL DEFAULT '0',
   `course_created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `course_updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -90,15 +91,40 @@ CREATE TABLE `courses` (
 -- Dumping data for table `courses`
 --
 
-INSERT INTO `courses` (`course_id`, `course_name`, `course_description`, `course_duration_minutes`, `course_price`, `course_category`, `course_created_at`, `course_updated_at`) VALUES
-(1, 'Aroma Therapy', 'Relaxing full-body massage with essential oils.', 60, '1500.00', 'Massage', '2025-01-06 13:47:01', '2025-01-06 13:47:01'),
-(2, 'Thai Traditional Massage', 'Ancient Thai massage technique for muscle relaxation.', 90, '1200.00', 'Massage', '2025-01-06 13:47:01', '2025-01-06 13:47:01'),
-(3, 'Herbal Compress Therapy', 'Massage with heated herbal compress for pain relief.', 90, '1800.00', 'Therapy', '2025-01-06 13:47:01', '2025-01-06 13:47:01'),
-(4, 'Facial Rejuvenation', 'Deep cleansing facial treatment for glowing skin.', 45, '1000.00', 'Facial', '2025-01-06 13:47:01', '2025-01-06 13:47:01'),
-(5, 'Body Scrub & Wrap', 'Exfoliation and moisturizing treatment for smooth skin.', 60, '2000.00', 'Body Treatment', '2025-01-06 13:47:01', '2025-01-06 13:47:01'),
-(6, 'Hot Stone Therapy', 'Therapeutic massage with heated stones for deep relaxation.', 75, '2200.00', 'Massage', '2025-01-06 13:47:01', '2025-01-06 13:47:01'),
-(7, 'Foot Reflexology', 'Massage targeting pressure points in the feet.', 30, '800.00', 'Reflexology', '2025-01-06 13:47:01', '2025-01-06 13:47:01'),
-(8, 'Couple’s Retreat', 'Special package for two with massage and aromatherapy.', 120, '4000.00', 'Package', '2025-01-06 13:47:01', '2025-01-06 13:47:01');
+INSERT INTO `courses` (`course_id`, `course_name`, `course_description`, `course_duration_minutes`, `course_price`, `course_cats_id`, `course_status`, `course_created_at`, `course_updated_at`) VALUES
+(1, 'Aroma Therapy', 'Relaxing full-body massage with essential oils.', 60, '1500.00', 1, 1, '2025-01-06 13:47:01', '2025-01-06 13:47:01'),
+(2, 'Thai Traditional Massage', 'Ancient Thai massage technique for muscle relaxation.', 90, '1200.00', 1, 1, '2025-01-06 13:47:01', '2025-01-06 13:47:01'),
+(3, 'Herbal Compress Therapy', 'Massage with heated herbal compress for pain relief.', 90, '1800.00', 1, 1, '2025-01-06 13:47:01', '2025-01-06 13:47:01'),
+(4, 'Facial Rejuvenation', 'Deep cleansing facial treatment for glowing skin.', 45, '1000.00', 1, 1, '2025-01-06 13:47:01', '2025-01-06 13:47:01'),
+(5, 'Body Scrub & Wrap', 'Exfoliation and moisturizing treatment for smooth skin.', 60, '2000.00', 1, 1, '2025-01-06 13:47:01', '2025-01-06 13:47:01'),
+(6, 'Hot Stone Therapy', 'Therapeutic massage with heated stones for deep relaxation.', 75, '2200.00', 1, 1, '2025-01-06 13:47:01', '2025-01-06 13:47:01'),
+(7, 'Foot Reflexology', 'Massage targeting pressure points in the feet.', 30, '800.00', 1, 1, '2025-01-06 13:47:01', '2025-01-06 13:47:01'),
+(8, 'Couple’s Retreat', 'Special package for two with massage and aromatherapy.', 120, '4000.00', 1, 1, '2025-01-06 13:47:01', '2025-01-06 13:47:01');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `course_categories`
+--
+
+CREATE TABLE `course_categories` (
+  `course_cats_id` int(11) NOT NULL,
+  `course_cats_name` varchar(255) NOT NULL,
+  `course_cats_description` text NOT NULL,
+  `course_cats_status` tinyint(1) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `course_categories`
+--
+
+INSERT INTO `course_categories` (`course_cats_id`, `course_cats_name`, `course_cats_description`, `course_cats_status`) VALUES
+(1, 'Massage Therapy', 'คอร์สเกี่ยวกับการนวดบำบัดต่างๆ เช่น นวดผ่อนคลาย นวดเพื่อฟื้นฟู', 1),
+(2, 'Facial Treatments', 'คอร์สการดูแลผิวหน้าด้วยทรีทเมนต์ต่างๆ', 0),
+(3, 'Body Treatments', 'คอร์สการดูแลผิวกาย เช่น การขัดผิว พอกตัว', 0),
+(4, 'Aromatherapy', 'คอร์สการนวดด้วยน้ำมันหอมระเหยเพื่อผ่อนคลาย', 0),
+(5, 'Reflexology', 'คอร์สการนวดฝ่าเท้าเพื่อกระตุ้นการทำงานของร่างกาย', 0),
+(6, 'Hydrotherapy', 'คอร์สการบำบัดด้วยน้ำ เช่น อ่างจากุซซี่ สตีม ซาวน่า', 1);
 
 -- --------------------------------------------------------
 
@@ -236,7 +262,7 @@ CREATE TABLE `services` (
   `service_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `service_description` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `service_price` int(5) DEFAULT NULL,
-  `scat_id` int(10) DEFAULT NULL,
+  `service_cats_id` int(10) DEFAULT NULL,
   `service_status` tinyint(1) DEFAULT '0',
   `service_created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -245,32 +271,39 @@ CREATE TABLE `services` (
 -- Dumping data for table `services`
 --
 
-INSERT INTO `services` (`service_id`, `service_name`, `service_description`, `service_price`, `scat_id`, `service_status`, `service_created_at`) VALUES
+INSERT INTO `services` (`service_id`, `service_name`, `service_description`, `service_price`, `service_cats_id`, `service_status`, `service_created_at`) VALUES
 (1, 'นวดแผนไทย', 'นวดแผนไทยเพื่อผ่อนคลายและกระตุ้นการไหลเวียนโลหิต', 600, 1, 1, '2025-01-06 02:57:23'),
 (2, 'นวดน้ำมันอโรมา', 'นวดน้ำมันหอมระเหยเพื่อผ่อนคลายกล้ามเนื้อและบรรเทาความเครียด', 1200, 1, 1, '2025-01-06 02:57:23'),
 (3, 'นวดเท้า', 'นวดเท้าเพื่อกระตุ้นจุดสะท้อนและบรรเทาอาการเมื่อยล้า', 500, 1, 1, '2025-01-06 02:57:23'),
-(4, 'สปาหน้า', 'ทำทรีตเมนต์บำรุงผิวหน้าให้สดชื่นและกระจ่างใส', 1500, 1, 1, '2025-01-06 02:57:23'),
-(127, 'สวัสดีครับ', 'test', 1234, 1, 1, '2025-01-09 18:21:27');
+(4, 'สปาหน้า', 'ทำทรีตเมนต์บำรุงผิวหน้าให้สดชื่นและกระจ่างใส', 1500, 1, 1, '2025-01-06 02:57:23');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `service_category`
+-- Table structure for table `service_categories`
 --
 
-CREATE TABLE `service_category` (
-  `scat_id` int(10) NOT NULL,
-  `scat_name` varchar(100) NOT NULL,
-  `scat_status` enum('active','inactive') CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL
+CREATE TABLE `service_categories` (
+  `service_cats_id` int(11) NOT NULL,
+  `service_cats_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `service_cats_description` text CHARACTER SET utf8 COLLATE utf8_general_ci,
+  `service_cats_status` tinyint(1) NOT NULL DEFAULT '0',
+  `service_cats_created` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `service_cats_updated` timestamp NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `service_category`
+-- Dumping data for table `service_categories`
 --
 
-INSERT INTO `service_category` (`scat_id`, `scat_name`, `scat_status`) VALUES
-(1, 'สปา', 'active'),
-(2, 'test', 'active');
+INSERT INTO `service_categories` (`service_cats_id`, `service_cats_name`, `service_cats_description`, `service_cats_status`, `service_cats_created`, `service_cats_updated`) VALUES
+(1, 'Massage Therapy', 'บริการนวดเพื่อผ่อนคลายและฟื้นฟูร่างกาย', 0, '2025-01-12 11:40:38', '2025-01-12 12:20:46'),
+(2, 'Facial Treatments', 'การบำรุงและดูแลผิวหน้า', 0, '2025-01-12 11:40:38', '2025-01-12 12:20:45'),
+(3, 'Body Treatments', 'การขัดผิว พอกตัว และมาส์กตัว', 0, '2025-01-12 11:40:38', '2025-01-12 12:20:45'),
+(4, 'Hydrotherapy', 'บำบัดด้วยน้ำ เช่น จากุซซี่ และซาวน่า', 0, '2025-01-12 11:40:38', '2025-01-12 12:20:45'),
+(5, 'Aromatherapy', 'นวดด้วยน้ำมันหอมระเหยเพื่อความผ่อนคลาย', 0, '2025-01-12 11:40:38', '2025-01-12 12:20:44'),
+(6, 'Reflexology', 'นวดกดจุดฝ่าเท้าเพื่อปรับสมดุลร่างกาย', 0, '2025-01-12 11:40:38', '2025-01-12 12:20:43'),
+(11, 'test', 'test', 1, '2025-01-12 14:38:32', '2025-01-12 14:38:32');
 
 --
 -- Indexes for dumped tables
@@ -289,6 +322,12 @@ ALTER TABLE `courses`
   ADD PRIMARY KEY (`course_id`);
 
 --
+-- Indexes for table `course_categories`
+--
+ALTER TABLE `course_categories`
+  ADD PRIMARY KEY (`course_cats_id`);
+
+--
 -- Indexes for table `customers`
 --
 ALTER TABLE `customers`
@@ -302,10 +341,10 @@ ALTER TABLE `services`
   ADD PRIMARY KEY (`service_id`);
 
 --
--- Indexes for table `service_category`
+-- Indexes for table `service_categories`
 --
-ALTER TABLE `service_category`
-  ADD PRIMARY KEY (`scat_id`);
+ALTER TABLE `service_categories`
+  ADD PRIMARY KEY (`service_cats_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -321,7 +360,13 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `courses`
 --
 ALTER TABLE `courses`
-  MODIFY `course_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `course_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT for table `course_categories`
+--
+ALTER TABLE `course_categories`
+  MODIFY `course_cats_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `customers`
@@ -333,13 +378,13 @@ ALTER TABLE `customers`
 -- AUTO_INCREMENT for table `services`
 --
 ALTER TABLE `services`
-  MODIFY `service_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=128;
+  MODIFY `service_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=153;
 
 --
--- AUTO_INCREMENT for table `service_category`
+-- AUTO_INCREMENT for table `service_categories`
 --
-ALTER TABLE `service_category`
-  MODIFY `scat_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+ALTER TABLE `service_categories`
+  MODIFY `service_cats_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
