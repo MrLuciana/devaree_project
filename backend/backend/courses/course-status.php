@@ -1,16 +1,16 @@
 <?php
 require_once '../includes/conn.php'; // เชื่อมต่อฐานข้อมูล
 
-$service_id = $_POST['service_id'];
+$course_id = $_POST['course_id'];
 $new_status = $_POST['status'];
 
 // สร้างคำสั่ง SQL
-$stmt = $conn->prepare("UPDATE services SET service_status = ? WHERE service_id = ?");
-$stmt->bind_param("ii", $new_status, $service_id);
+$stmt = $conn->prepare("UPDATE courses SET course_status = ? WHERE course_id = ?");
+$stmt->bind_param("ii", $new_status, $course_id);
 
 // ดำเนินการคำสั่ง SQL
 if ($stmt->execute() === TRUE) {
-    echo json_encode(["message" => "Service status updated successfully"]);
+    echo json_encode(["message" => "course status updated successfully"]);
 } else {
     echo json_encode(["error" => "Error updating status: " . $stmt->error]);
 }

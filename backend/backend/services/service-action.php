@@ -219,7 +219,7 @@
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
-                body: `service_cats_id=${serviceId}&status=${newStatus ? 1 : 0}`
+                body: `service_id=${serviceId}&status=${newStatus ? 1 : 0}`
             })
             .then(response => response.json())
             .then(data => {

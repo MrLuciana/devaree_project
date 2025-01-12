@@ -13,16 +13,16 @@ require_once('../includes/conn.php');
             <input onkeyup="checkNull();" type="number" id="price" class="form-control">
         </div>
         <div class="col">
-            <label for="scat_id">หมวดหมู่</label>
-            <select id="scat_id" class="form-control">
+            <label for="course_cats_id">หมวดหมู่</label>
+            <select id="course_cats_id" class="form-control">
                 <?php
-                $sql = "SELECT scat_id, scat_name FROM service_category";
+                $sql = "SELECT course_cats_id, course_cats_name FROM course_categories";
                 $stmt = $conn->prepare($sql);
                 $stmt->execute();
                 $result = $stmt->get_result();
 
                 while ($row = $result->fetch_assoc()) {
-                    echo "<option value='" . htmlspecialchars($row['scat_id']) . "'>" . htmlspecialchars($row['scat_name']) . "</option>";
+                    echo "<option value='" . htmlspecialchars($row['course_cats_id']) . "'>" . htmlspecialchars($row['course_cats_name']) . "</option>";
                 }
                 $stmt->close();
                 ?>
@@ -40,7 +40,7 @@ require_once('../includes/conn.php');
 </div>
 
 <div class="modal-footer">
-    <button onclick="serviceAdd();" id="btnSubmit" data-bs-dismiss="modal" disabled class="btn btn-primary" style="font-size:12pt;width:150px;">
+    <button onclick="courseAdd();" id="btnSubmit" data-bs-dismiss="modal" disabled class="btn btn-primary" style="font-size:12pt;width:150px;">
         บันทึกรายการ
     </button>
     <button class="btn btn-light" onclick="clearForm();" style="font-size:12pt;width:100px;">
@@ -53,10 +53,10 @@ require_once('../includes/conn.php');
         const name = document.getElementById('name').value.trim();
         const price = document.getElementById('price').value.trim();
         const description = document.getElementById('description').value.trim();
-        const scat_id = document.getElementById('scat_id').value.trim();
+        const course_cats_id = document.getElementById('course_cats_id').value.trim();
         const btnSubmit = document.getElementById('btnSubmit');
 
-        if (name && price && description && scat_id) {
+        if (name && price && description && course_cats_id) {
             document.getElementById('btnSubmit').disabled = false;
         } else {
             document.getElementById('btnSubmit').disabled = true;
@@ -67,7 +67,7 @@ require_once('../includes/conn.php');
         document.getElementById('name').value = "";
         document.getElementById('price').value = "";
         document.getElementById('description').value = "";
-        document.getElementById('scat_id').value = "";
+        document.getElementById('course_cats_id').value = "";
 
         document.getElementById('btnSubmit').disabled = true;
     }

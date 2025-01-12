@@ -16,9 +16,9 @@ $keyword = $_POST['keyword'];
 require_once('../includes/conn.php');
 
 if (!empty($keyword)) {
-    $sql = "SELECT * FROM services INNER JOIN service_categories WHERE services.scat_id = service_categories.scat_id AND service_name LIKE '%{$keyword}%' ORDER BY service_id DESC LIMIT $start, $perPage";
+    $sql = "SELECT * FROM courses INNER JOIN course_categories WHERE courses.course_cats_id = course_categories.course_cats_id AND course_name LIKE '%{$keyword}%' ORDER BY course_id DESC LIMIT $start, $perPage";
 } else {
-    $sql = "SELECT * FROM services INNER JOIN service_categories WHERE services.scat_id = service_categories.scat_id ORDER BY service_id DESC LIMIT $start, $perPage";
+    $sql = "SELECT * FROM courses INNER JOIN course_categories WHERE courses.course_cats_id = course_categories.course_cats_id ORDER BY course_id DESC LIMIT $start, $perPage";
 }
 $result = $conn->query($sql);
 
@@ -28,7 +28,7 @@ if ($result->num_rows > 0) { ?>
             <thead>
                 <tr>
                     <th scope="col" style="width: 5%;">#</th>
-                    <th scope="col" style="width: 15%;">ชื่อบริการ</th>
+                    <th scope="col" style="width: 15%;">ชื่อคอร์ส</th>
                     <th scope="col" style="width: 30%;">รายละเอียด</th>
                     <th scope="col" style="width: 15%;">ราคา (บาท)</th>
                     <th scope="col" style="width: 10%;">หมวดหมู่</th>
@@ -42,27 +42,27 @@ if ($result->num_rows > 0) { ?>
                 while ($row = $result->fetch_assoc()) { ?>
                     <tr>
                         <td><?php echo htmlspecialchars($i = $i + 1); ?></td>
-                        <td><?php echo htmlspecialchars($row["service_name"]); ?></td>
-                        <td><?php echo htmlspecialchars($row["service_description"]); ?></td>
-                        <td><?php echo number_format($row["service_price"]); ?></td>
-                        <td><?php echo htmlspecialchars($row["scat_name"]); ?></td>
+                        <td><?php echo htmlspecialchars($row["course_name"]); ?></td>
+                        <td><?php echo htmlspecialchars($row["course_description"]); ?></td>
+                        <td><?php echo number_format($row["course_price"]); ?></td>
+                        <td><?php echo htmlspecialchars($row["course_cats_name"]); ?></td>
                         <td>
-                            <?php $status = $row['service_status']; ?>
-                            <button id="statusButton<?php echo $row['service_id']; ?>"
+                            <?php $status = $row['course_status']; ?>
+                            <button id="statusButton<?php echo $row['course_id']; ?>"
                                 class="btn btn-<?php echo $status ? 'success' : 'danger'; ?> btn-sm"
-                                onclick="toggleStatus(<?php echo $row['service_id']; ?>, <?php echo $status ? 'false' : 'true'; ?>)">
+                                onclick="toggleStatus(<?php echo $row['course_id']; ?>, <?php echo $status ? 'false' : 'true'; ?>)">
                                 <?php echo $status ? 'เปิด' : 'ปิด'; ?>
                             </button>
                         </td>
                         <td>
-                            <button data-toggle="modal" data-target="#IModal" class="btn btn-primary btn-sm" onclick="serviceModalEdit('<?php echo $row['service_id']; ?>','แก้ไขข้อมูล');">แก้ไข</button>
-                            <button class="btn btn-danger btn-sm" onclick="serviceModalDelete('<?php echo $row['service_id']; ?>');">ลบ</button>
+                            <button data-toggle="modal" data-target="#IModal" class="btn btn-primary btn-sm" onclick="courseModalEdit('<?php echo $row['course_id']; ?>','แก้ไขข้อมูล');">แก้ไข</button>
+                            <button class="btn btn-danger btn-sm" onclick="courseModalDelete('<?php echo $row['course_id']; ?>');">ลบ</button>
                         </td>
                     </tr><?php } ?>
             </tbody>
         </table>
         <?php
-        $sql = "SELECT * FROM services INNER JOIN service_categories WHERE services.scat_id = service_categories.scat_id ORDER BY service_id DESC";
+        $sql = "SELECT * FROM courses INNER JOIN course_categories WHERE courses.course_cats_id = course_categories.course_cats_id ORDER BY course_id DESC";
         $fetch_query = $conn->query($sql);
         $total_record = mysqli_num_rows($fetch_query);
         $total_page = ceil($total_record / $perPage);
