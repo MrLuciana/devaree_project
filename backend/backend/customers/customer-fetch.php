@@ -42,6 +42,7 @@ if ($result->num_rows > 0) { ?>
                     <th scope="col" style="width: 15%;">เบอร์โทร</th>
                     <th scope="col" style="width: 10%;">ที่อยู่</th>
                     <th scope="col" style="width: 5%;">เมือง</th>
+                    <th scope="col" style="width: 15%;">จัดการ</th>
                 </tr>
             </thead>
             <tbody>
