@@ -4,9 +4,12 @@ require_once('../includes/conn.php');
 $id = $_POST['id'];
 $sql = "SELECT * FROM services 
         INNER JOIN service_categories 
-        WHERE services.service_cats_id = service_categories.service_cats_id 
-        AND service_id = '$id'";
-$result = $conn->query($sql);
+        ON services.service_cats_id = service_categories.service_cats_id 
+        WHERE service_id = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("i", $id);
+$stmt->execute();
+$result = $stmt->get_result();
 $row = $result->fetch_assoc();
 ?>
 
@@ -14,11 +17,11 @@ $row = $result->fetch_assoc();
     <div class="row">
         <div class="col">
             <label for="name">ชื่อบริการ</label>
-            <input onkeyup="checkNull();" value="<?php echo $row['service_name']; ?>" type="text" id="name" class="form-control">
+            <input onkeyup="checkNull();" value="<?php echo htmlspecialchars($row['service_name']); ?>" type="text" id="name" class="form-control">
         </div>
         <div class="col">
             <label for="price">ราคา</label>
-            <input onkeyup="checkNull();" value="<?php echo $row['service_price']; ?>" type="number" id="price" class="form-control">
+            <input onkeyup="checkNull();" value="<?php echo htmlspecialchars($row['service_price']); ?>" type="number" id="price" class="form-control">
         </div>
         <div class="col">
             <label for="service_cats_id">หมวดหมู่</label>
@@ -46,15 +49,14 @@ $row = $result->fetch_assoc();
     <div class="row mt-3 mb-3">
         <div class="col">
             <label for="description">รายละเอียด</label>
-            <input onkeyup="checkNull();" value="<?php echo $row['service_description']; ?>"
-                type="text" id="description" class="form-control">
+            <input onkeyup="checkNull();" value="<?php echo htmlspecialchars($row['service_description']); ?>" type="text" id="description" class="form-control">
         </div>
     </div>
-
+    <small id="formError" class="text-danger"></small>
 </div>
 
 <div class="modal-footer">
-    <button onclick="serviceUpdate('<?php echo $id; ?>');" id="btnSubmit"
+    <button onclick="serviceUpdate('<?php echo htmlspecialchars($id); ?>');" id="btnSubmit"
         data-bs-dismiss="modal" disabled class="btn btn-primary" style="font-size:12pt;width:150px;">
         อัปเดตรายการ
     </button>
@@ -63,27 +65,32 @@ $row = $result->fetch_assoc();
     </button>
 </div>
 
+
 <script>
     function checkNull() {
         const name = document.getElementById('name').value.trim();
         const price = document.getElementById('price').value.trim();
         const description = document.getElementById('description').value.trim();
+        const error = document.getElementById('formError');
 
         if (name && price && description) {
             document.getElementById('btnSubmit').disabled = false;
+            error.textContent = ""; // ลบข้อความแจ้งเตือน
         } else {
             document.getElementById('btnSubmit').disabled = true;
+            error.textContent = "กรุณากรอกข้อมูลให้ครบทุกช่อง";
         }
     }
 
-    document.getElementById('service_cats_id').addEventListener('change', checkNull); // ตรวจจับการเปลี่ยนแปลง service_cats_id
+    document.getElementById('service_cats_id').addEventListener('change', checkNull);
 
     function clearForm() {
         document.getElementById('name').value = "";
         document.getElementById('price').value = "";
         document.getElementById('description').value = "";
-        document.getElementById('service_cats_id').value = "";
+        document.getElementById('service_cats_id').selectedIndex = 0;
 
         document.getElementById('btnSubmit').disabled = true;
+        document.getElementById('formError').textContent = "";
     }
 </script>
