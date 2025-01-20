@@ -3,9 +3,13 @@ include 'includes/conn.php';
 
 //แสดงจํานวน
 $sql = "SELECT 
-    (SELECT COUNT(cus_id) FROM customers) AS total_customers, 
+    (SELECT COUNT(customer_id) FROM customers) AS total_customers, 
     (SELECT COUNT(service_id) FROM services) AS total_services, 
     (SELECT COUNT(course_id) FROM courses) AS total_courses";
+
+
+// $sql = "SELECT COUNT(customer_id) AS total_customers, COUNT(service_id) AS total_services, COUNT(course_id) AS total_courses FROM customers, services, courses";
+
 $result = $conn->query($sql);
 $row = $result->fetch_assoc();
 $total_customers = $row['total_customers'];

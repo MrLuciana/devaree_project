@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jan 12, 2025 at 03:03 PM
+-- Generation Time: Jan 20, 2025 at 08:30 AM
 -- Server version: 8.0.17
 -- PHP Version: 7.3.10
 
@@ -123,7 +123,7 @@ INSERT INTO `course_categories` (`course_cats_id`, `course_cats_name`, `course_c
 (2, 'Facial Treatments', 'คอร์สการดูแลผิวหน้าด้วยทรีทเมนต์ต่างๆ', 0),
 (3, 'Body Treatments', 'คอร์สการดูแลผิวกาย เช่น การขัดผิว พอกตัว', 0),
 (4, 'Aromatherapy', 'คอร์สการนวดด้วยน้ำมันหอมระเหยเพื่อผ่อนคลาย', 0),
-(5, 'Reflexology', 'คอร์สการนวดฝ่าเท้าเพื่อกระตุ้นการทำงานของร่างกาย', 0),
+(5, 'Reflexology', 'คอร์สการนวดฝ่าเท้าเพื่อกระตุ้นการทำงานของร่างกาย', 1),
 (6, 'Hydrotherapy', 'คอร์สการบำบัดด้วยน้ำ เช่น อ่างจากุซซี่ สตีม ซาวน่า', 1);
 
 -- --------------------------------------------------------
@@ -133,22 +133,22 @@ INSERT INTO `course_categories` (`course_cats_id`, `course_cats_name`, `course_c
 --
 
 CREATE TABLE `customers` (
-  `cus_id` int(11) NOT NULL,
-  `cus_fname` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `cus_lname` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `cus_email` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `cus_phone` varchar(15) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `cus_address` text CHARACTER SET utf8 COLLATE utf8_general_ci,
-  `cus_city` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `cus_country` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `cus_created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP
+  `customer_id` int(11) NOT NULL,
+  `customer_fname` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `customer_lname` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `customer_email` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `customer_phone` varchar(15) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `customer_address` text CHARACTER SET utf8 COLLATE utf8_general_ci,
+  `customer_city` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `customer_country` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `customer_created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `customers`
 --
 
-INSERT INTO `customers` (`cus_id`, `cus_fname`, `cus_lname`, `cus_email`, `cus_phone`, `cus_address`, `cus_city`, `cus_country`, `cus_created_at`) VALUES
+INSERT INTO `customers` (`customer_id`, `customer_fname`, `customer_lname`, `customer_email`, `customer_phone`, `customer_address`, `customer_city`, `customer_country`, `customer_created_at`) VALUES
 (1, 'User0', 'Last0', 'user0@example.com', '1357211984', '605 Street', 'RandomCity', 'RandomCountry', '2025-01-04 23:10:28'),
 (2, 'User1', 'Last1', 'user1@example.com', '6231944650', '297 Street', 'RandomCity', 'RandomCountry', '2025-01-04 23:10:28'),
 (3, 'User2', 'Last2', 'user2@example.com', '6192043271', '202 Street', 'RandomCity', 'RandomCountry', '2025-01-04 23:10:28'),
@@ -331,8 +331,8 @@ ALTER TABLE `course_categories`
 -- Indexes for table `customers`
 --
 ALTER TABLE `customers`
-  ADD PRIMARY KEY (`cus_id`),
-  ADD UNIQUE KEY `email` (`cus_email`);
+  ADD PRIMARY KEY (`customer_id`),
+  ADD UNIQUE KEY `email` (`customer_email`);
 
 --
 -- Indexes for table `services`
@@ -366,13 +366,13 @@ ALTER TABLE `courses`
 -- AUTO_INCREMENT for table `course_categories`
 --
 ALTER TABLE `course_categories`
-  MODIFY `course_cats_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `course_cats_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `cus_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=102;
+  MODIFY `customer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=102;
 
 --
 -- AUTO_INCREMENT for table `services`
