@@ -35,6 +35,33 @@
                     <h4 class="text-section">รายละเอียด</h4>
                 </li>
 
+                <!-- การจอง -->
+                <li class="nav-item">
+                    <a data-bs-toggle="collapse" href="#base">
+                        <i class="fas fa-address-book"></i>
+                        <p>การจอง</p>
+                        <span class="caret"></span>
+                    </a>
+                    <div class="collapse" id="base">
+                        <ul class="nav nav-collapse">
+                            <li>
+                                <a href="components/avatars.html">
+                                    <span class="sub-item">การจอง</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="components/buttons.html">
+                                    <span class="sub-item">ปฏิทิน</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="components/gridsystem.html">
+                                    <span class="sub-item">Grid System</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
                 <!-- บริการ -->
                 <li class="nav-item">
                     <a data-bs-toggle="collapse" href="#service">
@@ -79,33 +106,6 @@
                         </ul>
                     </div>
                 </li>
-                <!-- การจอง -->
-                <li class="nav-item">
-                    <a data-bs-toggle="collapse" href="#base">
-                        <i class="fas fa-address-book"></i>
-                        <p>การจอง</p>
-                        <span class="caret"></span>
-                    </a>
-                    <div class="collapse" id="base">
-                        <ul class="nav nav-collapse">
-                            <li>
-                                <a href="components/avatars.html">
-                                    <span class="sub-item">การจอง</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="components/buttons.html">
-                                    <span class="sub-item">ปฏิทิน</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="components/gridsystem.html">
-                                    <span class="sub-item">Grid System</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
                 <!-- ลูกค้า -->
                 <li class="nav-item">
                     <a data-bs-toggle="collapse" href="#customer">
@@ -125,11 +125,6 @@
                                     <span class="sub-item">รายละเอียด</span>
                                 </a>
                             </li>
-                            <li>
-                                <a href="components/gridsystem.html">
-                                    <span class="sub-item">Grid System</span>
-                                </a>
-                            </li>
                         </ul>
                     </div>
                 </li>
@@ -143,18 +138,13 @@
                     <div class="collapse" id="employee">
                         <ul class="nav nav-collapse">
                             <li>
-                                <a href="components/avatars.html">
+                                <a href="?page=employee">
                                     <span class="sub-item">รายชื่อทั้งหมด</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="components/buttons.html">
                                     <span class="sub-item">รายละเอียด</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="components/gridsystem.html">
-                                    <span class="sub-item">Grid System</span>
                                 </a>
                             </li>
                         </ul>

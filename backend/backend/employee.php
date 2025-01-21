@@ -1,15 +1,15 @@
 <div class="container">
   <div class="page-inner">
     <div class="page-header">
-      <h3 class="fw-bold mb-3">ลูกค้า</h3>
+      <h3 class="fw-bold mb-3">พนักงาน</h3>
     </div>
     <div class="col-md-12">
       <div class="card">
         <div class="card-header">
           <div class="d-flex align-items-center">
-            <h4 class="card-title">รายชื่อลูกค้าทั้งหมด</h4>
+            <h4 class="card-title">รายชื่อพนักงาน</h4>
             <button data-toggle="modal" data-target="#IModal"
-              onclick="customerModalForm('เพิ่มลูกค้า')" type="button"
+              onclick="employeeModalForm('เพิ่มพนักงาน')" type="button"
               class="btn btn-primary btn-round ms-auto">
               <i class="fa fa-plus"></i>
               เพิ่มรายการ
@@ -38,7 +38,7 @@
                     class="form-control" style="height: 28px; font-size: 10pt; width: 150px;">
                   <button class="btn btn-primary" id="btnSearch"
                     style="height: 28px; font-size: 10pt; margin-left: 4px; padding: 2px 8px;"
-                    onclick="customerList(page)">ค้นหา</button>
+                    onclick="employeeList(page)">ค้นหา</button>
                   <button class="btn btn-warning" id="btnClear" onclick="clearSearch();"
                     style="height: 28px; margin-left: 4px; padding: 2px 8px;" hidden>
                     <i class="fas fa-times-circle" style="color:#fff; font-size: 12pt;"></i>
@@ -48,13 +48,13 @@
             </div>
           </div>
         </div>
-        <div class="card-body" id="customerTables"></div>
+        <div class="card-body" id="employeeTables"></div>
       </div>
     </div>
   </div>
 </div>
 
 <?php
-include('customers/customer-action.php');
+include('employees/employee-action.php');
 $conn->close();
 ?>

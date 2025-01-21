@@ -2,7 +2,10 @@
 require_once('../includes/conn.php');
 
 $id = $_POST['id'];
-$sql = "SELECT * FROM courses INNER JOIN course_categories WHERE courses.course_cats_id = course_categories.course_cats_id AND course_id = '$id'";
+$sql = "SELECT * FROM courses 
+        INNER JOIN course_categories 
+        ON courses.course_cats_id = course_categories.course_cats_id 
+        WHERE course_id = '$id'";
 $result = $conn->query($sql);
 $row = $result->fetch_assoc();
 ?>

@@ -33,10 +33,10 @@ if (!isset($_SESSION['user_id'])) {
             include "course.php";
          } else if ($page == 'course-categories') {
             include "course-categories.php";
-         } else if ($page == '') {
-            include ".php";
          } else if ($page == 'customer') {
             include "customer.php";
+         } else if ($page == 'employee') {
+            include "employee.php";
          } else if ($page == '404') {
             include "404.php";
          }
