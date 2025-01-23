@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jan 20, 2025 at 08:30 AM
+-- Generation Time: Jan 21, 2025 at 11:56 AM
 -- Server version: 8.0.17
 -- PHP Version: 7.3.10
 
@@ -248,8 +248,39 @@ INSERT INTO `customers` (`customer_id`, `customer_fname`, `customer_lname`, `cus
 (97, 'User96', 'Last96', 'user96@example.com', '2153736950', '819 Street', 'RandomCity', 'RandomCountry', '2025-01-04 23:10:28'),
 (98, 'User97', 'Last97', 'user97@example.com', '4538158489', '808 Street', 'RandomCity', 'RandomCountry', '2025-01-04 23:10:28'),
 (99, 'User98', 'Last98', 'user98@example.com', '6841381515', '992 Street', 'RandomCity', 'RandomCountry', '2025-01-04 23:10:28'),
-(100, 'User99', 'Last99', 'user99@example.com', '9142825146', '590 Street', 'RandomCity', 'RandomCountry', '2025-01-04 23:10:28'),
 (101, 'ศุภกฤต', 'บรรจงดัด', 'test@gmail.com', '0930000000', 'testaddress', 'testcity', 'testcountry', '2025-01-04 23:20:44');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `employees`
+--
+
+CREATE TABLE `employees` (
+  `employee_id` int(11) NOT NULL,
+  `employee_fname` varchar(50) NOT NULL,
+  `employee_lname` varchar(50) NOT NULL,
+  `employee_position` varchar(50) NOT NULL,
+  `employee_phone` varchar(15) DEFAULT NULL,
+  `employee_email` varchar(100) DEFAULT NULL,
+  `employee_hire_date` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `employees`
+--
+
+INSERT INTO `employees` (`employee_id`, `employee_fname`, `employee_lname`, `employee_position`, `employee_phone`, `employee_email`, `employee_hire_date`) VALUES
+(1, 'สุภาวดี', 'เกตุแก้ว', 'Therapist', '0811234567', 'supawadee.k@example.com', '2023-01-15'),
+(2, 'ณัฐธิดา', 'วงษ์ไทย', 'Receptionist', '0823456789', 'nattida.w@example.com', '2022-06-10'),
+(3, 'ปวีณา', 'ชูจิตต์', 'Spa Manager', '0819876543', 'paveena.c@example.com', '2021-11-25'),
+(4, 'ชลธิชา', 'สมใจ', 'Therapist', '0834567890', 'cholticha.s@example.com', '2023-03-05'),
+(5, 'วิไลลักษณ์', 'พิมพ์ทอง', 'Housekeeper', '0845678901', 'wilailak.p@example.com', '2022-09-18'),
+(6, 'กิตติ', 'ชาญชัย', 'Maintenance Staff', '0856789012', 'kitti.c@example.com', '2021-08-12'),
+(7, 'ศิรินทิพย์', 'ศรีสุข', 'Therapist', '0867890123', 'sirintip.s@example.com', '2023-04-22'),
+(8, 'พงษ์ศักดิ์', 'แสงดาว', 'Massage Specialist', '0878901234', 'pongsak.s@example.com', '2022-01-30'),
+(9, 'อมรเทพ', 'กาญจนา', 'Receptionist', '0889012345', 'amorntep.k@example.com', '2021-07-05'),
+(10, 'จันทร์จิรา', 'บุญเกิด', 'Spa Trainer', '0890123456', 'chanthira.b@example.com', '2023-02-10');
 
 -- --------------------------------------------------------
 
@@ -335,6 +366,12 @@ ALTER TABLE `customers`
   ADD UNIQUE KEY `email` (`customer_email`);
 
 --
+-- Indexes for table `employees`
+--
+ALTER TABLE `employees`
+  ADD PRIMARY KEY (`employee_id`);
+
+--
 -- Indexes for table `services`
 --
 ALTER TABLE `services`
@@ -373,6 +410,12 @@ ALTER TABLE `course_categories`
 --
 ALTER TABLE `customers`
   MODIFY `customer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=102;
+
+--
+-- AUTO_INCREMENT for table `employees`
+--
+ALTER TABLE `employees`
+  MODIFY `employee_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `services`
