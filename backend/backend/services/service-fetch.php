@@ -16,7 +16,7 @@ $keyword = $_POST['keyword'];
 require_once('../includes/conn.php');
 
 if (!empty($keyword)) {
-    $sql = "SELECT * FROM services INNER JOIN categories WHERE services.cats_id = categories.cats_id AND service_name LIKE '%{$keyword}%' ORDER BY service_id DESC LIMIT $start, $perPage";
+    $sql = "SELECT * FROM services INNER JOIN categories WHERE services.cats_id = categories.cats_id AND service_code LIKE '%{$keyword}%' OR service_name LIKE '%{$keyword}%' ORDER BY service_id DESC LIMIT $start, $perPage";
 } else {
     $sql = "SELECT * FROM services INNER JOIN categories WHERE services.cats_id = categories.cats_id ORDER BY service_id DESC LIMIT $start, $perPage";
 }
