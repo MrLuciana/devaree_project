@@ -15,9 +15,9 @@ $keyword = $_POST['keyword'];
 require_once('../includes/conn.php');
 
 if (!empty($keyword)) {
-    $sql = "SELECT * FROM service_categories WHERE service_cats_name LIKE '%{$keyword}%' ORDER BY service_cats_id DESC LIMIT $start, $perPage";
+    $sql = "SELECT * FROM categories WHERE cats_name LIKE '%{$keyword}%' ORDER BY cats_id DESC LIMIT $start, $perPage";
 } else {
-    $sql = "SELECT * FROM service_categories ORDER BY service_cats_id DESC LIMIT $start, $perPage";
+    $sql = "SELECT * FROM categories ORDER BY cats_id DESC LIMIT $start, $perPage";
 }
 
 $result = $conn->query($sql);
@@ -27,9 +27,8 @@ if ($result->num_rows > 0) { ?>
         <table id="basic-datatables" class="display table table-striped table-hover">
             <thead>
                 <tr>
-                    <th scope="col" style="width: 5%;">#</th>
-                    <th scope="col" style="width: 15%;">ชื่อบริการ</th>
-                    <th scope="col" style="width: 30%;">รายละเอียด</th>
+                    <th scope="col" style="width: 1%;">#</th>
+                    <th scope="col" style="width: 50%;">ชื่อบริการ</th>
                     <th scope="col" style="width: 5%;">สถานะ</th>
                     <th scope="col" style="width: 15%;">จัดการ</th>
                 </tr>
@@ -40,25 +39,24 @@ if ($result->num_rows > 0) { ?>
                 while ($row = $result->fetch_assoc()) { ?>
                     <tr>
                         <td><?php echo htmlspecialchars($i = $i + 1); ?></td>
-                        <td><?php echo htmlspecialchars($row["service_cats_name"]); ?></td>
-                        <td><?php echo htmlspecialchars($row["service_cats_description"]); ?></td>
+                        <td><?php echo htmlspecialchars($row["cats_name"]); ?></td>
                         <td>
-                            <?php $status = $row['service_cats_status']; ?>
-                            <button id="statusButton<?php echo $row['service_cats_id']; ?>"
+                            <?php $status = $row['cats_status']; ?>
+                            <button id="statusButton<?php echo $row['cats_id']; ?>"
                                 class="btn btn-<?php echo $status ? 'success' : 'danger'; ?> btn-sm"
-                                onclick="toggleStatus(<?php echo $row['service_cats_id']; ?>, <?php echo $status ? 'false' : 'true'; ?>)">
+                                onclick="toggleStatus(<?php echo $row['cats_id']; ?>, <?php echo $status ? 'false' : 'true'; ?>)">
                                 <?php echo $status ? 'เปิด' : 'ปิด'; ?>
                             </button>
                         </td>
                         <td>
-                            <button data-toggle="modal" data-target="#IModal" class="btn btn-primary btn-sm" onclick="service_catsModalEdit('<?php echo $row['service_cats_id']; ?>','แก้ไขข้อมูล');">แก้ไข</button>
-                            <button class="btn btn-danger btn-sm" onclick="service_catsModalDelete('<?php echo $row['service_cats_id']; ?>');">ลบ</button>
+                            <button data-toggle="modal" data-target="#IModal" class="btn btn-primary btn-sm" onclick="catsModalEdit('<?php echo $row['cats_id']; ?>','แก้ไขข้อมูล');">แก้ไข</button>
+                            <button class="btn btn-danger btn-sm" onclick="catsModalDelete('<?php echo $row['cats_id']; ?>');">ลบ</button>
                         </td>
                     </tr><?php } ?>
             </tbody>
         </table>
         <?php
-        $sql = "SELECT * FROM service_categories ORDER BY service_cats_id DESC";
+        $sql = "SELECT * FROM categories ORDER BY cats_id DESC";
         $fetch_query = $conn->query($sql);
         $total_record = mysqli_num_rows($fetch_query);
         $total_page = ceil($total_record / $perPage);

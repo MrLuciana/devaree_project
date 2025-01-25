@@ -1,12 +1,12 @@
 <?php
 require_once '../includes/conn.php'; // เชื่อมต่อฐานข้อมูล
 
-$service_cats_id = $_POST['service_cats_id'];
+$cats_id = $_POST['cats_id'];
 $new_status = $_POST['status'];
 
 // สร้างคำสั่ง SQL
-$stmt = $conn->prepare("UPDATE service_categories SET service_cats_status = ? WHERE service_cats_id = ?");
-$stmt->bind_param("ii", $new_status, $service_cats_id);
+$stmt = $conn->prepare("UPDATE categories SET cats_status = ? WHERE cats_id = ?");
+$stmt->bind_param("ii", $new_status, $cats_id);
 
 // ดำเนินการคำสั่ง SQL
 if ($stmt->execute() === TRUE) {
