@@ -143,57 +143,60 @@
 
     // ฟังก์ชันเพิ่มบริการ
     function serviceAdd() {
-        var code = $('#code').val().trim();
-        var name = $('#name').val().trim();
-        var price1 = $('#price1').val().trim();
-        var price2 = $('#price2').val().trim();
-        var price3 = $('#price3').val().trim();
-        var cats_id = $('#cats_id').val();
-        var description = $('#description').val().trim();
-        $.ajax({
-            url: "./services/service-add.php",
-            type: 'POST',
-            data: {
-                code: code,
-                name: name,
-                price1: price1,
-                price2: price2,
-                price3: price3,
-                cats_id: cats_id,
-                description: description,
-            },
-            dataType: "json", // บอกว่าเราคาดหวัง JSON กลับมา
-            success: function(response) {
+    var code = $('#code').val().trim();
+    var name = $('#name').val().trim();
+    var price1 = $('#price1').is(':disabled') ? null : $('#price1').val().trim();
+    var price2 = $('#price2').is(':disabled') ? null : $('#price2').val().trim();
+    var price3 = $('#price3').is(':disabled') ? null : $('#price3').val().trim();
+    var cats_id = $('#cats_id').val();
+    var description = $('#description').val().trim();
 
-                if (response.status === "success") {
-                    Swal.fire({
-                        icon: "success",
-                        title: "สำเร็จ!",
-                        text: response.message,
-                        showConfirmButton: false,
-                        timer: 500
-                    }).then(() => {
-                        serviceList();
-                    });
-                } else {
-                    Swal.fire({
-                        icon: "error",
-                        title: "เกิดข้อผิดพลาด!",
-                        text: response.message,
-                        confirmButtonText: "ตกลง"
-                    });
-                }
-            },
-            error: function() {
+    $.ajax({
+        url: "./services/service-add.php",
+        type: 'POST',
+        data: {
+            code: code,
+            name: name,
+            price1: price1,
+            price2: price2,
+            price3: price3,
+            cats_id: cats_id,
+            description: description,
+        },
+        dataType: "json",
+        success: function(response) {
+            if (response.status === "success") {
+                Swal.fire({
+                    icon: "success",
+                    title: "สำเร็จ!",
+                    text: response.message,
+                    showConfirmButton: false,
+                    timer: 1500 // เพิ่มเวลาให้นานขึ้น
+                }).then(() => {
+                    if (typeof serviceList === 'function') {
+                        serviceList(); // ตรวจสอบว่าฟังก์ชันมีอยู่จริง
+                    }
+                });
+            } else {
                 Swal.fire({
                     icon: "error",
                     title: "เกิดข้อผิดพลาด!",
-                    text: "ไม่สามารถบันทึกข้อมูลได้ กรุณาลองใหม่อีกครั้ง",
+                    text: response.message,
                     confirmButtonText: "ตกลง"
                 });
             }
-        });
-    }
+        },
+        error: function(xhr, status, error) {
+            Swal.fire({
+                icon: "error",
+                title: "เกิดข้อผิดพลาด!",
+                text: `ไม่สามารถบันทึกข้อมูลได้ (${xhr.status}: ${xhr.statusText})`,
+                confirmButtonText: "ตกลง"
+            });
+        }
+    });
+}
+
 
     // ฟังก์ชันแก้ไขบริการ
     function serviceUpdate(id) {
