@@ -16,5 +16,5 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
 // ตรวจสอบการเชื่อมต่อ
 if (!$conn) {
     error_log("Connection failed: " . mysqli_connect_error()); // บันทึกข้อผิดพลาดลงไฟล์ log
-    exit("Connection failed, please check the logs."); // แสดงข้อความทั่วไปในโปรดักชั่น
+    exit("Connection failed, please check the logs." . mysqli_connect_error()); // แสดงข้อความทั่วไปในโปรดักชั่น
 }

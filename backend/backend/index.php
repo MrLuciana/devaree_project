@@ -27,12 +27,10 @@ if (!isset($_SESSION['user_id'])) {
             include "home.php";
          } else if ($page == 'service') {
             include "service.php";
-         } else if ($page == 'service-categories') {
-            include "service-categories.php";
          } else if ($page == 'course') {
             include "course.php";
-         } else if ($page == 'course-categories') {
-            include "course-categories.php";
+         } else if ($page == 'categories') {
+            include "categories.php";
          } else if ($page == 'customer') {
             include "customer.php";
          } else if ($page == 'employee') {

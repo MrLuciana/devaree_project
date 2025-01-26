@@ -62,14 +62,14 @@
                         </ul>
                     </div>
                 </li>
-                <!-- บริการ -->
+                <!-- บริการ & คอร์ส-->
                 <li class="nav-item">
-                    <a data-bs-toggle="collapse" href="#service">
+                    <a data-bs-toggle="collapse" href="#product">
                         <i class="fas fa-book-open"></i>
-                        <p>บริการ</p>
+                        <p>บริการ & คอร์ส</p>
                         <span class="caret"></span>
                     </a>
-                    <div class="collapse" id="service">
+                    <div class="collapse" id="product">
                         <ul class="nav nav-collapse">
                             <li>
                                 <a href="?page=service">
@@ -77,29 +77,12 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="?page=service-categories">
-                                    <span class="sub-item">หมวดหมู่</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-                <!-- คอร์ส -->
-                <li class="nav-item">
-                    <a data-bs-toggle="collapse" href="#course">
-                        <i class="fas fa-suitcase"></i>
-                        <p>คอร์ส</p>
-                        <span class="caret"></span>
-                    </a>
-                    <div class="collapse" id="course">
-                        <ul class="nav nav-collapse">
-                            <li>
                                 <a href="?page=course">
                                     <span class="sub-item">คอร์ส</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="?page=course-categories">
+                                <a href="?page=categories">
                                     <span class="sub-item">หมวดหมู่</span>
                                 </a>
                             </li>

@@ -127,7 +127,6 @@
         var keyword = $('#keyWord').val();
         var perPage = document.getElementById("perPage").value;
 
-
         $.ajax({
             type: "POST",
             data: {
@@ -144,17 +143,23 @@
 
     // ฟังก์ชันเพิ่มบริการ
     function serviceAdd() {
+        var code = $('#code').val().trim();
         var name = $('#name').val().trim();
-        var price = $('#price').val().trim();
-        var service_cats_id = $('#service_cats_id').val();
+        var price1 = $('#price1').val().trim();
+        var price2 = $('#price2').val().trim();
+        var price3 = $('#price3').val().trim();
+        var cats_id = $('#cats_id').val();
         var description = $('#description').val().trim();
         $.ajax({
             url: "./services/service-add.php",
             type: 'POST',
             data: {
+                code: code,
                 name: name,
-                price: price,
-                service_cats_id: service_cats_id,
+                price1: price1,
+                price2: price2,
+                price3: price3,
+                cats_id: cats_id,
                 description: description,
             },
             dataType: "json", // บอกว่าเราคาดหวัง JSON กลับมา
@@ -192,18 +197,24 @@
 
     // ฟังก์ชันแก้ไขบริการ
     function serviceUpdate(id) {
+        var code = $('#code').val().trim();
         var name = $('#name').val().trim();
-        var price = $('#price').val().trim();
-        var service_cats_id = $('#service_cats_id').val();
+        var price1 = $('#price1').val().trim();
+        var price2 = $('#price2').val().trim();
+        var price3 = $('#price3').val().trim();
+        var cats_id = $('#cats_id').val();
         var description = $('#description').val().trim();
         $.ajax({
             url: "./services/service-update.php",
             type: 'POST',
             data: {
                 id: id,
+                code: code,
                 name: name,
-                price: price,
-                service_cats_id: service_cats_id,
+                price1: price1,
+                price2: price2,
+                price3: price3,
+                cats_id: cats_id,
                 description: description,
             },
             success: function(response) {
