@@ -47,16 +47,25 @@ $newServiceCode = 'SERV' . $newNumberPart;
 
     <div class="row mt-3 mb-3">
         <div class="col">
+            <label>
+                <input type="checkbox" id="enablePrice1" onchange="toggleInput('price1', this.checked)">
+            </label>
             <label for="price1">ราคา (1 ชม.)</label>
-            <input onkeyup="checkNull();" type="number" id="price1" class="form-control">
+            <input onkeyup="checkNull();" type="number" id="price1" class="form-control" disabled>
         </div>
         <div class="col">
+            <label>
+                <input type="checkbox" id="enablePrice2" onchange="toggleInput('price2', this.checked)">
+            </label>
             <label for="price2">ราคา (2 ชม.)</label>
-            <input onkeyup="checkNull();" type="number" id="price2" class="form-control">
+            <input onkeyup="checkNull();" type="number" id="price2" class="form-control" disabled>
         </div>
         <div class="col">
+            <label>
+                <input type="checkbox" id="enablePrice3" onchange="toggleInput('price3', this.checked)">
+            </label>
             <label for="price3">ราคา (3 ชม.)</label>
-            <input onkeyup="checkNull();" type="number" id="price3" class="form-control">
+            <input onkeyup="checkNull();" type="number" id="price3" class="form-control" disabled>
         </div>
     </div>
 
@@ -82,29 +91,45 @@ $newServiceCode = 'SERV' . $newNumberPart;
     function checkNull() {
         const code = document.getElementById('code').value.trim();
         const name = document.getElementById('name').value.trim();
-        const price1 = parseFloat(document.getElementById('price1').value.trim());
-        const price2 = parseFloat(document.getElementById('price2').value.trim());
-        const price3 = parseFloat(document.getElementById('price3').value.trim());
         const description = document.getElementById('description').value.trim();
         const cats_id = document.getElementById('cats_id').value.trim();
+
+        const price1 = document.getElementById('price1').disabled ? true : parseFloat(document.getElementById('price1').value.trim()) > 0;
+        const price2 = document.getElementById('price2').disabled ? true : parseFloat(document.getElementById('price2').value.trim()) > 0;
+        const price3 = document.getElementById('price3').disabled ? true : parseFloat(document.getElementById('price3').value.trim()) > 0;
+
         const btnSubmit = document.getElementById('btnSubmit');
 
-        if (code && name && price1 > 0 && price2 > 0 && price3 > 0 && description && cats_id) {
+        if (code && name && description && cats_id && price1 && price2 && price3) {
             btnSubmit.disabled = false;
         } else {
             btnSubmit.disabled = true;
         }
     }
 
+    function toggleInput(inputId, isEnabled) {
+        const input = document.getElementById(inputId);
+        input.disabled = !isEnabled;
+        if (!isEnabled) {
+            input.value = ""; // รีเซ็ตค่าเมื่อปิด
+        }
+    }
 
     function clearForm() {
-        document.getElementById('code').value = "";
         document.getElementById('name').value = "";
         document.getElementById('price1').value = "";
         document.getElementById('price2').value = "";
         document.getElementById('price3').value = "";
         document.getElementById('description').value = "";
         document.getElementById('cats_id').value = "";
+
+        document.getElementById('enablePrice1').checked = false;
+        document.getElementById('enablePrice2').checked = false;
+        document.getElementById('enablePrice3').checked = false;
+
+        toggleInput('price1', false);
+        toggleInput('price2', false);
+        toggleInput('price3', false);
 
         document.getElementById('btnSubmit').disabled = true;
     }

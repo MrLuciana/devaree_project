@@ -32,7 +32,7 @@ if ($result->num_rows > 0) { ?>
                     <th scope="col" style="width: 10%;">ราคา (1 ชม.)</th>
                     <th scope="col" style="width: 10%;">ราคา (2 ชม.)</th>
                     <th scope="col" style="width: 10%;">ราคา (3 ชม.)</th>
-                    <th scope="col" style="width: 10%;">หมวดหมู่</th>
+                    <th scope="col" style="width: 8%;">หมวดหมู่</th>
                     <th scope="col" style="width: 5%;">สถานะ</th>
                     <th scope="col" style="width: 15%;">จัดการ</th>
                 </tr>
