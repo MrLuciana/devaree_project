@@ -171,7 +171,7 @@
                         title: "สำเร็จ!",
                         text: response.message,
                         showConfirmButton: false,
-                        timer: 1500 // เพิ่มเวลาให้นานขึ้น
+                        timer: 500 // เพิ่มเวลาให้นานขึ้น
                     }).then(() => {
                         if (typeof serviceList === 'function') {
                             serviceList(); // ตรวจสอบว่าฟังก์ชันมีอยู่จริง
@@ -220,10 +220,37 @@
                 cat_id: cat_id,
                 description: description,
             },
+            dataType: "json", // ระบุว่ารับค่า JSON กลับมา
             success: function(response) {
-                serviceList();
+                if (response.status === "success") {
+                    Swal.fire({
+                        icon: "success",
+                        title: "อัปเดตสำเร็จ!",
+                        text: response.message,
+                        showConfirmButton: false,
+                        timer: 500
+                    }).then(() => {
+                        serviceList(); // โหลดข้อมูลใหม่
+                    });
+                } else {
+                    Swal.fire({
+                        icon: "error",
+                        title: "เกิดข้อผิดพลาด!",
+                        text: response.message,
+                        confirmButtonText: "ตกลง"
+                    });
+                }
+            },
+            error: function(xhr, status, error) {
+                Swal.fire({
+                    icon: "error",
+                    title: "เกิดข้อผิดพลาด!",
+                    text: `ไม่สามารถอัปเดตข้อมูลได้ (${xhr.status}: ${xhr.statusText})`,
+                    confirmButtonText: "ตกลง"
+                });
             }
         });
+
     }
 
     // ฟังก์ชัน Toggle สถานะ

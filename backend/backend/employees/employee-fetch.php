@@ -17,15 +17,15 @@ require_once('../includes/conn.php');
 
 if (!empty($keyword)) {
     $sql = "SELECT * FROM employees 
-            WHERE employee_fname LIKE '%{$keyword}%' 
-            OR employee_lname LIKE '%{$keyword}%'
-            OR employee_position LIKE '%{$keyword}%'
-            OR employee_email LIKE '%{$keyword}%' 
-            OR employee_phone LIKE '%{$keyword}%' 
-            ORDER BY employee_id DESC 
+            WHERE emp_fname LIKE '%{$keyword}%' 
+            OR emp_lname LIKE '%{$keyword}%'
+            OR emp_gender LIKE '%{$keyword}%'
+            OR emp_email LIKE '%{$keyword}%' 
+            OR emp_phone LIKE '%{$keyword}%' 
+            ORDER BY emp_id DESC 
             LIMIT $start, $perPage";
 } else {
-    $sql = "SELECT * FROM employees ORDER BY employee_id DESC LIMIT $start, $perPage";
+    $sql = "SELECT * FROM employees ORDER BY emp_id DESC LIMIT $start, $perPage";
 }
 
 $result = $conn->query($sql);
@@ -37,9 +37,10 @@ if ($result->num_rows > 0) { ?>
                 <tr>
                     <th scope="col" style="width: 5%;">#</th>
                     <th scope="col" style="width: 15%;">ชื่อ-สกุล</th>
-                    <th scope="col" style="width: 15%;">ตำแหน่ง</th>
+                    <th scope="col" style="width: 15%;">เพศ</th>
                     <th scope="col" style="width: 15%;">อีเมล</th>
                     <th scope="col" style="width: 15%;">เบอร์โทร</th>
+                    <th scope="col" style="width: 15%;">วันที่เริ่มงาน</th>
                     <th scope="col" style="width: 15%;">จัดการ</th>
                 </tr>
             </thead>
@@ -49,19 +50,29 @@ if ($result->num_rows > 0) { ?>
                 while ($row = $result->fetch_assoc()) { ?>
                     <tr>
                         <td><?php echo htmlspecialchars($i = $i + 1); ?></td>
-                        <td><?php echo htmlspecialchars($row["employee_fname"] . " " . $row["employee_lname"]); ?></td>
-                        <td><?php echo htmlspecialchars($row["employee_position"]); ?></td>
-                        <td><?php echo htmlspecialchars($row["employee_email"]); ?></td>
-                        <td><?php echo htmlspecialchars($row["employee_phone"]); ?></td>
+                        <td><?php echo htmlspecialchars($row["emp_fname"] . " " . $row["emp_lname"]); ?></td>
                         <td>
-                            <button data-toggle="modal" data-target="#IModal" class="btn btn-primary btn-sm" onclick="employeeModalEdit('<?php echo $row['employee_id']; ?>','แก้ไขข้อมูล');">แก้ไข</button>
-                            <button class="btn btn-danger btn-sm" onclick="employeeModalDelete('<?php echo $row['employee_id']; ?>');">ลบ</button>
+                            <?php
+                            $gender_map = [
+                                "male" => "ชาย",
+                                "female" => "หญิง",
+                                "other" => "อื่น ๆ"
+                            ];
+                            echo isset($gender_map[$row["emp_gender"]]) ? $gender_map[$row["emp_gender"]] : "ไม่ระบุ";
+                            ?>
+                        </td>
+                        <td><?php echo htmlspecialchars($row["emp_email"]); ?></td>
+                        <td><?php echo htmlspecialchars($row["emp_phone"]); ?></td>
+                        <td><?php echo htmlspecialchars($row["emp_hire_date"]); ?></td>
+                        <td>
+                            <button data-toggle="modal" data-target="#IModal" class="btn btn-primary btn-sm" onclick="employeeModalEdit('<?php echo $row['emp_id']; ?>','แก้ไขข้อมูล');">แก้ไข</button>
+                            <button class="btn btn-danger btn-sm" onclick="employeeModalDelete('<?php echo $row['emp_id']; ?>');">ลบ</button>
                         </td>
                     </tr><?php } ?>
             </tbody>
         </table>
         <?php
-        $sql = "SELECT * FROM employees ORDER BY employee_id DESC";
+        $sql = "SELECT * FROM employees ORDER BY emp_id DESC";
         $fetch_query = $conn->query($sql);
         $total_record = mysqli_num_rows($fetch_query);
         $total_page = ceil($total_record / $perPage);
