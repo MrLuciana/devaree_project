@@ -33,7 +33,7 @@ require_once('../includes/conn.php');
         </div>
         <div class="col">
             <label for="hire_date">วันที่เริ่มงาน:</label>
-            <input onchange="checkNull();" type="date" name="emp_hire_date" id="hire_date" class="form-control">
+            <input onchange="checkNull();" type="date" id="hire_date" class="form-control">
         </div>
     </div>
 </div>

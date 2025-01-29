@@ -17,16 +17,15 @@ require_once('../includes/conn.php');
 
 if (!empty($keyword)) {
     $sql = "SELECT * FROM customers 
-            WHERE customer_fname LIKE '%{$keyword}%' 
-            OR customer_lname LIKE '%{$keyword}%' 
-            OR customer_email LIKE '%{$keyword}%' 
-            OR customer_phone LIKE '%{$keyword}%' 
-            OR customer_address LIKE '%{$keyword}%' 
-            OR customer_city LIKE '%{$keyword}%' 
-            ORDER BY customer_id DESC 
+            WHERE cus_fname LIKE '%{$keyword}%' 
+            OR cus_lname LIKE '%{$keyword}%'
+            OR cus_gender LIKE '%{$keyword}%'
+            OR cus_email LIKE '%{$keyword}%' 
+            OR cus_phone LIKE '%{$keyword}%' 
+            ORDER BY cus_id DESC 
             LIMIT $start, $perPage";
 } else {
-    $sql = "SELECT * FROM customers ORDER BY customer_id DESC LIMIT $start, $perPage";
+    $sql = "SELECT * FROM customers ORDER BY cus_id DESC LIMIT $start, $perPage";
 }
 
 $result = $conn->query($sql);
@@ -38,10 +37,10 @@ if ($result->num_rows > 0) { ?>
                 <tr>
                     <th scope="col" style="width: 5%;">#</th>
                     <th scope="col" style="width: 15%;">ชื่อ-สกุล</th>
-                    <th scope="col" style="width: 30%;">อีเมล</th>
+                    <th scope="col" style="width: 15%;">เพศ</th>
+                    <th scope="col" style="width: 15%;">อีเมล</th>
                     <th scope="col" style="width: 15%;">เบอร์โทร</th>
-                    <th scope="col" style="width: 10%;">ที่อยู่</th>
-                    <th scope="col" style="width: 5%;">เมือง</th>
+                    <th scope="col" style="width: 15%;">วันที่เริ่มงาน</th>
                     <th scope="col" style="width: 15%;">จัดการ</th>
                 </tr>
             </thead>
@@ -51,20 +50,29 @@ if ($result->num_rows > 0) { ?>
                 while ($row = $result->fetch_assoc()) { ?>
                     <tr>
                         <td><?php echo htmlspecialchars($i = $i + 1); ?></td>
-                        <td><?php echo htmlspecialchars($row["customer_fname"] . " " . $row["customer_lname"]); ?></td>
-                        <td><?php echo htmlspecialchars($row["customer_email"]); ?></td>
-                        <td><?php echo htmlspecialchars($row["customer_phone"]); ?></td>
-                        <td><?php echo htmlspecialchars($row["customer_address"]); ?></td>
-                        <td><?php echo htmlspecialchars($row["customer_city"]); ?></td>
+                        <td><?php echo htmlspecialchars($row["cus_fname"] . " " . $row["cus_lname"]); ?></td>
                         <td>
-                            <button data-toggle="modal" data-target="#IModal" class="btn btn-primary btn-sm" onclick="customerModalEdit('<?php echo $row['customer_id']; ?>','แก้ไขข้อมูล');">แก้ไข</button>
-                            <button class="btn btn-danger btn-sm" onclick="customerModalDelete('<?php echo $row['customer_id']; ?>');">ลบ</button>
+                            <?php
+                            $gender_map = [
+                                "male" => "ชาย",
+                                "female" => "หญิง",
+                                "other" => "อื่น ๆ"
+                            ];
+                            echo isset($gender_map[$row["cus_gender"]]) ? $gender_map[$row["cus_gender"]] : "ไม่ระบุ";
+                            ?>
+                        </td>
+                        <td><?php echo htmlspecialchars($row["cus_email"]); ?></td>
+                        <td><?php echo htmlspecialchars($row["cus_phone"]); ?></td>
+                        <td><?php echo htmlspecialchars($row["cus_hire_date"]); ?></td>
+                        <td>
+                            <button data-toggle="modal" data-target="#IModal" class="btn btn-primary btn-sm" onclick="customerModalEdit('<?php echo $row['cus_id']; ?>','แก้ไขข้อมูล');">แก้ไข</button>
+                            <button class="btn btn-danger btn-sm" onclick="customerModalDelete('<?php echo $row['cus_id']; ?>');">ลบ</button>
                         </td>
                     </tr><?php } ?>
             </tbody>
         </table>
         <?php
-        $sql = "SELECT * FROM customers ORDER BY customer_id DESC";
+        $sql = "SELECT * FROM customers ORDER BY cus_id DESC";
         $fetch_query = $conn->query($sql);
         $total_record = mysqli_num_rows($fetch_query);
         $total_page = ceil($total_record / $perPage);
