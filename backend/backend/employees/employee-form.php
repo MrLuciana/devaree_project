@@ -12,6 +12,15 @@ require_once('../includes/conn.php');
             <label for="lname">นามสกุล</label>
             <input onkeyup="checkNull();" type="text" id="lname" class="form-control">
         </div>
+        <div class="col">
+            <label for="gender">เลือกเพศ:</label>
+            <select onchange="checkNull();" id="gender" class="form-control">
+                <option value="">-- กรุณาเลือก --</option>
+                <option value="male">ชาย</option>
+                <option value="female">หญิง</option>
+                <option value="other">อื่น ๆ</option>
+            </select>
+        </div>
     </div>
     <div class="row">
         <div class="col">
@@ -23,11 +32,10 @@ require_once('../includes/conn.php');
             <input onkeyup="checkNull();" type="text" id="phone" class="form-control">
         </div>
         <div class="col">
-            <label for="position">ตำแหน่ง</label>
-            <input onkeyup="checkNull();" type="text" id="position" class="form-control">
+            <label for="hire_date">วันที่เริ่มงาน:</label>
+            <input onchange="checkNull();" type="date" name="emp_hire_date" id="hire_date" class="form-control">
         </div>
     </div>
-
 </div>
 
 <div class="modal-footer">
@@ -45,9 +53,10 @@ require_once('../includes/conn.php');
         const lname = document.getElementById('lname').value.trim();
         const email = document.getElementById('email').value.trim();
         const phone = document.getElementById('phone').value.trim();
-        const position = document.getElementById('position').value.trim();
+        const gender = document.getElementById('gender').value
+        const hire_date = document.getElementById('hire_date').value
 
-        if (fname && lname && email && phone && position) {
+        if (fname && lname && email && phone && gender && hire_date) {
             document.getElementById('btnSubmit').disabled = false;
         } else {
             document.getElementById('btnSubmit').disabled = true;
@@ -59,8 +68,9 @@ require_once('../includes/conn.php');
         document.getElementById('lname').value = "";
         document.getElementById('email').value = "";
         document.getElementById('phone').value = "";
-        document.getElementById('position').value = "";
+        document.getElementById('gender').value = "";
+        document.getElementById('hire_date').value = "";
 
-        document.getElementById('btnSubmit').disabled = true;
+        checkNull();
     }
 </script>

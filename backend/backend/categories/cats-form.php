@@ -12,7 +12,7 @@ require_once('../includes/conn.php');
 </div>
 
 <div class="modal-footer">
-    <button onclick="catsAdd();" id="btnSubmit" data-bs-dismiss="modal" disabled class="btn btn-primary" style="font-size:12pt;width:150px;">
+    <button onclick="catAdd();" id="btnSubmit" data-bs-dismiss="modal" disabled class="btn btn-primary" style="font-size:12pt;width:150px;">
         บันทึกรายการ
     </button>
     <button class="btn btn-light" onclick="clearForm();" style="font-size:12pt;width:100px;">

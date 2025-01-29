@@ -14,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $id = $conn->real_escape_string($id);
 
     // ตรวจสอบว่ามีข้อมูลนี้อยู่หรือไม่
-    $checkSql = "SELECT * FROM services WHERE service_id = '$id'";
+    $checkSql = "SELECT * FROM services WHERE ser_id = '$id'";
     $checkResult = $conn->query($checkSql);
     if ($checkResult->num_rows == 0) {
         echo json_encode(["status" => "error", "message" => "ไม่พบข้อมูลที่ต้องการลบ"]);
@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // คำสั่งลบข้อมูล
-    $sql = "DELETE FROM services WHERE service_id = '$id'";
+    $sql = "DELETE FROM services WHERE ser_id = '$id'";
 
     if ($conn->query($sql) === TRUE) {
         echo json_encode(["status" => "success", "message" => "ลบข้อมูลสำเร็จ"]);

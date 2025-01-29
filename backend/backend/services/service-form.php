@@ -2,11 +2,11 @@
 require_once('../includes/conn.php');
 
 // ดึงรหัสล่าสุด
-$sql = "SELECT service_code FROM services ORDER BY service_code DESC LIMIT 1";
+$sql = "SELECT ser_code FROM services ORDER BY ser_code DESC LIMIT 1";
 $stmt = $conn->prepare($sql);
 $stmt->execute();
 $result = $stmt->get_result();
-$lastCode = $result->fetch_assoc()['service_code'] ?? 'SERV000'; // ถ้าไม่มีรหัสใช้ค่าเริ่มต้น
+$lastCode = $result->fetch_assoc()['ser_code'] ?? 'SERV000'; // ถ้าไม่มีรหัสใช้ค่าเริ่มต้น
 $stmt->close();
 
 // สร้างรหัสใหม่
@@ -28,16 +28,16 @@ $newServiceCode = 'SERV' . $newNumberPart;
             <input onkeyup="checkNull();" type="text" id="name" class="form-control">
         </div>
         <div class="col">
-            <label for="cats_id">หมวดหมู่</label>
-            <select id="cats_id" class="form-control">
+            <label for="cat_id">หมวดหมู่</label>
+            <select id="cat_id" class="form-control">
                 <?php
-                $sql = "SELECT * FROM categories WHERE cats_status = '1'";
+                $sql = "SELECT * FROM categories";
                 $stmt = $conn->prepare($sql);
                 $stmt->execute();
                 $result = $stmt->get_result();
 
                 while ($row = $result->fetch_assoc()) {
-                    echo "<option value='" . htmlspecialchars($row['cats_id']) . "'>" . htmlspecialchars($row['cats_name']) . "</option>";
+                    echo "<option value='" . htmlspecialchars($row['cat_id']) . "'>" . htmlspecialchars($row['cat_name']) . "</option>";
                 }
                 $stmt->close();
                 ?>
@@ -92,7 +92,7 @@ $newServiceCode = 'SERV' . $newNumberPart;
         const code = document.getElementById('code').value.trim();
         const name = document.getElementById('name').value.trim();
         const description = document.getElementById('description').value.trim();
-        const cats_id = document.getElementById('cats_id').value.trim();
+        const cat_id = document.getElementById('cat_id').value.trim();
 
         const price1 = document.getElementById('price1').disabled ? true : parseFloat(document.getElementById('price1').value.trim()) > 0;
         const price2 = document.getElementById('price2').disabled ? true : parseFloat(document.getElementById('price2').value.trim()) > 0;
@@ -100,7 +100,7 @@ $newServiceCode = 'SERV' . $newNumberPart;
 
         const btnSubmit = document.getElementById('btnSubmit');
 
-        if (code && name && description && cats_id && price1 && price2 && price3) {
+        if (code && name && description && cat_id && price1 && price2 && price3) {
             btnSubmit.disabled = false;
         } else {
             btnSubmit.disabled = true;
@@ -121,7 +121,7 @@ $newServiceCode = 'SERV' . $newNumberPart;
         document.getElementById('price2').value = "";
         document.getElementById('price3').value = "";
         document.getElementById('description').value = "";
-        document.getElementById('cats_id').value = "";
+        document.getElementById('cat_id').value = "";
 
         document.getElementById('enablePrice1').checked = false;
         document.getElementById('enablePrice2').checked = false;

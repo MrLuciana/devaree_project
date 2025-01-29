@@ -41,7 +41,6 @@
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="./assets/js/core/jquery-3.7.1.min.js"></script>
 
-  // ปุ่มเปลี่ยนจํานวนแสดงแถว
   <style>
     #perPage {
       width: 50px;

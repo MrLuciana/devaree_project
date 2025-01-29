@@ -1,23 +1,23 @@
 <script>
     var page;
     $(document).ready(function() {
-        courseList(page);
+        catList(page);
     })
 
     $("#keyWord").keyup(function(event) {
         if (event.keyCode === 13) {
-            courseList(page);
+            catList(page);
         }
     });
 
     // กําหนดหน้า
     $(document).on("click", ".pagination a", function() {
         page = $(this).attr('id')
-        courseList(page);
+        catList(page);
     });
     // เปลี่ยนข้อมูลแต่ละหน้า
     $("#perPage").change(function() {
-        courseList();
+        catList();
     })
 
     function checkKeyWord() {
@@ -33,15 +33,15 @@
     function clearSearch() {
         document.getElementById('btnClear').hidden = true;
         document.getElementById('keyWord').value = "";
-        courseList(page);
+        catList(page);
     }
 
     //=========== Modal Function ===========//
     // ฟอร์มบริการ
-    function courseModalForm(title) {
+    function catModalForm(title) {
         document.getElementById('ModalTitle').innerHTML = title;
         $.ajax({
-            url: "./courses/course-form.php",
+            url: "./categories/cat-form.php",
             type: "GET",
             success: function(data) {
                 $('#IModal .modal-body').html(data);
@@ -54,10 +54,10 @@
     }
 
     // ฟอร์มแก้ไขบริการ
-    function courseModalEdit(id, title) {
+    function catModalEdit(id, title) {
         document.getElementById('ModalTitle').innerHTML = title;
         $.ajax({
-            url: "./courses/course-edit.php",
+            url: "./categories/cat-edit.php",
             type: "POST",
             data: {
                 id: id
@@ -70,7 +70,7 @@
     }
 
     // ฟังก์ชันลบบริการ
-    function courseModalDelete(id) {
+    function catModalDelete(id) {
         Swal.fire({
             text: "ยืนยันการลบรายการนี้",
             icon: "warning",
@@ -82,7 +82,7 @@
         }).then((result) => {
             if (result.isConfirmed) {
                 $.ajax({
-                    url: "./courses/course-delete.php",
+                    url: "./categories/cat-delete.php",
                     type: 'POST',
                     data: {
                         id: id
@@ -97,7 +97,7 @@
                                 showConfirmButton: false,
                                 timer: 500
                             }).then(() => {
-                                courseList(); // รีโหลดหน้า
+                                catList(); // รีโหลดหน้า
                             });
                         } else {
                             Swal.fire({
@@ -123,10 +123,9 @@
     //=========== End Modal Function ===========//
 
     // ฟังก์ชันดึงข้อมูล
-    function courseList(page) {
+    function catList(page) {
         var keyword = $('#keyWord').val();
         var perPage = document.getElementById("perPage").value;
-
 
         $.ajax({
             type: "POST",
@@ -135,27 +134,21 @@
                 per_page: perPage,
                 page_no: page
             },
-            url: "./courses/course-fetch.php",
+            url: "./categories/cat-fetch.php",
             success: (data, res) => {
-                $('#courseTables').html(data);
+                $('#catTables').html(data);
             }
         })
     }
 
     // ฟังก์ชันเพิ่มบริการ
-    function courseAdd() {
+    function catAdd() {
         var name = $('#name').val().trim();
-        var price = $('#price').val().trim();
-        var course_cats_id = $('#course_cats_id').val();
-        var description = $('#description').val().trim();
         $.ajax({
-            url: "./courses/course-add.php",
+            url: "./categories/cat-add.php",
             type: 'POST',
             data: {
                 name: name,
-                price: price,
-                course_cats_id: course_cats_id,
-                description: description,
             },
             dataType: "json", // บอกว่าเราคาดหวัง JSON กลับมา
             success: function(response) {
@@ -168,7 +161,7 @@
                         showConfirmButton: false,
                         timer: 500
                     }).then(() => {
-                        courseList();
+                        catList();
                     });
                 } else {
                     Swal.fire({
@@ -191,47 +184,19 @@
     }
 
     // ฟังก์ชันแก้ไขบริการ
-    function courseUpdate(id) {
+    function catUpdate(id) {
         var name = $('#name').val().trim();
-        var price = $('#price').val().trim();
-        var course_cats_id = $('#course_cats_id').val();
-        var description = $('#description').val().trim();
         $.ajax({
-            url: "./courses/course-update.php",
+            url: "./categories/cat-update.php",
             type: 'POST',
             data: {
                 id: id,
                 name: name,
-                price: price,
-                course_cats_id: course_cats_id,
-                description: description,
             },
             success: function(response) {
-                courseList();
+                catList();
             }
         });
     }
 
-    // ฟังก์ชัน Toggle สถานะ
-    function toggleStatus(courseId, newStatus) {
-        fetch('./courses/course-status.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                body: `course_id=${courseId}&status=${newStatus ? 1 : 0}`
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.error) {
-                    console.error(data.error);
-                } else {
-                    console.log(data.message);
-                    const button = document.getElementById(`statusButton${courseId}`);
-                    button.textContent = newStatus ? 'เปิด' : 'ปิด';
-                    button.className = `btn btn-${newStatus ? 'success' : 'danger'} btn-sm`;
-                    button.setAttribute('onclick', `toggleStatus(${courseId}, ${!newStatus})`);
-                }
-            });
-    }
 </script>

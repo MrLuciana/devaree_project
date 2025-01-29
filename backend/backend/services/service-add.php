@@ -11,17 +11,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $price1 = isset($_POST['price1']) && is_numeric($_POST['price1']) ? (float)$_POST['price1'] : 0;
         $price2 = isset($_POST['price2']) && is_numeric($_POST['price2']) ? (float)$_POST['price2'] : 0;
         $price3 = isset($_POST['price3']) && is_numeric($_POST['price3']) ? (float)$_POST['price3'] : 0;
-        $cats_id = isset($_POST['cats_id']) ? $_POST['cats_id'] : '';
+        $cat_id = isset($_POST['cat_id']) ? $_POST['cat_id'] : '';
         $description = isset($_POST['description']) ? trim($_POST['description']) : '';
 
         // ตรวจสอบค่าที่จำเป็น
-        if (empty($code) || empty($name) || empty($description) || !filter_var($cats_id, FILTER_VALIDATE_INT)) {
+        if (empty($code) || empty($name) || empty($description) || !filter_var($cat_id, FILTER_VALIDATE_INT)) {
             echo json_encode(["status" => "error", "message" => "กรุณากรอกข้อมูลให้ครบถ้วน"]);
             exit;
         }
 
         // ตรวจสอบรหัสบริการซ้ำ
-        $sqlCheck = "SELECT service_code FROM services WHERE service_code = ?";
+        $sqlCheck = "SELECT ser_code FROM services WHERE ser_code = ?";
         $stmt = $conn->prepare($sqlCheck);
         $stmt->bind_param("s", $code);
         $stmt->execute();
@@ -34,10 +34,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->close();
 
         // บันทึกข้อมูล
-        $sqlInsert = "INSERT INTO services (service_code, service_name, service_price1, service_price2, service_price3, cats_id, service_description)
+        $sqlInsert = "INSERT INTO services (ser_code, ser_name, ser_price1, ser_price2, ser_price3, cat_id, ser_description)
                       VALUES (?, ?, ?, ?, ?, ?, ?)";
         $stmt = $conn->prepare($sqlInsert);
-        $stmt->bind_param("ssdddss", $code, $name, $price1, $price2, $price3, $cats_id, $description);
+        $stmt->bind_param("ssdddss", $code, $name, $price1, $price2, $price3, $cat_id, $description);
 
         if ($stmt->execute()) {
             echo json_encode(["status" => "success", "message" => "บันทึกข้อมูลสำเร็จ"]);

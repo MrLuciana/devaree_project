@@ -127,7 +127,6 @@
         var keyword = $('#keyWord').val();
         var perPage = document.getElementById("perPage").value;
 
-
         $.ajax({
             type: "POST",
             data: {
@@ -146,9 +145,10 @@
     function employeeAdd() {
         var fname = $('#fname').val().trim();
         var lname = $('#lname').val().trim();
-        var position = $('#position').val().trim();
         var phone = $('#phone').val().trim();
         var email = $('#email').val().trim();
+        var gender = $('#gender').val();
+        var hire_date = $('#hire_date').val();
 
         $.ajax({
             url: "./employees/employee-add.php",
@@ -156,9 +156,10 @@
             data: {
                 fname: fname,
                 lname: lname,
-                position: position,
+                gender: gender,
                 phone: phone,
                 email: email,
+                hire_date: hire_date
             },
             dataType: "json", // บอกว่าเราคาดหวัง JSON กลับมา
             success: function(response) {
@@ -197,22 +198,53 @@
     function employeeUpdate(id) {
         var fname = $('#fname').val().trim();
         var lname = $('#lname').val().trim();
-        var position = $('#position').val().trim();
         var phone = $('#phone').val().trim();
         var email = $('#email').val().trim();
+        var gender = $('#gender').val();
+        var hire_date = $('#hire_date').val();
+
         $.ajax({
             url: "./employees/employee-update.php",
             type: 'POST',
             data: {
+                id: id,
                 fname: fname,
                 lname: lname,
-                position: position,
                 phone: phone,
                 email: email,
+                gender: gender,
+                hire_date: hire_date,
             },
+            dataType: "json", // ✅ ระบุว่า response เป็น JSON
             success: function(response) {
-                employeeList();
+                if (response.status === "success") {
+                    Swal.fire({
+                        icon: "success",
+                        title: "สำเร็จ!",
+                        text: response.message,
+                        showConfirmButton: false,
+                        timer: 500
+                    }).then(() => {
+                        employeeList();
+                    });
+                } else {
+                    Swal.fire({
+                        icon: "error",
+                        title: "เกิดข้อผิดพลาด!",
+                        text: response.message,
+                        confirmButtonText: "ตกลง"
+                    });
+                }
+            },
+            error: function(xhr, status, error) {
+                Swal.fire({
+                    icon: "error",
+                    title: "เกิดข้อผิดพลาด!",
+                    text: `ไม่สามารถอัปเดตข้อมูลได้ (${xhr.status}: ${xhr.statusText})`,
+                    confirmButtonText: "ตกลง"
+                });
             }
         });
+
     }
 </script>

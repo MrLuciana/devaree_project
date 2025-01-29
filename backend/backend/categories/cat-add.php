@@ -15,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = $conn->real_escape_string($name);
 
     // SQL Insert
-    $sql = "INSERT INTO categories (cats_name)
+    $sql = "INSERT INTO categories (cat_name)
             VALUES ('$name')";
 
     if ($conn->query($sql) === TRUE) {
