@@ -57,8 +57,8 @@
                     </div>
                     <div class="col col-stats ms-3 ms-sm-0">
                         <div class="numbers">
-                            <p class="card-category">คอร์ส</p>
-                            <h4 class="card-title"><?php echo number_format($total_courses); ?></h4>
+                            <p class="card-category">แพ็กเกจ</p>
+                            <h4 class="card-title"><?php echo number_format($total_packages); ?></h4>
                         </div>
                     </div>
                 </div>
@@ -77,7 +77,7 @@
                     </div>
                     <div class="col col-stats ms-3 ms-sm-0">
                         <div class="numbers">
-                            <p class="card-category">คิว</p>
+                            <p class="card-category">การจอง</p>
                             <h4 class="card-title">576</h4>
                         </div>
                     </div>
