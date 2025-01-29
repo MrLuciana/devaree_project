@@ -1,15 +1,15 @@
 <div class="container">
   <div class="page-inner">
     <div class="page-header">
-      <h3 class="fw-bold mb-3">คอร์ส</h3>
+      <h3 class="fw-bold mb-3">แพ็กเกจ</h3>
     </div>
     <div class="col-md-12">
       <div class="card">
         <div class="card-header">
           <div class="d-flex align-items-center">
-            <h4 class="card-title">คอร์สทั้งหมด</h4>
+            <h4 class="card-title">แพ็กเกจทั้งหมด</h4>
             <button data-toggle="modal" data-target="#IModal"
-              onclick="courseModalForm('เพิ่มบริการ')" type="button"
+              onclick="courseModalForm('เพิ่มแพ็กเกจ')" type="button"
               class="btn btn-primary btn-round ms-auto">
               <i class="fa fa-plus"></i>
               เพิ่มรายการ

@@ -62,11 +62,11 @@
                         </ul>
                     </div>
                 </li>
-                <!-- บริการ & คอร์ส-->
+                <!-- บริการ & แพ็กเกจ-->
                 <li class="nav-item">
                     <a data-bs-toggle="collapse" href="#product">
                         <i class="fas fa-book-open"></i>
-                        <p>บริการ & คอร์ส</p>
+                        <p>บริการ & แพ็กเกจ</p>
                         <span class="caret"></span>
                     </a>
                     <div class="collapse" id="product">
@@ -77,8 +77,8 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="?page=course">
-                                    <span class="sub-item">คอร์ส</span>
+                                <a href="?page=package">
+                                    <span class="sub-item">แพ็กเกจ</span>
                                 </a>
                             </li>
                             <li>
