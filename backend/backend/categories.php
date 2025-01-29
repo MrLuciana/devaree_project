@@ -9,7 +9,7 @@
           <div class="d-flex align-items-center">
             <h4 class="card-title">หมวดหมู่ทั้งหมด</h4>
             <button data-toggle="modal" data-target="#IModal"
-              onclick="catsModalForm('เพิ่มหมวดหมู่')" type="button"
+              onclick="catModalForm('เพิ่มหมวดหมู่')" type="button"
               class="btn btn-primary btn-round ms-auto">
               <i class="fa fa-plus"></i>
               เพิ่มรายการ
@@ -38,7 +38,7 @@
                     class="form-control" style="height: 28px; font-size: 10pt; width: 150px;">
                   <button class="btn btn-primary" id="btnSearch"
                     style="height: 28px; font-size: 10pt; margin-left: 4px; padding: 2px 8px;"
-                    onclick="catsList(page)">ค้นหา</button>
+                    onclick="catList(page)">ค้นหา</button>
                   <button class="btn btn-warning" id="btnClear" onclick="clearSearch();"
                     style="height: 28px; margin-left: 4px; padding: 2px 8px;" hidden>
                     <i class="fas fa-times-circle" style="color:#fff; font-size: 12pt;"></i>
@@ -48,13 +48,13 @@
             </div>
           </div>
         </div>
-        <div class="card-body" id="catsTables"></div>
+        <div class="card-body" id="catTables"></div>
       </div>
     </div>
   </div>
 </div>
 
 <?php
-include('categories/cats-action.php');
+include('categories/cat-action.php');
 $conn->close();
 ?>

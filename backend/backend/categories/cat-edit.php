@@ -2,7 +2,7 @@
 require_once('../includes/conn.php');
 
 $id = $_POST['id'];
-$sql = "SELECT * FROM categories WHERE cats_id = '$id'";
+$sql = "SELECT * FROM categories WHERE cat_id = '$id'";
 $result = $conn->query($sql);
 $row = $result->fetch_assoc();
 ?>
@@ -11,13 +11,13 @@ $row = $result->fetch_assoc();
     <div class="row">
         <div class="col">
             <label for="name">ชื่อบริการ</label>
-            <input onkeyup="checkNull();" value="<?php echo $row['cats_name']; ?>" type="text" id="name" class="form-control">
+            <input onkeyup="checkNull();" value="<?php echo $row['cat_name']; ?>" type="text" id="name" class="form-control">
         </div>
     </div>
 </div>
 
 <div class="modal-footer">
-    <button onclick="catsUpdate('<?php echo $id; ?>');" id="btnSubmit"
+    <button onclick="catUpdate('<?php echo $id; ?>');" id="btnSubmit"
         data-bs-dismiss="modal" disabled class="btn btn-primary" style="font-size:12pt;width:150px;">
         อัปเดตรายการ
     </button>

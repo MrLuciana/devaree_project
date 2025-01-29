@@ -1,23 +1,23 @@
 <script>
     var page;
     $(document).ready(function() {
-        catsList(page);
+        catList(page);
     })
 
     $("#keyWord").keyup(function(event) {
         if (event.keyCode === 13) {
-            catsList(page);
+            catList(page);
         }
     });
 
     // กําหนดหน้า
     $(document).on("click", ".pagination a", function() {
         page = $(this).attr('id')
-        catsList(page);
+        catList(page);
     });
     // เปลี่ยนข้อมูลแต่ละหน้า
     $("#perPage").change(function() {
-        catsList();
+        catList();
     })
 
     function checkKeyWord() {
@@ -33,15 +33,15 @@
     function clearSearch() {
         document.getElementById('btnClear').hidden = true;
         document.getElementById('keyWord').value = "";
-        catsList(page);
+        catList(page);
     }
 
     //=========== Modal Function ===========//
     // ฟอร์มบริการ
-    function catsModalForm(title) {
+    function catModalForm(title) {
         document.getElementById('ModalTitle').innerHTML = title;
         $.ajax({
-            url: "./categories/cats-form.php",
+            url: "./categories/cat-form.php",
             type: "GET",
             success: function(data) {
                 $('#IModal .modal-body').html(data);
@@ -54,10 +54,10 @@
     }
 
     // ฟอร์มแก้ไขบริการ
-    function catsModalEdit(id, title) {
+    function catModalEdit(id, title) {
         document.getElementById('ModalTitle').innerHTML = title;
         $.ajax({
-            url: "./categories/cats-edit.php",
+            url: "./categories/cat-edit.php",
             type: "POST",
             data: {
                 id: id
@@ -70,7 +70,7 @@
     }
 
     // ฟังก์ชันลบบริการ
-    function catsModalDelete(id) {
+    function catModalDelete(id) {
         Swal.fire({
             text: "ยืนยันการลบรายการนี้",
             icon: "warning",
@@ -82,7 +82,7 @@
         }).then((result) => {
             if (result.isConfirmed) {
                 $.ajax({
-                    url: "./categories/cats-delete.php",
+                    url: "./categories/cat-delete.php",
                     type: 'POST',
                     data: {
                         id: id
@@ -97,7 +97,7 @@
                                 showConfirmButton: false,
                                 timer: 500
                             }).then(() => {
-                                catsList(); // รีโหลดหน้า
+                                catList(); // รีโหลดหน้า
                             });
                         } else {
                             Swal.fire({
@@ -123,7 +123,7 @@
     //=========== End Modal Function ===========//
 
     // ฟังก์ชันดึงข้อมูล
-    function catsList(page) {
+    function catList(page) {
         var keyword = $('#keyWord').val();
         var perPage = document.getElementById("perPage").value;
 
@@ -134,18 +134,18 @@
                 per_page: perPage,
                 page_no: page
             },
-            url: "./categories/cats-fetch.php",
+            url: "./categories/cat-fetch.php",
             success: (data, res) => {
-                $('#catsTables').html(data);
+                $('#catTables').html(data);
             }
         })
     }
 
     // ฟังก์ชันเพิ่มบริการ
-    function catsAdd() {
+    function catAdd() {
         var name = $('#name').val().trim();
         $.ajax({
-            url: "./categories/cats-add.php",
+            url: "./categories/cat-add.php",
             type: 'POST',
             data: {
                 name: name,
@@ -161,7 +161,7 @@
                         showConfirmButton: false,
                         timer: 500
                     }).then(() => {
-                        catsList();
+                        catList();
                     });
                 } else {
                     Swal.fire({
@@ -184,41 +184,19 @@
     }
 
     // ฟังก์ชันแก้ไขบริการ
-    function catsUpdate(id) {
+    function catUpdate(id) {
         var name = $('#name').val().trim();
         $.ajax({
-            url: "./categories/cats-update.php",
+            url: "./categories/cat-update.php",
             type: 'POST',
             data: {
                 id: id,
                 name: name,
             },
             success: function(response) {
-                catsList();
+                catList();
             }
         });
     }
 
-    // ฟังก์ชัน Toggle สถานะ
-    function toggleStatus(catsId, newStatus) {
-        fetch('./categories/cats-status.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                body: `cats_id=${catsId}&status=${newStatus ? 1 : 0}`
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.error) {
-                    console.error(data.error);
-                } else {
-                    console.log(data.message);
-                    const button = document.getElementById(`statusButton${catsId}`);
-                    button.textContent = newStatus ? 'เปิด' : 'ปิด';
-                    button.className = `btn btn-${newStatus ? 'success' : 'danger'} btn-sm`;
-                    button.setAttribute('onclick', `toggleStatus(${catsId}, ${!newStatus})`);
-                }
-            });
-    }
 </script>

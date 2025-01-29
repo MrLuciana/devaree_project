@@ -16,9 +16,9 @@ $keyword = $_POST['keyword'];
 require_once('../includes/conn.php');
 
 if (!empty($keyword)) {
-    $sql = "SELECT * FROM services INNER JOIN categories WHERE services.cats_id = categories.cats_id AND service_code LIKE '%{$keyword}%' OR service_name LIKE '%{$keyword}%' ORDER BY service_id DESC LIMIT $start, $perPage";
+    $sql = "SELECT * FROM services INNER JOIN categories WHERE services.cat_id = categories.cat_id AND ser_code LIKE '%{$keyword}%' OR ser_name LIKE '%{$keyword}%' ORDER BY ser_id DESC LIMIT $start, $perPage";
 } else {
-    $sql = "SELECT * FROM services INNER JOIN categories WHERE services.cats_id = categories.cats_id ORDER BY service_id DESC LIMIT $start, $perPage";
+    $sql = "SELECT * FROM services INNER JOIN categories WHERE services.cat_id = categories.cat_id ORDER BY ser_id DESC LIMIT $start, $perPage";
 }
 $result = $conn->query($sql);
 
@@ -41,29 +41,31 @@ if ($result->num_rows > 0) { ?>
                 <?php
                 while ($row = $result->fetch_assoc()) { ?>
                     <tr>
-                        <td><?php echo htmlspecialchars($row["service_code"]); ?></td>
-                        <td><?php echo htmlspecialchars($row["service_name"]); ?></td>
-                        <td><?php echo number_format($row["service_price1"]); ?></td>
-                        <td><?php echo number_format($row["service_price2"]); ?></td>
-                        <td><?php echo number_format($row["service_price3"]); ?></td>
-                        <td><?php echo htmlspecialchars($row["cats_name"]); ?></td>
+                        <td><?php echo htmlspecialchars($row["ser_code"]); ?></td>
+                        <td><?php echo htmlspecialchars($row["ser_name"]); ?></td>
+                        <td><?php echo number_format($row["ser_price1"]); ?></td>
+                        <td><?php echo number_format($row["ser_price2"]); ?></td>
+                        <td><?php echo number_format($row["ser_price3"]); ?></td>
+                        <td><?php echo htmlspecialchars($row["cat_name"]); ?></td>
                         <td>
-                            <?php $status = $row['service_status']; ?>
-                            <button id="statusButton<?php echo $row['service_id']; ?>"
-                                class="btn btn-<?php echo $status ? 'success' : 'danger'; ?> btn-sm"
-                                onclick="toggleStatus(<?php echo $row['service_id']; ?>, <?php echo $status ? 'false' : 'true'; ?>)">
-                                <?php echo $status ? 'เปิด' : 'ปิด'; ?>
+                            <?php
+                            $active = ($row['ser_active'] == 'yes') ? 'yes' : 'no'; // ตรวจสอบค่า active
+                            ?>
+                            <button id="activeButton<?php echo $row['ser_id']; ?>"
+                                class="btn btn-<?php echo ($active == 'yes') ? 'success' : 'danger'; ?> btn-sm"
+                                onclick="toggleActive(<?php echo $row['ser_id']; ?>, '<?php echo $active; ?>')">
+                                <?php echo ($active == 'yes') ? 'เปิด' : 'ปิด'; ?>
                             </button>
                         </td>
                         <td>
-                            <button data-toggle="modal" data-target="#IModal" class="btn btn-primary btn-sm" onclick="serviceModalEdit('<?php echo $row['service_id']; ?>','แก้ไขข้อมูล');">แก้ไข</button>
-                            <button class="btn btn-danger btn-sm" onclick="serviceModalDelete('<?php echo $row['service_id']; ?>');">ลบ</button>
+                            <button data-toggle="modal" data-target="#IModal" class="btn btn-primary btn-sm" onclick="serviceModalEdit('<?php echo $row['ser_id']; ?>','แก้ไขข้อมูล');">แก้ไข</button>
+                            <button class="btn btn-danger btn-sm" onclick="serviceModalDelete('<?php echo $row['ser_id']; ?>');">ลบ</button>
                         </td>
                     </tr><?php } ?>
             </tbody>
         </table>
         <?php
-        $sql = "SELECT * FROM services INNER JOIN categories WHERE services.cats_id = categories.cats_id ORDER BY service_id DESC";
+        $sql = "SELECT * FROM services INNER JOIN categories WHERE services.cat_id = categories.cat_id ORDER BY ser_id DESC";
         $fetch_query = $conn->query($sql);
         $total_record = mysqli_num_rows($fetch_query);
         $total_page = ceil($total_record / $perPage);

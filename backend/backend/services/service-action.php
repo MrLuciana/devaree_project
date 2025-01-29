@@ -143,59 +143,59 @@
 
     // ฟังก์ชันเพิ่มบริการ
     function serviceAdd() {
-    var code = $('#code').val().trim();
-    var name = $('#name').val().trim();
-    var price1 = $('#price1').is(':disabled') ? null : $('#price1').val().trim();
-    var price2 = $('#price2').is(':disabled') ? null : $('#price2').val().trim();
-    var price3 = $('#price3').is(':disabled') ? null : $('#price3').val().trim();
-    var cats_id = $('#cats_id').val();
-    var description = $('#description').val().trim();
+        var code = $('#code').val().trim();
+        var name = $('#name').val().trim();
+        var price1 = $('#price1').is(':disabled') ? null : $('#price1').val().trim();
+        var price2 = $('#price2').is(':disabled') ? null : $('#price2').val().trim();
+        var price3 = $('#price3').is(':disabled') ? null : $('#price3').val().trim();
+        var cat_id = $('#cat_id').val();
+        var description = $('#description').val().trim();
 
-    $.ajax({
-        url: "./services/service-add.php",
-        type: 'POST',
-        data: {
-            code: code,
-            name: name,
-            price1: price1,
-            price2: price2,
-            price3: price3,
-            cats_id: cats_id,
-            description: description,
-        },
-        dataType: "json",
-        success: function(response) {
-            if (response.status === "success") {
-                Swal.fire({
-                    icon: "success",
-                    title: "สำเร็จ!",
-                    text: response.message,
-                    showConfirmButton: false,
-                    timer: 1500 // เพิ่มเวลาให้นานขึ้น
-                }).then(() => {
-                    if (typeof serviceList === 'function') {
-                        serviceList(); // ตรวจสอบว่าฟังก์ชันมีอยู่จริง
-                    }
-                });
-            } else {
+        $.ajax({
+            url: "./services/service-add.php",
+            type: 'POST',
+            data: {
+                code: code,
+                name: name,
+                price1: price1,
+                price2: price2,
+                price3: price3,
+                cat_id: cat_id,
+                description: description,
+            },
+            dataType: "json",
+            success: function(response) {
+                if (response.status === "success") {
+                    Swal.fire({
+                        icon: "success",
+                        title: "สำเร็จ!",
+                        text: response.message,
+                        showConfirmButton: false,
+                        timer: 1500 // เพิ่มเวลาให้นานขึ้น
+                    }).then(() => {
+                        if (typeof serviceList === 'function') {
+                            serviceList(); // ตรวจสอบว่าฟังก์ชันมีอยู่จริง
+                        }
+                    });
+                } else {
+                    Swal.fire({
+                        icon: "error",
+                        title: "เกิดข้อผิดพลาด!",
+                        text: response.message,
+                        confirmButtonText: "ตกลง"
+                    });
+                }
+            },
+            error: function(xhr, status, error) {
                 Swal.fire({
                     icon: "error",
                     title: "เกิดข้อผิดพลาด!",
-                    text: response.message,
+                    text: `ไม่สามารถบันทึกข้อมูลได้ (${xhr.status}: ${xhr.statusText})`,
                     confirmButtonText: "ตกลง"
                 });
             }
-        },
-        error: function(xhr, status, error) {
-            Swal.fire({
-                icon: "error",
-                title: "เกิดข้อผิดพลาด!",
-                text: `ไม่สามารถบันทึกข้อมูลได้ (${xhr.status}: ${xhr.statusText})`,
-                confirmButtonText: "ตกลง"
-            });
-        }
-    });
-}
+        });
+    }
 
 
     // ฟังก์ชันแก้ไขบริการ
@@ -205,7 +205,7 @@
         var price1 = $('#price1').val().trim();
         var price2 = $('#price2').val().trim();
         var price3 = $('#price3').val().trim();
-        var cats_id = $('#cats_id').val();
+        var cat_id = $('#cat_id').val();
         var description = $('#description').val().trim();
         $.ajax({
             url: "./services/service-update.php",
@@ -217,7 +217,7 @@
                 price1: price1,
                 price2: price2,
                 price3: price3,
-                cats_id: cats_id,
+                cat_id: cat_id,
                 description: description,
             },
             success: function(response) {
@@ -227,25 +227,28 @@
     }
 
     // ฟังก์ชัน Toggle สถานะ
-    function toggleStatus(serviceId, newStatus) {
-        fetch('./services/service-status.php', {
+    function toggleActive(ser_id, currentStatus) {
+        let newStatus = (currentStatus === 'yes') ? 'no' : 'yes'; // สลับค่า
+
+        // ส่งค่าไปอัปเดตในฐานข้อมูลผ่าน AJAX
+        fetch('services/service-status.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
-                body: `service_id=${serviceId}&status=${newStatus ? 1 : 0}`
+                body: `ser_id=${ser_id}&ser_active=${newStatus}`
             })
             .then(response => response.json())
             .then(data => {
-                if (data.error) {
-                    console.error(data.error);
+                if (data.success) {
+                    let button = document.getElementById(`activeButton${ser_id}`);
+                    button.className = `btn btn-${newStatus === 'yes' ? 'success' : 'danger'} btn-sm`;
+                    button.innerHTML = (newStatus === 'yes') ? 'เปิด' : 'ปิด';
+                    button.setAttribute("onclick", `toggleActive(${ser_id}, '${newStatus}')`);
                 } else {
-                    console.log(data.message);
-                    const button = document.getElementById(`statusButton${serviceId}`);
-                    button.textContent = newStatus ? 'เปิด' : 'ปิด';
-                    button.className = `btn btn-${newStatus ? 'success' : 'danger'} btn-sm`;
-                    button.setAttribute('onclick', `toggleStatus(${serviceId}, ${!newStatus})`);
+                    alert("เกิดข้อผิดพลาดในการอัปเดต");
                 }
-            });
+            })
+            .catch(error => console.error('Error:', error));
     }
 </script>
