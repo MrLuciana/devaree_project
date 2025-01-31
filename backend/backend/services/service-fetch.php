@@ -58,6 +58,7 @@ if ($result->num_rows > 0) { ?>
                             </button>
                         </td>
                         <td>
+                            <button class="btn btn-info btn-sm" onclick="serviceModalDetail('<?php echo $row['ser_id']; ?>');">ดู</button>
                             <button data-toggle="modal" data-target="#IModal" class="btn btn-primary btn-sm" onclick="serviceModalEdit('<?php echo $row['ser_id']; ?>','แก้ไขข้อมูล');">แก้ไข</button>
                             <button class="btn btn-danger btn-sm" onclick="serviceModalDelete('<?php echo $row['ser_id']; ?>');">ลบ</button>
                         </td>
