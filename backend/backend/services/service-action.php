@@ -53,6 +53,22 @@
         });
     }
 
+    // ฟอร์มดูรายละเอียด
+    function serviceModalDetail(id, title) {
+        document.getElementById('ModalTitle').innerHTML = title;
+        $.ajax({
+            url: "./services/service-detail.php",
+            type: "POST",
+            data: {
+                id: id
+            },
+            success: function(data) {
+                $('#IModal .modal-body').html(data);
+                $('#IModal').modal('show');
+            }
+        });
+    }
+
     // ฟอร์มแก้ไขบริการ
     function serviceModalEdit(id, title) {
         document.getElementById('ModalTitle').innerHTML = title;

@@ -12,6 +12,15 @@ require_once('../includes/conn.php');
             <label for="lname">นามสกุล</label>
             <input onkeyup="checkNull();" type="text" id="lname" class="form-control">
         </div>
+        <div class="col">
+            <label for="gender">เลือกเพศ:</label>
+            <select onchange="checkNull();" id="gender" class="form-control">
+                <option value="">-- กรุณาเลือก --</option>
+                <option value="male">ชาย</option>
+                <option value="female">หญิง</option>
+                <option value="other">อื่น ๆ</option>
+            </select>
+        </div>
     </div>
     <div class="row">
         <div class="col">
@@ -22,18 +31,17 @@ require_once('../includes/conn.php');
             <label for="phone">เบอร์โทร</label>
             <input onkeyup="checkNull();" type="text" id="phone" class="form-control">
         </div>
+        <div class="col">
+            <label for="birthdate">วัน/เดือน/ปี เกิด:</label>
+            <input onchange="checkNull();" type="date" id="birthdate" class="form-control">
+        </div>
     </div>
     <div class="row">
         <div class="col">
             <label for="address">ที่อยู่</label>
             <input onkeyup="checkNull();" type="text" id="address" class="form-control">
         </div>
-        <div class="col">
-            <label for="city">เมือง</label>
-            <input onkeyup="checkNull();" type="text" id="city" class="form-control">
-        </div>
     </div>
-
 </div>
 
 <div class="modal-footer">
@@ -51,11 +59,11 @@ require_once('../includes/conn.php');
         const lname = document.getElementById('lname').value.trim();
         const email = document.getElementById('email').value.trim();
         const phone = document.getElementById('phone').value.trim();
-        const address = document.getElementById('address').value.trim();
-        const city = document.getElementById('city').value.trim();
-        const btnSubmit = document.getElementById('btnSubmit');
+        const gender = document.getElementById('gender').value
+        const birthdate = document.getElementById('birthdate').value
+        const address = document.getElementById('address').value
 
-        if (fname && lname && email && phone && address && city) {
+        if (fname && lname && email && phone && gender && birthdate && address) {
             document.getElementById('btnSubmit').disabled = false;
         } else {
             document.getElementById('btnSubmit').disabled = true;
@@ -67,9 +75,10 @@ require_once('../includes/conn.php');
         document.getElementById('lname').value = "";
         document.getElementById('email').value = "";
         document.getElementById('phone').value = "";
+        document.getElementById('gender').value = "";
+        document.getElementById('birthdate').value = "";
         document.getElementById('address').value = "";
-        document.getElementById('city').value = "";
 
-        document.getElementById('btnSubmit').disabled = true;
+        checkNull();
     }
 </script>

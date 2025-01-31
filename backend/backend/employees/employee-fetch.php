@@ -17,13 +17,15 @@ require_once('../includes/conn.php');
 
 if (!empty($keyword)) {
     $sql = "SELECT * FROM employees 
-            WHERE emp_fname LIKE '%{$keyword}%' 
+        WHERE ('$keyword' != '' AND (
+            emp_fname LIKE '%{$keyword}%' 
             OR emp_lname LIKE '%{$keyword}%'
             OR emp_gender LIKE '%{$keyword}%'
             OR emp_email LIKE '%{$keyword}%' 
-            OR emp_phone LIKE '%{$keyword}%' 
-            ORDER BY emp_id DESC 
-            LIMIT $start, $perPage";
+            OR emp_phone LIKE '%{$keyword}%'
+        )) 
+        ORDER BY emp_id DESC 
+        LIMIT $start, $perPage";
 } else {
     $sql = "SELECT * FROM employees ORDER BY emp_id DESC LIMIT $start, $perPage";
 }
@@ -65,8 +67,9 @@ if ($result->num_rows > 0) { ?>
                         <td><?php echo htmlspecialchars($row["emp_phone"]); ?></td>
                         <td><?php echo htmlspecialchars($row["emp_hire_date"]); ?></td>
                         <td>
-                            <button data-toggle="modal" data-target="#IModal" class="btn btn-primary btn-sm" onclick="employeeModalEdit('<?php echo $row['emp_id']; ?>','แก้ไขข้อมูล');">แก้ไข</button>
-                            <button class="btn btn-danger btn-sm" onclick="employeeModalDelete('<?php echo $row['emp_id']; ?>');">ลบ</button>
+                            <button class="btn btn-info btn-sm" onclick="employeeModalDetail('<?php echo $row['emp_id']; ?>');"><i class="fas fa-eye"></i></button>
+                            <button data-toggle="modal" data-target="#IModal" class="btn btn-primary btn-sm" onclick="employeeModalEdit('<?php echo $row['emp_id']; ?>','แก้ไขข้อมูล');"><i class="fas fa-edit"></i></button>
+                            <button class="btn btn-danger btn-sm" onclick="employeeModalDelete('<?php echo $row['emp_id']; ?>');"><i class="fas fa-trash"></i></button>
                         </td>
                     </tr><?php } ?>
             </tbody>

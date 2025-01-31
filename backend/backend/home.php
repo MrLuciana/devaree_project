@@ -11,7 +11,7 @@ $result = $conn->query($sql);
 $row = $result->fetch_assoc();
 $total_customers = $row['total_customers'];
 $total_services = $row['total_services'];
-$total_courses = $row['total_courses'];
+$total_packages = $row['total_packages'];
 ?>
 
 <div class="container">

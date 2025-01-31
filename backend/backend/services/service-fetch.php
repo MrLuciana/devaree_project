@@ -16,9 +16,9 @@ $keyword = $_POST['keyword'];
 require_once('../includes/conn.php');
 
 if (!empty($keyword)) {
-    $sql = "SELECT * FROM services INNER JOIN categories WHERE services.cat_id = categories.cat_id AND ser_code LIKE '%{$keyword}%' OR ser_name LIKE '%{$keyword}%' ORDER BY ser_id DESC LIMIT $start, $perPage";
+    $sql = "SELECT * FROM services INNER JOIN categories ON services.cat_id = categories.cat_id WHERE (ser_code LIKE '%{$keyword}%' OR ser_name LIKE '%{$keyword}%') ORDER BY ser_id DESC LIMIT $start, $perPage";
 } else {
-    $sql = "SELECT * FROM services INNER JOIN categories WHERE services.cat_id = categories.cat_id ORDER BY ser_id DESC LIMIT $start, $perPage";
+    $sql = "SELECT * FROM services INNER JOIN categories ON services.cat_id = categories.cat_id ORDER BY ser_id DESC LIMIT $start, $perPage";
 }
 $result = $conn->query($sql);
 
@@ -58,8 +58,9 @@ if ($result->num_rows > 0) { ?>
                             </button>
                         </td>
                         <td>
-                            <button data-toggle="modal" data-target="#IModal" class="btn btn-primary btn-sm" onclick="serviceModalEdit('<?php echo $row['ser_id']; ?>','แก้ไขข้อมูล');">แก้ไข</button>
-                            <button class="btn btn-danger btn-sm" onclick="serviceModalDelete('<?php echo $row['ser_id']; ?>');">ลบ</button>
+                            <button class="btn btn-info btn-sm" onclick="serviceModalDetail('<?php echo $row['ser_id']; ?>');"><i class="fas fa-eye"></i></button>
+                            <button data-toggle="modal" data-target="#IModal" class="btn btn-primary btn-sm" onclick="serviceModalEdit('<?php echo $row['ser_id']; ?>','แก้ไขข้อมูล');"><i class="fas fa-edit"></i></button>
+                            <button class="btn btn-danger btn-sm" onclick="serviceModalDelete('<?php echo $row['ser_id']; ?>');"><i class="fas fa-trash"></i></button>
                         </td>
                     </tr><?php } ?>
             </tbody>
