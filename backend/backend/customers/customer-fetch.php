@@ -40,6 +40,7 @@ if ($result->num_rows > 0) { ?>
                     <th scope="col" style="width: 15%;">เพศ</th>
                     <th scope="col" style="width: 15%;">อีเมล</th>
                     <th scope="col" style="width: 15%;">เบอร์โทร</th>
+                    <th scope="col" style="width: 15%;">การจอง</th>
                     <th scope="col" style="width: 15%;">จัดการ</th>
                 </tr>
             </thead>
@@ -62,6 +63,9 @@ if ($result->num_rows > 0) { ?>
                         </td>
                         <td><?php echo htmlspecialchars($row["cus_email"]); ?></td>
                         <td><?php echo htmlspecialchars($row["cus_phone"]); ?></td>
+                        <td>
+                            <button class="btn btn-success btn-sm" onclick="bookingModalDetail('<?php echo $row['cus_id']; ?>');"><i class="fas fa-eye"></i></button>
+                        </td>
                         <td>
                             <button class="btn btn-info btn-sm" onclick="customerModalDetail('<?php echo $row['cus_id']; ?>');"><i class="fas fa-eye"></i></button>
                             <button data-toggle="modal" data-target="#IModal" class="btn btn-primary btn-sm" onclick="customerModalEdit('<?php echo $row['cus_id']; ?>','แก้ไขข้อมูล');"><i class="fas fa-edit"></i></button>

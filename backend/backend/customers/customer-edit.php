@@ -42,8 +42,8 @@ $row = $result->fetch_assoc();
             <input onkeyup="checkNull();" value="<?php echo $row['cus_phone']; ?>" type="text" id="phone" class="form-control">
         </div>
         <div class="col">
-            <label for="birthdate">วันที่เริ่มงาน:</label>
-            <input onchange="checkNull();" value="<?php echo $row['cus_birthdate']; ?>" type="date" name="cus_birthdate" id="birthdate" class="form-control">
+            <label for="birthdate">วัน/เดือน/ปี เกิด:</label>
+            <input onchange="checkNull();" value="<?php echo $row['cus_birthdate']; ?>" type="date" name="birthdate" id="birthdate" class="form-control">
         </div>
     </div>
     <div class="row">
