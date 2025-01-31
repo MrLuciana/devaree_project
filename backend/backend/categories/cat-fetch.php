@@ -40,8 +40,8 @@ if ($result->num_rows > 0) { ?>
                         <td><?php echo htmlspecialchars($i = $i + 1); ?></td>
                         <td><?php echo htmlspecialchars($row["cat_name"]); ?></td>
                         <td>
-                            <button data-toggle="modal" data-target="#IModal" class="btn btn-primary btn-sm" onclick="catModalEdit('<?php echo $row['cat_id']; ?>','แก้ไขข้อมูล');">แก้ไข</button>
-                            <button class="btn btn-danger btn-sm" onclick="catModalDelete('<?php echo $row['cat_id']; ?>');">ลบ</button>
+                            <button data-toggle="modal" data-target="#IModal" class="btn btn-primary btn-sm" onclick="catModalEdit('<?php echo $row['cat_id']; ?>','แก้ไขข้อมูล');"><i class="fas fa-edit"></i></button>
+                            <button class="btn btn-danger btn-sm" onclick="catModalDelete('<?php echo $row['cat_id']; ?>');"><i class="fas fa-trash"></i></button>
                         </td>
                     </tr><?php } ?>
             </tbody>
