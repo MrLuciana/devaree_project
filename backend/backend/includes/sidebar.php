@@ -45,7 +45,7 @@
                     <div class="collapse" id="base">
                         <ul class="nav nav-collapse">
                             <li>
-                                <a href="">
+                                <a href="?page=booking">
                                     <span class="sub-item">การจอง</span>
                                 </a>
                             </li>
