@@ -148,7 +148,8 @@
         var phone = $('#phone').val().trim();
         var email = $('#email').val().trim();
         var gender = $('#gender').val();
-        var hire_date = $('#hire_date').val();
+        var birthdate = $('#birthdate').val();
+        var address = $('#address').val().trim();
 
         $.ajax({
             url: "./customers/customer-add.php",
@@ -159,7 +160,8 @@
                 gender: gender,
                 phone: phone,
                 email: email,
-                hire_date: hire_date
+                birthdate: birthdate,
+                address: address
             },
             dataType: "json", // บอกว่าเราคาดหวัง JSON กลับมา
             success: function(response) {
@@ -201,7 +203,8 @@
         var phone = $('#phone').val().trim();
         var email = $('#email').val().trim();
         var gender = $('#gender').val();
-        var hire_date = $('#hire_date').val();
+        var birthdate = $('#birthdate').val();
+        var address = $('#address').val().trim();
 
         $.ajax({
             url: "./customers/customer-update.php",
@@ -213,7 +216,8 @@
                 phone: phone,
                 email: email,
                 gender: gender,
-                hire_date: hire_date,
+                birthdate: birthdate,
+                address: address
             },
             dataType: "json", // ✅ ระบุว่า response เป็น JSON
             success: function(response) {

@@ -42,8 +42,14 @@ $row = $result->fetch_assoc();
             <input onkeyup="checkNull();" value="<?php echo $row['cus_phone']; ?>" type="text" id="phone" class="form-control">
         </div>
         <div class="col">
-            <label for="hire_date">วันที่เริ่มงาน:</label>
-            <input onchange="checkNull();" value="<?php echo $row['cus_hire_date']; ?>" type="date" name="cus_hire_date" id="hire_date" class="form-control">
+            <label for="birthdate">วันที่เริ่มงาน:</label>
+            <input onchange="checkNull();" value="<?php echo $row['cus_birthdate']; ?>" type="date" name="cus_birthdate" id="birthdate" class="form-control">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <label for="address">ที่อยู่</label>
+            <input onkeyup="checkNull();" value="<?php echo $row['cus_address']; ?>" type="text" id="address" class="form-control">
         </div>
     </div>
 
@@ -66,10 +72,11 @@ $row = $result->fetch_assoc();
         const email = document.getElementById('email').value.trim();
         const phone = document.getElementById('phone').value.trim();
         const gender = document.getElementById('gender').value;
-        const hire_date = document.getElementById('hire_date').value;
+        const birthdate = document.getElementById('birthdate').value;
+        const address = document.getElementById('address').value;
 
 
-        if (fname && lname && email && phone && gender && hire_date) {
+        if (fname && lname && email && phone && gender && birthdate && address) {
             document.getElementById('btnSubmit').disabled = false;
         } else {
             document.getElementById('btnSubmit').disabled = true;
@@ -82,6 +89,7 @@ $row = $result->fetch_assoc();
         document.getElementById('email').value = "";
         document.getElementById('phone').value = "";
         document.getElementById('gender').selectedIndex = 0; // กลับไปค่าเริ่มต้น
+        document.getElementById('address').value = "";
 
         document.getElementById('btnSubmit').disabled = true;
     }

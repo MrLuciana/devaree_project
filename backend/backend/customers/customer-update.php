@@ -8,15 +8,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $gender = isset($_POST['gender']) ? $_POST['gender'] : '';
     $phone = isset($_POST['phone']) ? $_POST['phone'] : '';
     $email = isset($_POST['email']) ? $_POST['email'] : '';
-    $hire_date = isset($_POST['hire_date']) ? $_POST['hire_date'] : '';
+    $birthdate = isset($_POST['birthdate']) ? $_POST['birthdate'] : '';
 
-    if (empty($id) || empty($fname) || empty($lname) || empty($gender) || empty($phone) || empty($email) || empty($hire_date)) {
+    if (empty($id) || empty($fname) || empty($lname) || empty($gender) || empty($phone) || empty($email) || empty($birthdate)) {
         echo json_encode(["status" => "error", "message" => "กรุณากรอกข้อมูลให้ครบถ้วน"]);
         exit;
     }
 
-    $stmt = $conn->prepare("UPDATE customers SET cus_fname=?, cus_lname=?, cus_gender=?, cus_phone=?, cus_email=?, cus_hire_date=? WHERE cus_id=?");
-    $stmt->bind_param("ssssssi", $fname, $lname, $gender, $phone, $email, $hire_date, $id);
+    $stmt = $conn->prepare("UPDATE customers SET cus_fname=?, cus_lname=?, cus_gender=?, cus_phone=?, cus_email=?, cus_birthdate=? WHERE cus_id=?");
+    $stmt->bind_param("ssssssi", $fname, $lname, $gender, $phone, $email, $birthdate, $id);
 
     if ($stmt->execute()) {
         echo json_encode(["status" => "success", "message" => "อัปเดตข้อมูลสำเร็จ"]);

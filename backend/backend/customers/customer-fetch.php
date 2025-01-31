@@ -40,7 +40,6 @@ if ($result->num_rows > 0) { ?>
                     <th scope="col" style="width: 15%;">เพศ</th>
                     <th scope="col" style="width: 15%;">อีเมล</th>
                     <th scope="col" style="width: 15%;">เบอร์โทร</th>
-                    <th scope="col" style="width: 15%;">วันที่เริ่มงาน</th>
                     <th scope="col" style="width: 15%;">จัดการ</th>
                 </tr>
             </thead>
@@ -63,7 +62,6 @@ if ($result->num_rows > 0) { ?>
                         </td>
                         <td><?php echo htmlspecialchars($row["cus_email"]); ?></td>
                         <td><?php echo htmlspecialchars($row["cus_phone"]); ?></td>
-                        <td><?php echo htmlspecialchars($row["cus_hire_date"]); ?></td>
                         <td>
                             <button data-toggle="modal" data-target="#IModal" class="btn btn-primary btn-sm" onclick="customerModalEdit('<?php echo $row['cus_id']; ?>','แก้ไขข้อมูล');">แก้ไข</button>
                             <button class="btn btn-danger btn-sm" onclick="customerModalDelete('<?php echo $row['cus_id']; ?>');">ลบ</button>

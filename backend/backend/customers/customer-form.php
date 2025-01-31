@@ -32,8 +32,14 @@ require_once('../includes/conn.php');
             <input onkeyup="checkNull();" type="text" id="phone" class="form-control">
         </div>
         <div class="col">
-            <label for="hire_date">วันที่เริ่มงาน:</label>
-            <input onchange="checkNull();" type="date" name="hire_date" id="hire_date" class="form-control">
+            <label for="birthdate">วัน/เดือน/ปี เกิด:</label>
+            <input onchange="checkNull();" type="date" id="birthdate" class="form-control">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <label for="address">ที่อยู่</label>
+            <input onkeyup="checkNull();" type="text" id="address" class="form-control">
         </div>
     </div>
 </div>
@@ -54,9 +60,10 @@ require_once('../includes/conn.php');
         const email = document.getElementById('email').value.trim();
         const phone = document.getElementById('phone').value.trim();
         const gender = document.getElementById('gender').value
-        const hire_date = document.getElementById('hire_date').value
+        const birthdate = document.getElementById('birthdate').value
+        const address = document.getElementById('address').value
 
-        if (fname && lname && email && phone && gender && hire_date) {
+        if (fname && lname && email && phone && gender && birthdate && address) {
             document.getElementById('btnSubmit').disabled = false;
         } else {
             document.getElementById('btnSubmit').disabled = true;
@@ -69,7 +76,8 @@ require_once('../includes/conn.php');
         document.getElementById('email').value = "";
         document.getElementById('phone').value = "";
         document.getElementById('gender').value = "";
-        document.getElementById('hire_date').value = "";
+        document.getElementById('birthdate').value = "";
+        document.getElementById('address').value = "";
 
         checkNull();
     }
