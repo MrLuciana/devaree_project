@@ -52,6 +52,3 @@ $row = $result->fetch_assoc();
     </div>
     <small id="formError" class="text-danger"></small>
 </div>
-
-<div class="modal-footer">
-</div>

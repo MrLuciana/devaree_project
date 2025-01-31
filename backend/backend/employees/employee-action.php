@@ -53,6 +53,22 @@
         });
     }
 
+    // ฟอร์มดูรายละเอียด
+    function employeeModalDetail(id, title) {
+        document.getElementById('ModalTitle').innerHTML = title;
+        $.ajax({
+            url: "./employees/employee-detail.php",
+            type: "POST",
+            data: {
+                id: id
+            },
+            success: function(data) {
+                $('#IModal .modal-body').html(data);
+                $('#IModal').modal('show');
+            }
+        });
+    }
+
     // ฟอร์มแก้ไขบริการ
     function employeeModalEdit(id, title) {
         document.getElementById('ModalTitle').innerHTML = title;
