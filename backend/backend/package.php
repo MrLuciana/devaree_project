@@ -9,7 +9,7 @@
           <div class="d-flex align-items-center">
             <h4 class="card-title">แพ็กเกจทั้งหมด</h4>
             <button data-toggle="modal" data-target="#IModal"
-              onclick="courseModalForm('เพิ่มแพ็กเกจ')" type="button"
+              onclick="packageModalForm('เพิ่มแพ็กเกจ')" type="button"
               class="btn btn-primary btn-round ms-auto">
               <i class="fa fa-plus"></i>
               เพิ่มรายการ
@@ -38,7 +38,7 @@
                     class="form-control" style="height: 28px; font-size: 10pt; width: 150px;">
                   <button class="btn btn-primary" id="btnSearch"
                     style="height: 28px; font-size: 10pt; margin-left: 4px; padding: 2px 8px;"
-                    onclick="courseList(page)">ค้นหา</button>
+                    onclick="packageList(page)">ค้นหา</button>
                   <button class="btn btn-warning" id="btnClear" onclick="clearSearch();"
                     style="height: 28px; margin-left: 4px; padding: 2px 8px;" hidden>
                     <i class="fas fa-times-circle" style="color:#fff; font-size: 12pt;"></i>
@@ -48,13 +48,13 @@
             </div>
           </div>
         </div>
-        <div class="card-body" id="courseTables"></div>
+        <div class="card-body" id="packageTables"></div>
       </div>
     </div>
   </div>
 </div>
 
 <?php
-include('courses/course-action.php');
+include('packages/package-action.php');
 $conn->close();
 ?>
