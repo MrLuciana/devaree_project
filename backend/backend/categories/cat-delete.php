@@ -6,7 +6,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // ตรวจสอบว่ามีค่า id ที่ส่งมาหรือไม่
     if (empty($id)) {
-        echo json_encode(["status" => "error", "message" => "ไม่พบรหัสบริการ"]);
+        echo json_encode(["status" => "error", "message" => "ไม่พบรหัสหมวดหมู่"]);
         exit;
     }
 

@@ -37,7 +37,7 @@
     }
 
     //=========== Modal Function ===========//
-    // ฟอร์มบริการ
+    // ฟอร์มหมวดหมู่
     function catModalForm(title) {
         document.getElementById('ModalTitle').innerHTML = title;
         $.ajax({
@@ -53,7 +53,7 @@
         });
     }
 
-    // ฟอร์มแก้ไขบริการ
+    // ฟอร์มแก้ไขหมวดหมู่
     function catModalEdit(id, title) {
         document.getElementById('ModalTitle').innerHTML = title;
         $.ajax({
@@ -69,7 +69,7 @@
         });
     }
 
-    // ฟังก์ชันลบบริการ
+    // ฟังก์ชันลบหมวดหมู่
     function catModalDelete(id) {
         Swal.fire({
             text: "ยืนยันการลบรายการนี้",
@@ -141,7 +141,7 @@
         })
     }
 
-    // ฟังก์ชันเพิ่มบริการ
+    // ฟังก์ชันเพิ่มหมวดหมู่
     function catAdd() {
         var name = $('#name').val().trim();
         $.ajax({
@@ -183,7 +183,7 @@
         });
     }
 
-    // ฟังก์ชันแก้ไขบริการ
+    // ฟังก์ชันแก้ไขหมวดหมู่
     function catUpdate(id) {
         var name = $('#name').val().trim();
         $.ajax({

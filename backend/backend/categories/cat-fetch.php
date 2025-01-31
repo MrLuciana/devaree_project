@@ -28,7 +28,7 @@ if ($result->num_rows > 0) { ?>
             <thead>
                 <tr>
                     <th scope="col" style="width: 1%;">#</th>
-                    <th scope="col" style="width: 50%;">ชื่อบริการ</th>
+                    <th scope="col" style="width: 50%;">ชื่อหมวดหมู่</th>
                     <th scope="col" style="width: 15%;">จัดการ</th>
                 </tr>
             </thead>
@@ -113,6 +113,6 @@ if ($result->num_rows > 0) { ?>
 
 <?php
 } else {
-    echo "<tr><td colspan='7' class='text-center text-muted'>ไม่มีข้อมูลบริการ</td></tr>";
+    echo "<tr><td colspan='7' class='text-center text-muted'>ไม่มีข้อมูลหมวดหมู่</td></tr>";
 }
 ?>
