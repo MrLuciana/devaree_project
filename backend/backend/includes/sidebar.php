@@ -45,18 +45,18 @@
                     <div class="collapse" id="base">
                         <ul class="nav nav-collapse">
                             <li>
-                                <a href="components/avatars.html">
+                                <a href="">
                                     <span class="sub-item">การจอง</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="components/buttons.html">
+                                <a href="">
                                     <span class="sub-item">ปฏิทิน</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="components/gridsystem.html">
-                                    <span class="sub-item">Grid System</span>
+                                <a href="">
+                                    <span class="sub-item">ประวัติการใช้งาน</span>
                                 </a>
                             </li>
                         </ul>
