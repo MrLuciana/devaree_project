@@ -1,4 +1,4 @@
-# Deevaree Project
+# Devaree Project
 
 ## ความเป็นมาและความสำคัญ
 
