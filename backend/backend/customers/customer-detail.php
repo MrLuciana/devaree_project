@@ -38,9 +38,15 @@ $row = $result->fetch_assoc();
             <div style="border:solid 1px #ddd; padding:5px 10px;"><?php echo htmlspecialchars($row['cus_phone']); ?></div>
         </div>
         <div class="col">
-            <label for="birthdate">วันที่เริ่มงาน:</label>
-            <div style="border:solid 1px #ddd; padding:5px 10px;"><?php echo htmlspecialchars($row['cus_birthdate']); ?></div>
+            <label for="birthdate">วัน/เดือน/ปี เกิด:</label>
+            <div style="border:solid 1px #ddd; padding:5px 10px;">
+                <?php
+                $date = date_create($row['cus_birthdate']);
+                echo date_format($date, "d/m/Y");
+                ?>
+            </div>
         </div>
+
     </div>
     <div class="row">
         <div class="col">

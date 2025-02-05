@@ -10,7 +10,7 @@ $row = $result->fetch_assoc();
 <div class="modal-body" style="padding: 30px 15px 20px 15px;">
     <div class="row">
         <div class="col">
-            <label for="name">ชื่อบริการ</label>
+            <label for="name">ชื่อหมวดหมู่</label>
             <input onkeyup="checkNull();" value="<?php echo $row['cat_name']; ?>" type="text" id="name" class="form-control">
         </div>
     </div>

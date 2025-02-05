@@ -39,7 +39,12 @@ $row = $result->fetch_assoc();
         </div>
         <div class="col">
             <label for="hire_date">วันที่เริ่มงาน:</label>
-            <div style="border:solid 1px #ddd; padding:5px 10px;"><?php echo htmlspecialchars($row['emp_hire_date']); ?></div>
+            <div style="border:solid 1px #ddd; padding:5px 10px;">
+                <?php
+                $date = date_create($row['emp_hire_date']);
+                echo date_format($date, "d/m/Y");
+                ?>
+            </div>
         </div>
     </div>
 </div>

@@ -16,18 +16,10 @@ $keyword = $_POST['keyword'];
 require_once('../includes/conn.php');
 
 if (!empty($keyword)) {
-    $sql = "SELECT * FROM customers 
-            WHERE cus_fname LIKE '%{$keyword}%' 
-            OR cus_lname LIKE '%{$keyword}%'
-            OR cus_gender LIKE '%{$keyword}%'
-            OR cus_email LIKE '%{$keyword}%' 
-            OR cus_phone LIKE '%{$keyword}%' 
-            ORDER BY cus_id DESC 
-            LIMIT $start, $perPage";
+    $sql = "SELECT * FROM packages INNER JOIN categories ON packages.cat_id = categories.cat_id WHERE (pac_code LIKE '%{$keyword}%' OR pac_name LIKE '%{$keyword}%') ORDER BY pac_id DESC LIMIT $start, $perPage";
 } else {
-    $sql = "SELECT * FROM customers ORDER BY cus_id DESC LIMIT $start, $perPage";
+    $sql = "SELECT * FROM packages INNER JOIN categories ON packages.cat_id = categories.cat_id ORDER BY pac_id DESC LIMIT $start, $perPage";
 }
-
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) { ?>
@@ -35,47 +27,46 @@ if ($result->num_rows > 0) { ?>
         <table id="basic-datatables" class="display table table-striped table-hover">
             <thead>
                 <tr>
-                    <th scope="col" style="width: 5%;">#</th>
-                    <th scope="col" style="width: 15%;">ชื่อ-สกุล</th>
-                    <th scope="col" style="width: 15%;">เพศ</th>
-                    <th scope="col" style="width: 15%;">อีเมล</th>
-                    <th scope="col" style="width: 15%;">เบอร์โทร</th>
-                    <th scope="col" style="width: 15%;">การจอง</th>
+                    <th scope="col" style="width: 3%;">รหัส</th>
+                    <th scope="col" style="width: 15%;">ชื่อแพ็กเกจ</th>
+                    <th scope="col" style="width: 10%;">ราคา (1 ชม.)</th>
+                    <th scope="col" style="width: 10%;">ราคา (2 ชม.)</th>
+                    <th scope="col" style="width: 10%;">ราคา (3 ชม.)</th>
+                    <th scope="col" style="width: 8%;">หมวดหมู่</th>
+                    <th scope="col" style="width: 5%;">สถานะ</th>
                     <th scope="col" style="width: 15%;">จัดการ</th>
                 </tr>
             </thead>
             <tbody>
                 <?php
-                $i = 0;
                 while ($row = $result->fetch_assoc()) { ?>
                     <tr>
-                        <td><?php echo htmlspecialchars($i = $i + 1); ?></td>
-                        <td><?php echo htmlspecialchars($row["cus_fname"] . " " . $row["cus_lname"]); ?></td>
+                        <td><?php echo htmlspecialchars($row["pac_code"]); ?></td>
+                        <td><?php echo htmlspecialchars($row["pac_name"]); ?></td>
+                        <td><?php echo number_format($row["pac_price1"]); ?></td>
+                        <td><?php echo number_format($row["pac_price2"]); ?></td>
+                        <td><?php echo number_format($row["pac_price3"]); ?></td>
+                        <td><?php echo htmlspecialchars($row["cat_name"]); ?></td>
                         <td>
                             <?php
-                            $gender_map = [
-                                "male" => "ชาย",
-                                "female" => "หญิง",
-                                "other" => "อื่น ๆ"
-                            ];
-                            echo isset($gender_map[$row["cus_gender"]]) ? $gender_map[$row["cus_gender"]] : "ไม่ระบุ";
+                            $active = ($row['pac_active'] == 'yes') ? 'yes' : 'no'; // ตรวจสอบค่า active
                             ?>
+                            <button id="activeButton<?php echo $row['pac_id']; ?>"
+                                class="btn btn-<?php echo ($active == 'yes') ? 'success' : 'danger'; ?> btn-sm"
+                                onclick="toggleActive(<?php echo $row['pac_id']; ?>, '<?php echo $active; ?>')">
+                                <?php echo ($active == 'yes') ? 'เปิด' : 'ปิด'; ?>
+                            </button>
                         </td>
-                        <td><?php echo htmlspecialchars($row["cus_email"]); ?></td>
-                        <td><?php echo htmlspecialchars($row["cus_phone"]); ?></td>
                         <td>
-                            <button class="btn btn-success btn-sm" onclick="bookingModalDetail('<?php echo $row['cus_id']; ?>');"><i class="fas fa-eye"></i></button>
-                        </td>
-                        <td>
-                            <button class="btn btn-info btn-sm" onclick="customerModalDetail('<?php echo $row['cus_id']; ?>');"><i class="fas fa-eye"></i></button>
-                            <button data-toggle="modal" data-target="#IModal" class="btn btn-primary btn-sm" onclick="customerModalEdit('<?php echo $row['cus_id']; ?>','แก้ไขข้อมูล');"><i class="fas fa-edit"></i></button>
-                            <button class="btn btn-danger btn-sm" onclick="customerModalDelete('<?php echo $row['cus_id']; ?>');"><i class="fas fa-trash"></i></button>
+                            <button class="btn btn-info btn-sm" onclick="packageModalDetail('<?php echo $row['pac_id']; ?>');"><i class="fas fa-eye"></i></button>
+                            <button data-toggle="modal" data-target="#IModal" class="btn btn-primary btn-sm" onclick="packageModalEdit('<?php echo $row['pac_id']; ?>','แก้ไขข้อมูล');"><i class="fas fa-edit"></i></button>
+                            <button class="btn btn-danger btn-sm" onclick="packageModalDelete('<?php echo $row['pac_id']; ?>');"><i class="fas fa-trash"></i></button>
                         </td>
                     </tr><?php } ?>
             </tbody>
         </table>
         <?php
-        $sql = "SELECT * FROM customers ORDER BY cus_id DESC";
+        $sql = "SELECT * FROM packages INNER JOIN categories WHERE packages.cat_id = categories.cat_id ORDER BY pac_id DESC";
         $fetch_query = $conn->query($sql);
         $total_record = mysqli_num_rows($fetch_query);
         $total_page = ceil($total_record / $perPage);
@@ -141,6 +132,6 @@ if ($result->num_rows > 0) { ?>
 
 <?php
 } else {
-    echo "<tr><td colspan='7' class='text-center text-muted'>ไม่มีข้อมูลบริการ</td></tr>";
+    echo "<tr><td colspan='7' class='text-center text-muted'>ไม่มีข้อมูลแพ็กเกจ</td></tr>";
 }
 ?>
