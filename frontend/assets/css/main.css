@@ -46,10 +46,6 @@
   font-weight: 500;
 }
 
-body {
-  font-family: 'Cabin', 'Noto Sans Thai Looped', sans-serif;
-}
-
 body.home {
   margin-bottom: 100px;
 }
