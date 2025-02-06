@@ -39,9 +39,9 @@ while ($row = mysqli_fetch_assoc($packageResult)) {
             <!-- ลูกค้า -->
             <div class="row mt-3 mb-3">
                 <div class="col">
-                    <label for="customer">ชื่อลูกค้า</label>
-                    <select id="customer" name="customer" class="form-control">
-                        <option value="">-- เลือกลูกค้า --</option>
+                    <label for="addBooking-customer">ชื่อลูกค้า</label>
+                    <select id="addBooking-customer" class="form-control">
+                        <option value="0">-- เลือกลูกค้า --</option>
                         <?php foreach ($customers as $customer) { ?>
                             <option value="<?= $customer['cus_id'] ?>"> <?= $customer['cus_fname'] ?>&nbsp;&nbsp;<?= $customer['cus_lname'] ?></option>
                         <?php } ?>
@@ -51,8 +51,8 @@ while ($row = mysqli_fetch_assoc($packageResult)) {
             <!-- พนักงาน -->
             <div class="row mt-3 mb-3">
                 <div class="col">
-                    <label for="employee">พนักงาน</label>
-                    <select id="employee" class="form-control">
+                    <label for="addBooking-employee">พนักงาน</label>
+                    <select id="addBooking-employee" class="form-control">
                         <option value="">-- เลือกพนักงาน --</option>
                         <?php foreach ($employees as $employee) { ?>
                             <option value="<?= $employee['emp_id'] ?>"> <?= $employee['emp_fname'] ?>&nbsp;&nbsp;<?= $employee['emp_lname'] ?></option>
@@ -77,7 +77,7 @@ while ($row = mysqli_fetch_assoc($packageResult)) {
                 <div class="col">
                     <label for="package">แพ็กเกจที่ใช้งานได้</label>
                     <select id="package" class="form-control">
-                        <option value="">-- เลือกแพ็กเกจ --</option>
+                        <option value="-1">-- เลือกแพ็กเกจ --</option>
                         <?php foreach ($packages as $package) { ?>
                             <option value="<?= $package['pac_id'] ?>" data-price="<?= $package['pac_price1'] ?>">
                                 <?= $package['pac_name'] ?>
@@ -146,7 +146,7 @@ while ($row = mysqli_fetch_assoc($packageResult)) {
                             <h5 class="m-0 text-danger"><b><span id="total_price">0</span> บาท</b></h5>
                         </div>
                         <hr>
-                        <button id="submitBtn" class="btn btn-primary w-100" onclick="bookingAdd();">✅ ยืนยันการจอง</button>
+                        <button id="submitBtn" class="btn btn-primary w-100" onclick="bookingAdd();" disabled>✅ ยืนยันการจอง</button>
                     </div>
                 </div>
             </div>
@@ -157,15 +157,16 @@ while ($row = mysqli_fetch_assoc($packageResult)) {
 </div>
 
 <script>
-    // function checkNull() {
-    //     let fields = ["customer", "employee", "package", "service", "date", "hour", "start_time", "notes"];
-    //     let isFilled = fields.every(id => {
-    //         let el = document.getElementById(id);
-    //         if (!el) console.warn(`❗ ไม่พบ Element ที่มี ID: ${id}`);
-    //         return el && el.value && el.value.trim() !== "";
-    //     });
-    //     document.getElementById("submitBtn").disabled = !isFilled;
-    // }
+    function checkNull() {
+        let fields = ["addBooking-customer", "addBooking-employee", "package", "service", "date", "hour", "start_time", "notes"];
+        let isFilled = fields.every(id => {
+            let el = document.getElementById(id);
+            if (!el) console.warn(`❗ ไม่พบ Element ที่มี ID: ${id}`);
+            return el && el.value && el.value.trim() !== "";
+        });
+        document.getElementById("submitBtn").disabled = !isFilled;
+    }
+
     function updatePrice() {
         let serviceSelect = document.getElementById("service");
         let packageSelect = document.getElementById("package");
@@ -193,7 +194,7 @@ while ($row = mysqli_fetch_assoc($packageResult)) {
     }
 
     // ⭐ เพิ่ม Event Listener สำหรับ input เพื่ออัปเดตสรุปยอดอัตโนมัติ
-    ["hour", "service", "package", "customer", "employee", "date", "start_time", "notes"].forEach(id => {
+    ["hour", "service", "package", "addBooking-customer", "addBooking-employee", "date", "start_time", "notes"].forEach(id => {
         document.getElementById(id).addEventListener("change", () => {
             updatePrice();
             checkNull();
