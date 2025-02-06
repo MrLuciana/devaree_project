@@ -157,17 +157,17 @@
         })
     }
 
-    // ฟังก์ชันเพิ่มการจอง
+    // ฟังก์ชันเพิ่มการจอง 
     function bookingAdd() {
         // ดึงค่าจากฟอร์ม
-        const customer = document.getElementById("customer").value;
-        const employee = document.getElementById("employee").value;
-        const service = document.getElementById("service").value;
-        const package = document.getElementById("package").value;
-        const bookingDate = document.getElementById("date").value;
-        const hours = parseInt(document.getElementById("hour").value) || 1;
-        const startTime = document.getElementById("start_time").value;
-        const notes = document.getElementById("notes").value;
+        const customer = $('#addBooking-customer').val().trim();
+        const employee = $('#addBooking-employee').val().trim();
+        const service = $('#service').val().trim();
+        const package = $('#package').val().trim();
+        const bookingDate = $('#date').val().trim();
+        const hours = $('#hour').val().trim();
+        const startTime = $('#start_time').val().trim();
+        const notes = $('#notes').val().trim();
 
         console.log(customer, employee, service, package, bookingDate, hours, startTime, notes);
         // คำนวณราคา
@@ -185,7 +185,8 @@
         $.ajax({
             url: "./bookings/booking-add.php",
             type: 'POST',
-            data: {
+            contentType: 'application/json', // ✅ เพิ่ม Content-Type เป็น JSON
+            data: JSON.stringify({ // ✅ แปลงข้อมูลเป็น JSON
                 cus_id: customer,
                 emp_id: employee,
                 ser_id: service,
@@ -195,19 +196,19 @@
                 boo_start_time: startTime,
                 boo_notes: notes,
                 boo_amount: totalPrice
-            },
+            }),
             dataType: "json",
             success: function(response) {
-                if (response.status === "success") {
+                if (response.success) { // ✅ ตรวจสอบ key 'success'
                     Swal.fire({
                         icon: "success",
                         title: "สำเร็จ!",
                         text: response.message,
                         showConfirmButton: false,
-                        timer: 500 // เพิ่มเวลาให้นานขึ้น
+                        timer: 1000
                     }).then(() => {
                         if (typeof bookingList === 'function') {
-                            bookingList(); // ตรวจสอบว่าฟังก์ชันมีอยู่จริง
+                            bookingList();
                         }
                     });
                 } else {
@@ -228,9 +229,8 @@
                 });
             }
         });
+
     }
-
-
 
     // ฟังก์ชันแก้ไขการจอง
     function bookingUpdate(id) {

@@ -158,7 +158,7 @@ while ($row = mysqli_fetch_assoc($packageResult)) {
 
 <script>
     function checkNull() {
-        let fields = ["addBooking-customer", "addBooking-employee", "package", "service", "date", "hour", "start_time", "notes"];
+        let fields = ["addBooking-customer", "addBooking-employee", "package", "service", "date", "hour", "start_time"];
         let isFilled = fields.every(id => {
             let el = document.getElementById(id);
             if (!el) console.warn(`❗ ไม่พบ Element ที่มี ID: ${id}`);
