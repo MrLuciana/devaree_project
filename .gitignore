@@ -1,2 +1,5 @@
 /vendor/
 .env
+
+# หน้าบ้าน
+frontend/assets/css/bootstrap/
