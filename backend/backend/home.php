@@ -5,13 +5,15 @@ include 'includes/conn.php';
 $sql = "SELECT 
     (SELECT COUNT(cus_id) FROM customers) AS total_customers, 
     (SELECT COUNT(ser_id) FROM services) AS total_services, 
-    (SELECT COUNT(pac_id) FROM packages) AS total_packages";
+    (SELECT COUNT(pac_id) FROM packages) AS total_packages, 
+    (SELECT COUNT(boo_id) FROM bookings) AS total_bookings";
 
 $result = $conn->query($sql);
 $row = $result->fetch_assoc();
 $total_customers = $row['total_customers'];
 $total_services = $row['total_services'];
 $total_packages = $row['total_packages'];
+$total_bookings = $row['total_bookings'];
 ?>
 
 <div class="container">
