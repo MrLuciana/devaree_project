@@ -54,7 +54,7 @@ if ($result->num_rows > 0) { ?>
                         <td class="text-center"><?php echo htmlspecialchars($i = $i + 1); ?></td>
                         <td><?= htmlspecialchars($row['cus_fname'] . " " . $row['cus_lname']); ?></td>
                         <td><?= htmlspecialchars($row['ser_name']); ?></td>
-                        <td class="text-center"><?= date('d/m/Y', strtotime($row['boo_date'])); ?></td>
+                        <td class="text-center"><?= date('d M Y', strtotime($row['boo_date'])); ?></td>
                         <td class="text-center"><?= htmlspecialchars($row['boo_hours']); ?> ชม.</td>
                         <td class="text-end"><?= is_numeric($row['boo_amount']) ? number_format($row['boo_amount'], 2) : '0.00'; ?></td>
                         <td class="text-center">

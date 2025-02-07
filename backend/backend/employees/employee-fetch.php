@@ -68,7 +68,7 @@ if ($result->num_rows > 0) { ?>
                         <td class="text-center">
                             <?php
                             $date = date_create($row['emp_hire_date']);
-                            echo date_format($date, "d/m/Y");
+                            echo date_format($date, "d M Y");
                             ?>
                         </td>
                         <td class="text-center">
