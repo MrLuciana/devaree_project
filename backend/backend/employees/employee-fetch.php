@@ -36,7 +36,7 @@ if ($result->num_rows > 0) { ?>
     <div class="table-responsive-lg">
         <table id="basic-datatables" class="display table table-striped table-hover">
             <thead>
-                <tr>
+                <tr class="text-center">
                     <th scope="col" style="width: 5%;">#</th>
                     <th scope="col" style="width: 15%;">ชื่อ-สกุล</th>
                     <th scope="col" style="width: 15%;">เพศ</th>
@@ -53,7 +53,7 @@ if ($result->num_rows > 0) { ?>
                     <tr>
                         <td><?php echo htmlspecialchars($i = $i + 1); ?></td>
                         <td><?php echo htmlspecialchars($row["emp_fname"] . " " . $row["emp_lname"]); ?></td>
-                        <td>
+                        <td class="text-center">
                             <?php
                             $gender_map = [
                                 "male" => "ชาย",
@@ -64,14 +64,14 @@ if ($result->num_rows > 0) { ?>
                             ?>
                         </td>
                         <td><?php echo htmlspecialchars($row["emp_email"]); ?></td>
-                        <td><?php echo htmlspecialchars($row["emp_phone"]); ?></td>
-                        <td>
+                        <td class="text-center"><?php echo htmlspecialchars($row["emp_phone"]); ?></td>
+                        <td class="text-center">
                             <?php
                             $date = date_create($row['emp_hire_date']);
                             echo date_format($date, "d/m/Y");
                             ?>
                         </td>
-                        <td>
+                        <td class="text-center">
                             <button class="btn btn-info btn-sm" onclick="employeeModalDetail('<?php echo $row['emp_id']; ?>');"><i class="fas fa-eye"></i></button>
                             <button data-toggle="modal" data-target="#IModal" class="btn btn-primary btn-sm" onclick="employeeModalEdit('<?php echo $row['emp_id']; ?>','แก้ไขข้อมูล');"><i class="fas fa-edit"></i></button>
                             <button class="btn btn-danger btn-sm" onclick="employeeModalDelete('<?php echo $row['emp_id']; ?>');"><i class="fas fa-trash"></i></button>

@@ -11,7 +11,7 @@ $sql = "SELECT
     b.boo_id, b.cus_id, b.emp_id, b.ser_id, b.pac_id, 
     b.boo_date, b.boo_hours, b.boo_start_time, 
     b.boo_notes, b.boo_amount, b.boo_updated_at,
-    c.cus_fname, e.emp_fname, s.ser_name, p.pac_name
+    c.cus_fname, c.cus_lname, s.ser_name, p.pac_name
 FROM bookings AS b
 LEFT JOIN customers AS c ON b.cus_id = c.cus_id
 LEFT JOIN employees AS e ON b.emp_id = e.emp_id
@@ -25,7 +25,7 @@ if (!empty($keyword)) {
         e.emp_fname LIKE '%$keyword%' ";
 }
 
-$sql .= " ORDER BY b.boo_date DESC, b.boo_start_time DESC LIMIT $start, $perPage";
+$sql .= " ORDER BY b.boo_date ASC, b.boo_start_time ASC LIMIT $start, $perPage";
 $result = $conn->query($sql);
 if (!$result) {
     die("เกิดข้อผิดพลาดใน SQL: " . $conn->error);
@@ -36,36 +36,37 @@ if ($result->num_rows > 0) { ?>
     <div class="table-responsive-lg">
         <table class="display table table-striped table-hover">
             <thead>
-                <tr>
-                    <th>รหัสการจอง</th>
-                    <th>ลูกค้า</th>
-                    <th>พนักงาน</th>
+                <tr class="text-center">
+                    <th>#</th>
+                    <th>ชื่อลูกค้า</th>
                     <th>บริการ</th>
-                    <th>แพ็คเกจ</th>
                     <th>วันที่จอง</th>
-                    <th>เวลาเริ่ม</th>
                     <th>จำนวนชั่วโมง</th>
                     <th>ยอดเงิน (บาท)</th>
-                    <th>หมายเหตุ</th>
                     <th>จัดการ</th>
                 </tr>
             </thead>
             <tbody>
-                <?php while ($row = $result->fetch_assoc()) { ?>
+                <?php 
+                $i = 0;
+                while ($row = $result->fetch_assoc()) { ?>
                     <tr>
-                        <td><?= $row['boo_id']; ?></td>
-                        <td><?= $row['cus_fname']; ?></td>
-                        <td><?= $row['emp_fname']; ?></td>
-                        <td><?= $row['ser_name']; ?></td>
-                        <td><?= $row['pac_name']; ?></td>
-                        <td><?= $row['boo_date']; ?></td>
-                        <td><?= $row['boo_start_time']; ?></td>
-                        <td><?= $row['boo_hours']; ?> ชั่วโมง</td>
-                        <td><?= number_format($row['boo_amount'], 2); ?></td>
-                        <td><?= !empty($row['boo_notes']) ? $row['boo_notes'] : '-'; ?></td>
-                        <td>
-                            <button class="btn btn-sm btn-warning edit-btn" data-id="<?= $row['boo_id']; ?>">แก้ไข</button>
-                            <button class="btn btn-sm btn-danger delete-btn" data-id="<?= $row['boo_id']; ?>">ลบ</button>
+                        <td class="text-center"><?php echo htmlspecialchars($i = $i + 1); ?></td>
+                        <td><?= htmlspecialchars($row['cus_fname'] . " " . $row['cus_lname']); ?></td>
+                        <td><?= htmlspecialchars($row['ser_name']); ?></td>
+                        <td class="text-center"><?= date('d/m/Y', strtotime($row['boo_date'])); ?></td>
+                        <td class="text-center"><?= htmlspecialchars($row['boo_hours']); ?> ชม.</td>
+                        <td class="text-end"><?= is_numeric($row['boo_amount']) ? number_format($row['boo_amount'], 2) : '0.00'; ?></td>
+                        <td class="text-center">
+                            <button class="btn btn-info btn-sm" onclick="bookingModalDetail('<?= htmlspecialchars($row['boo_id'], ENT_QUOTES); ?>');">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button data-toggle="modal" data-target="#IModal" class="btn btn-primary btn-sm" onclick="bookingModalEdit('<?= htmlspecialchars($row['boo_id'], ENT_QUOTES); ?>', 'แก้ไขข้อมูล');">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn btn-danger btn-sm" onclick="bookingModalDelete('<?= htmlspecialchars($row['boo_id'], ENT_QUOTES); ?>');">
+                                <i class="fas fa-trash"></i>
+                            </button>
                         </td>
                     </tr>
                 <?php } ?>

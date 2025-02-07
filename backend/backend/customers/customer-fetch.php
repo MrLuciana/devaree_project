@@ -34,7 +34,7 @@ if ($result->num_rows > 0) { ?>
     <div class="table-responsive-lg">
         <table id="basic-datatables" class="display table table-striped table-hover">
             <thead>
-                <tr>
+                <tr class="text-center">
                     <th scope="col" style="width: 5%;">#</th>
                     <th scope="col" style="width: 15%;">ชื่อ-สกุล</th>
                     <th scope="col" style="width: 15%;">เพศ</th>
@@ -49,9 +49,9 @@ if ($result->num_rows > 0) { ?>
                 $i = 0;
                 while ($row = $result->fetch_assoc()) { ?>
                     <tr>
-                        <td><?php echo htmlspecialchars($i = $i + 1); ?></td>
+                        <td class="text-center"><?php echo htmlspecialchars($i = $i + 1); ?></td>
                         <td><?php echo htmlspecialchars($row["cus_fname"] . " " . $row["cus_lname"]); ?></td>
-                        <td>
+                        <td class="text-center">
                             <?php
                             $gender_map = [
                                 "male" => "ชาย",
@@ -62,11 +62,11 @@ if ($result->num_rows > 0) { ?>
                             ?>
                         </td>
                         <td><?php echo htmlspecialchars($row["cus_email"]); ?></td>
-                        <td><?php echo htmlspecialchars($row["cus_phone"]); ?></td>
-                        <td>
+                        <td class="text-center"><?php echo htmlspecialchars($row["cus_phone"]); ?></td>
+                        <td class="text-center">
                             <button class="btn btn-success btn-sm" onclick="bookingModalDetail('<?php echo $row['cus_id']; ?>');"><i class="fas fa-eye"></i></button>
                         </td>
-                        <td>
+                        <td class="text-center">
                             <button class="btn btn-info btn-sm" onclick="customerModalDetail('<?php echo $row['cus_id']; ?>');"><i class="fas fa-eye"></i></button>
                             <button data-toggle="modal" data-target="#IModal" class="btn btn-primary btn-sm" onclick="customerModalEdit('<?php echo $row['cus_id']; ?>','แก้ไขข้อมูล');"><i class="fas fa-edit"></i></button>
                             <button class="btn btn-danger btn-sm" onclick="customerModalDelete('<?php echo $row['cus_id']; ?>');"><i class="fas fa-trash"></i></button>
