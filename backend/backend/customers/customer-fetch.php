@@ -64,8 +64,28 @@ if ($result->num_rows > 0) { ?>
                         <td><?php echo htmlspecialchars($row["cus_email"]); ?></td>
                         <td class="text-center"><?php echo htmlspecialchars($row["cus_phone"]); ?></td>
                         <td class="text-center">
-                            <button class="btn btn-success btn-sm" onclick="bookingModalDetail('<?php echo $row['cus_id']; ?>','ข้อมูลการจอง');"><i class="fas fa-eye"></i></button>
+                            <button class="btn btn-success btn-sm" onclick="bookingModalDetail('<?php echo $row['cus_id']; ?>', 'ข้อมูลการจอง');">
+                                <?php
+                                // ใช้ prepared statement เพื่อป้องกัน SQL injection
+                                $cus_id = $row['cus_id'];
+                                $sql = "SELECT COUNT(boo_id) AS total_bookings 
+                                        FROM bookings 
+                                        WHERE cus_id = ?";
+
+                                if ($stmt = $conn->prepare($sql)) {
+                                    $stmt->bind_param("i", $cus_id);  // ใช้ 'i' สำหรับ integer
+                                    $stmt->execute();
+                                    $stmt->bind_result($total_bookings);  // รับค่าผลลัพธ์
+                                    $stmt->fetch();
+                                    echo $total_bookings;
+                                    $stmt->close();
+                                } else {
+                                    echo "0"; // ในกรณีที่คำสั่ง SQL ผิดพลาด
+                                }
+                                ?>
+                            </button>
                         </td>
+
                         <td class="text-center">
                             <button class="btn btn-info btn-sm" onclick="customerModalDetail('<?php echo $row['cus_id']; ?>','ข้อมูลลูกค้า');"><i class="fas fa-eye"></i></button>
                             <button data-toggle="modal" data-target="#IModal" class="btn btn-primary btn-sm" onclick="customerModalEdit('<?php echo $row['cus_id']; ?>','แก้ไขข้อมูล');"><i class="fas fa-edit"></i></button>
