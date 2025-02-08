@@ -67,6 +67,22 @@
             }
         });
     }
+
+    // ฟอร์มดูรายละเอียดการจอง
+    function bookingModalDetail(id, title) {
+        document.getElementById('ModalTitle').innerHTML = title;
+        $.ajax({
+            url: "./customers/customer-booking-detail.php",
+            type: "POST",
+            data: {
+                id: id
+            },
+            success: function(data) {
+                $('#IModal .modal-body').html(data);
+                $('#IModal').modal('show');
+            }
+        });
+    }
     // ฟอร์มแก้ไขบริการ
     function customerModalEdit(id, title) {
         document.getElementById('ModalTitle').innerHTML = title;

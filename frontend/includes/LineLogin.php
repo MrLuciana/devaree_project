@@ -4,7 +4,7 @@ class LineLogin
   #### change your id
   private const CLIENT_ID = '2006737398';
   private const CLIENT_SECRET = 'f7b0f2ddf53392201484d84461baae8b';
-  private const REDIRECT_URL = 'http://localhost/php-line-login/callback.php';
+  private const REDIRECT_URL = 'http://localhost/devaree_project/frontend/includes/callback.php';
 
   private const AUTH_URL = 'https://access.line.me/oauth2/v2.1/authorize';
   private const PROFILE_URL = 'https://api.line.me/v2/profile';

@@ -64,10 +64,10 @@ if ($result->num_rows > 0) { ?>
                         <td><?php echo htmlspecialchars($row["cus_email"]); ?></td>
                         <td class="text-center"><?php echo htmlspecialchars($row["cus_phone"]); ?></td>
                         <td class="text-center">
-                            <button class="btn btn-success btn-sm" onclick="bookingModalDetail('<?php echo $row['cus_id']; ?>');"><i class="fas fa-eye"></i></button>
+                            <button class="btn btn-success btn-sm" onclick="bookingModalDetail('<?php echo $row['cus_id']; ?>','ข้อมูลการจอง');"><i class="fas fa-eye"></i></button>
                         </td>
                         <td class="text-center">
-                            <button class="btn btn-info btn-sm" onclick="customerModalDetail('<?php echo $row['cus_id']; ?>');"><i class="fas fa-eye"></i></button>
+                            <button class="btn btn-info btn-sm" onclick="customerModalDetail('<?php echo $row['cus_id']; ?>','ข้อมูลลูกค้า');"><i class="fas fa-eye"></i></button>
                             <button data-toggle="modal" data-target="#IModal" class="btn btn-primary btn-sm" onclick="customerModalEdit('<?php echo $row['cus_id']; ?>','แก้ไขข้อมูล');"><i class="fas fa-edit"></i></button>
                             <button class="btn btn-danger btn-sm" onclick="customerModalDelete('<?php echo $row['cus_id']; ?>');"><i class="fas fa-trash"></i></button>
                         </td>

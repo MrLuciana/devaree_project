@@ -312,14 +312,16 @@
                         icon: 'success',
                         title: '✅ สำเร็จ!',
                         text: 'อัพเดตสถานะสำเร็จ',
-                        confirmButtonText: 'ตกลง'
+                        showConfirmButton: false,
+                        timer: 500
                     });
                 } else {
                     Swal.fire({
                         icon: 'error',
                         title: '⚠️ ไม่สำเร็จ!',
                         text: 'Error: ' + response,
-                        confirmButtonText: 'ปิด'
+                        showConfirmButton: false,
+                        timer: 500
                     });
                 }
             },
