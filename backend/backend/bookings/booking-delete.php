@@ -27,7 +27,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($conn->query($sql) === TRUE) {
         echo json_encode(["status" => "success", "message" => "ลบข้อมูลสำเร็จ"]);
     } else {
-        echo json_encode(["status" => "error", "message" => "เกิดข้อผิดพลาด: " . $conn->error]);
+        // echo json_encode(["status" => "error", "message" => "เกิดข้อผิดพลาด: " . $conn->error]);
+        echo json_encode(["status" => "error", "message" => "เนื่องจากข้อมูลนี้มีการใช้งานอยู่ ไม่สามารถลบได้"]);
     }
 }
 $conn->close();
