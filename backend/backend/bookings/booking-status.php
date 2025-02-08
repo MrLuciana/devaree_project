@@ -15,19 +15,23 @@ if (isset($_POST['boo_id'], $_POST['new_status'])) {
     if ($stmt->execute()) {
         // กรณีสถานะเป็น 'confirmed' -> สร้างข้อมูลการชำระเงิน
         if ($new_status == 'confirmed') {
-            $amount_query = "SELECT boo_amount FROM bookings WHERE boo_id = ?";
-            $amount_stmt = $conn->prepare($amount_query);
-            $amount_stmt->bind_param("i", $boo_id);
-            $amount_stmt->execute();
-            $result = $amount_stmt->get_result();
+            // ดึงข้อมูล boo_amount และ boo_method จาก bookings
+            $amount_method_query = "SELECT boo_amount, boo_method FROM bookings WHERE boo_id = ?";
+            $amount_method_stmt = $conn->prepare($amount_method_query);
+            $amount_method_stmt->bind_param("i", $boo_id);
+            $amount_method_stmt->execute();
+            $result = $amount_method_stmt->get_result();
 
-            $pay_amount = 0;
             if ($result->num_rows > 0) {
                 $row = $result->fetch_assoc();
                 $pay_amount = $row['boo_amount'];
+                $pay_method = $row['boo_method'];  // ดึงวิธีการชำระเงินจาก bookings
+            } else {
+                // หากไม่พบข้อมูล ให้ส่ง error กลับ
+                echo json_encode(['status' => 'error', 'message' => 'ไม่พบวิธีชำระเงิน']);
+                exit;
             }
 
-            $pay_method = 'cash'; // วิธีการชำระเงินเริ่มต้น
             $pay_status = 'pending'; // สถานะการชำระเงินเริ่มต้น
             $pay_transaction_date = date('Y-m-d H:i:s'); // วันที่สร้างการชำระเงิน
 
@@ -53,3 +57,4 @@ if (isset($_POST['boo_id'], $_POST['new_status'])) {
 } else {
     echo json_encode(['status' => 'error', 'message' => 'ข้อมูลไม่ครบถ้วน']);
 }
+?>

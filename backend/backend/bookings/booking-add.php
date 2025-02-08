@@ -19,9 +19,10 @@ if ($data) {
     $boo_start_time = $data['boo_start_time'];
     $boo_notes = $data['boo_notes'];
     $boo_amount = $data['boo_amount'];
+    $boo_method = $data['boo_method'];
 
-    $sql = "INSERT INTO bookings (cus_id, emp_id, ser_id, pac_id, boo_date, boo_hours, boo_start_time, boo_notes, boo_amount)
-            VALUES ('$cus_id', '$emp_id', '$ser_id', '$pac_id', '$boo_date', '$boo_hours', '$boo_start_time', '$boo_notes', '$boo_amount')";
+    $sql = "INSERT INTO bookings (cus_id, emp_id, ser_id, pac_id, boo_date, boo_hours, boo_start_time, boo_notes, boo_amount, boo_method)
+            VALUES ('$cus_id', '$emp_id', '$ser_id', '$pac_id', '$boo_date', '$boo_hours', '$boo_start_time', '$boo_notes', '$boo_amount', '$boo_method')";
 
     if (mysqli_query($conn, $sql)) {
         echo json_encode(['success' => true, 'message' => 'จองสำเร็จ!']);

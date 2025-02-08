@@ -103,62 +103,71 @@ while ($row = mysqli_fetch_assoc($packageResult)) {
                     <label for="start_time">เวลาเริ่มต้น</label>
                     <input type="time" id="start_time" class="form-control"">
                 </div>
+                <div class=" col">
+                    <label for="method">วิธีชำระเงิน</label>
+                    <select id="method" name="boo_method" class="form-control">
+                        <option value="">-- เลือกวิธีชำระเงิน --</option>
+                        <option value="cash">เงินสด</option>
+                        <option value="bank_transfer">โอนเงิน</option>
+                    </select>
+                </div>
+
             </div>
 
 
             <div class=" row mt-3 mb-3">
-                    <div class="col">
-                        <label for="notes">หมายเหตุเพิ่มเติม</label>
-                        <input type="text" id="notes" class="form-control" onkeyup="checkNull();">
-                    </div>
+                <div class="col">
+                    <label for="notes">หมายเหตุเพิ่มเติม</label>
+                    <input type="text" id="notes" class="form-control" onkeyup="checkNull();">
                 </div>
             </div>
-
-            <!-- ส่วนสรุปยอด -->
-            <div class="col">
-                <div class="card shadow-sm">
-                    <div class="card-body">
-                        <h5 class="card-title text-center mb-3">📋 สรุปยอดการจอง</h5>
-                        <hr>
-                        <div class="mb-2 d-flex justify-content-between">
-                            <span><b>บริการ:</b></span>
-                            <span id="summary_service">-</span>
-                        </div>
-                        <div class="mb-2 d-flex justify-content-between">
-                            <span><b>ราคา/ชั่วโมง:</b></span>
-                            <span id="service_price">0</span> บาท
-                        </div>
-                        <div class="mb-2 d-flex justify-content-between">
-                            <span><b>แพ็กเกจ:</b></span>
-                            <span id="summary_package">-</span>
-                        </div>
-                        <div class="mb-2 d-flex justify-content-between">
-                            <span><b>ราคาแพ็กเกจ:</b></span>
-                            <span id="package_price">0</span> บาท
-                        </div>
-                        <div class="mb-2 d-flex justify-content-between">
-                            <span><b>จำนวนชั่วโมง:</b></span>
-                            <span id="summary_hours">0</span> ชม.
-                        </div>
-                        <hr>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <h5 class="m-0"><b>รวมทั้งสิ้น:</b></h5>
-                            <h5 class="m-0 text-danger"><b><span id="total_price">0</span> บาท</b></h5>
-                        </div>
-                        <hr>
-                        <button id="submitBtn" class="btn btn-primary w-100" onclick="bookingAdd();" disabled>✅ ยืนยันการจอง</button>
-                    </div>
-                </div>
-            </div>
-
         </div>
+
+        <!-- ส่วนสรุปยอด -->
+        <div class="col">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title text-center mb-3">📋 สรุปยอดการจอง</h5>
+                    <hr>
+                    <div class="mb-2 d-flex justify-content-between">
+                        <span><b>บริการ:</b></span>
+                        <span id="summary_service">-</span>
+                    </div>
+                    <div class="mb-2 d-flex justify-content-between">
+                        <span><b>ราคา/ชั่วโมง:</b></span>
+                        <span id="service_price">0</span> บาท
+                    </div>
+                    <div class="mb-2 d-flex justify-content-between">
+                        <span><b>แพ็กเกจ:</b></span>
+                        <span id="summary_package">-</span>
+                    </div>
+                    <div class="mb-2 d-flex justify-content-between">
+                        <span><b>ราคาแพ็กเกจ:</b></span>
+                        <span id="package_price">0</span> บาท
+                    </div>
+                    <div class="mb-2 d-flex justify-content-between">
+                        <span><b>จำนวนชั่วโมง:</b></span>
+                        <span id="summary_hours">0</span> ชม.
+                    </div>
+                    <hr>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h5 class="m-0"><b>รวมทั้งสิ้น:</b></h5>
+                        <h5 class="m-0 text-danger"><b><span id="total_price">0</span> บาท</b></h5>
+                    </div>
+                    <hr>
+                    <button id="submitBtn" class="btn btn-primary w-100" onclick="bookingAdd();" disabled>✅ ยืนยันการจอง</button>
+                </div>
+            </div>
+        </div>
+
     </div>
+</div>
 </div>
 </div>
 
 <script>
     function checkNull() {
-        let fields = ["addBooking-customer", "addBooking-employee", "package", "service", "date", "hour", "start_time"];
+        let fields = ["addBooking-customer", "addBooking-employee", "package", "service", "date", "hour", "start_time", "method"];
         let isFilled = fields.every(id => {
             let el = document.getElementById(id);
             if (!el) console.warn(`❗ ไม่พบ Element ที่มี ID: ${id}`);
@@ -194,7 +203,7 @@ while ($row = mysqli_fetch_assoc($packageResult)) {
     }
 
     // ⭐ เพิ่ม Event Listener สำหรับ input เพื่ออัปเดตสรุปยอดอัตโนมัติ
-    ["hour", "service", "package", "addBooking-customer", "addBooking-employee", "date", "start_time", "notes"].forEach(id => {
+    ["hour", "service", "package", "addBooking-customer", "addBooking-employee", "date", "start_time", "notes", "method"].forEach(id => {
         document.getElementById(id).addEventListener("change", () => {
             updatePrice();
             checkNull();

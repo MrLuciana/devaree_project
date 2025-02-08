@@ -168,15 +168,16 @@
         const hours = $('#hour').val().trim();
         const startTime = $('#start_time').val().trim();
         const notes = $('#notes').val().trim();
+        const method = $('#method').val().trim();
 
-        console.log(customer, employee, service, package, bookingDate, hours, startTime, notes);
+        console.log(customer, employee, service, package, bookingDate, hours, startTime, notes, method);
         // คำนวณราคา
         const servicePricePerHour = parseFloat(document.getElementById("service").selectedOptions[0]?.getAttribute("data-price")) || 0;
         const packagePrice = parseFloat(document.getElementById("package").selectedOptions[0]?.getAttribute("data-price")) || 0;
         const totalPrice = (servicePricePerHour * hours) + packagePrice;
 
         // ตรวจสอบข้อมูลก่อนส่ง (Validation)
-        if (!customer || !employee || !service || !package || !bookingDate || !hours || !startTime) {
+        if (!customer || !employee || !service || !package || !bookingDate || !hours || !startTime || !method) {
             alert("กรุณากรอกข้อมูลให้ครบถ้วน!");
             return;
         }
@@ -195,7 +196,8 @@
                 boo_hours: hours,
                 boo_start_time: startTime,
                 boo_notes: notes,
-                boo_amount: totalPrice
+                boo_amount: totalPrice,
+                boo_method: method
             }),
             dataType: "json",
             success: function(response) {
