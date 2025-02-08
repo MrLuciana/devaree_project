@@ -61,7 +61,7 @@
                             </li>
                             <li>
                                 <a href="">
-                                    <span class="sub-item">ประวัติการใช้งาน</span>
+                                    <span class="sub-item">ประวัติการจอง</span>
                                 </a>
                             </li>
                         </ul>
