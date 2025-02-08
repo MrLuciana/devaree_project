@@ -117,14 +117,3 @@ if ($result->num_rows > 0) { ?>
     echo "<tr><td colspan='11' class='text-center text-muted'>ไม่มีข้อมูลบริการ</td></tr>";
 }
 ?>
-
-<script>
-        // Event Listener สำหรับตรวจจับการเปลี่ยนสถานะ
-    $(document).on('change', 'select[name="boo_status"]', function() {
-        var status = $(this).val();
-        var bookingId = $(this).data('boo_id'); // ตรวจสอบว่า data-boo_id ถูกต้อง
-
-        // เรียกใช้งานฟังก์ชัน updateBookingStatus
-        updateBookingStatus(bookingId, status);
-    });
-</script>

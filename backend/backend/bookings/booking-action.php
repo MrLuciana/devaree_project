@@ -287,6 +287,14 @@
 
     }
 
+    // Event Listener สำหรับตรวจจับการเปลี่ยนสถานะ
+    $(document).on('change', 'select[name="boo_status"]', function() {
+        var status = $(this).val();
+        var bookingId = $(this).data('boo_id'); // ตรวจสอบว่า data-boo_id ถูกต้อง
+
+        // เรียกใช้งานฟังก์ชัน updateBookingStatus
+        updateBookingStatus(bookingId, status);
+    });
     // ฟังก์ชันสำหรับอัปเดตสถานะการจอง
     function updateBookingStatus(bookingId, status) {
         $.ajax({
