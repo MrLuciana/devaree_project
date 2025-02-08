@@ -287,29 +287,45 @@
 
     }
 
-    // ฟังก์ชัน Toggle สถานะ
-    function toggleActive(boo_id, currentStatus) {
-        let newStatus = (currentStatus === 'yes') ? 'no' : 'yes'; // สลับค่า
-
-        // ส่งค่าไปอัปเดตในฐานข้อมูลผ่าน AJAX
-        fetch('bookings/booking-status.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                body: `boo_id=${boo_id}&boo_active=${newStatus}`
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    let button = document.getElementById(`activeButton${boo_id}`);
-                    button.className = `btn btn-${newStatus === 'yes' ? 'success' : 'danger'} btn-sm`;
-                    button.innerHTML = (newStatus === 'yes') ? 'เปิด' : 'ปิด';
-                    button.setAttribute("onclick", `toggleActive(${boo_id}, '${newStatus}')`);
+    // ฟังก์ชันสำหรับอัปเดตสถานะการจอง
+    function updateBookingStatus(bookingId, status) {
+        $.ajax({
+            url: './bookings/booking-status.php',
+            type: 'POST',
+            data: {
+                id: bookingId,
+                status: status
+            },
+            dataType: 'text', // ระบุประเภทข้อมูลที่คาดว่าจะได้รับกลับมา
+            success: function(response) {
+                // ใช้ SweetAlert2 แสดงข้อความ
+                if (response.includes("Success")) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: '✅ สำเร็จ!',
+                        text: 'อัพเดตสถานะสำเร็จ',
+                        confirmButtonText: 'ตกลง'
+                    });
                 } else {
-                    alert("เกิดข้อผิดพลาดในการอัปเดต");
+                    Swal.fire({
+                        icon: 'error',
+                        title: '⚠️ ไม่สำเร็จ!',
+                        text: 'Error: ' + response,
+                        confirmButtonText: 'ปิด'
+                    });
                 }
-            })
-            .catch(error => console.error('Error:', error));
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.error('❌ AJAX Error:', textStatus, errorThrown); // แสดง Error ใน Console
+                console.log('Response Text:', jqXHR.responseText); // ตรวจสอบข้อความ Error จาก Server
+
+                Swal.fire({
+                    icon: 'error',
+                    title: '❌ Error updating status',
+                    text: 'An error occurred while updating the status: ' + jqXHR.responseText,
+                    confirmButtonText: 'Close'
+                });
+            }
+        });
     }
 </script>

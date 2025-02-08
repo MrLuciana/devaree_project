@@ -1,0 +1,57 @@
+/* ดีไซน์หลักของ Select Box */
+.status-select {
+    border: none;
+    border-radius: 12px;
+    padding: 10px 16px;
+    background: #f1f3f8;
+    font-weight: 600;
+    font-size: 14px;
+    color: #333;
+    text-align: center;
+    cursor: pointer;
+    min-width: 140px;
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.1), 
+                -4px -4px 8px rgba(255, 255, 255, 0.7);
+    transition: all 0.3s ease;
+    appearance: none; /* ปิดการตั้งค่าดีฟอลต์ของเบราว์เซอร์ */
+    position: relative;
+}
+
+/* เอฟเฟกต์เมื่อ Hover */
+.status-select:hover {
+    background: #e9edf4;
+    box-shadow: inset 4px 4px 6px rgba(0, 0, 0, 0.1), 
+                inset -4px -4px 6px rgba(255, 255, 255, 0.8);
+}
+
+/* เอฟเฟกต์ตอน Focus */
+.status-select:focus {
+    outline: none;
+    box-shadow: 0 0 12px rgba(0, 123, 255, 0.6);
+    background: #dfe6ed;
+}
+
+/* สีสำหรับแต่ละสถานะ */
+.status-select option[value="pending"] {
+    background-color: #fff8dc;   /* สีครีมอ่อน */
+    color: #b8860b;
+}
+
+.status-select option[value="confirmed"] {
+    background-color: #d4edda;   /* เขียวมิ้นต์ */
+    color: #2e7d32;
+}
+
+.status-select option[value="canceled"] {
+    background-color: #f8d7da;   /* ชมพูอ่อน */
+    color: #c0392b;
+}
+
+/* เพิ่มไอคอนลูกศรแบบ Custom */
+.status-select {
+    background-image: url('data:image/svg+xml;utf8,<svg fill="gray" height="16" viewBox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 14px;
+    padding-right: 30px; /* เผื่อที่สำหรับไอคอน */
+}

@@ -10,7 +10,7 @@ $keyword = isset($_POST['keyword']) ? $conn->real_escape_string($_POST['keyword'
 $sql = "SELECT 
     b.boo_id, b.cus_id, b.emp_id, b.ser_id, b.pac_id, 
     b.boo_date, b.boo_hours, b.boo_start_time, 
-    b.boo_notes, b.boo_amount, b.boo_updated_at,
+    b.boo_status, b.boo_amount, b.boo_updated_at,
     c.cus_fname, c.cus_lname, s.ser_name, p.pac_name
 FROM bookings AS b
 LEFT JOIN customers AS c ON b.cus_id = c.cus_id
@@ -37,17 +37,18 @@ if ($result->num_rows > 0) { ?>
         <table class="display table table-striped table-hover">
             <thead>
                 <tr class="text-center">
-                    <th>#</th>
-                    <th>ชื่อลูกค้า</th>
-                    <th>บริการ</th>
-                    <th>วันที่จอง</th>
-                    <th>จำนวนชั่วโมง</th>
-                    <th>ยอดเงิน (บาท)</th>
-                    <th>จัดการ</th>
+                    <th scope="col" style="width: 5%;">#</th>
+                    <th scope="col" style="width: 14%;">ชื่อลูกค้า</th>
+                    <th scope="col" style="width: 15%;">บริการ</th>
+                    <th scope="col" style="width: 15%;">วันที่จอง</th>
+                    <th scope="col" style="width: 10%;">จำนวนชั่วโมง</th>
+                    <th scope="col" style="width: 10%;">ยอดเงิน (บาท)</th>
+                    <th scope="col" style="width: 15%;">สถานะ</th>
+                    <th scope="col" style="width: 15%;">จัดการ</th>
                 </tr>
             </thead>
             <tbody>
-                <?php 
+                <?php
                 $i = 0;
                 while ($row = $result->fetch_assoc()) { ?>
                     <tr>
@@ -57,6 +58,13 @@ if ($result->num_rows > 0) { ?>
                         <td class="text-center"><?= date('d M Y', strtotime($row['boo_date'])); ?></td>
                         <td class="text-center"><?= htmlspecialchars($row['boo_hours']); ?> ชม.</td>
                         <td class="text-end"><?= is_numeric($row['boo_amount']) ? number_format($row['boo_amount'], 2) : '0.00'; ?></td>
+                        <td class="text-center">
+                            <select name="boo_status" class="form-select status-select" data-boo_id="<?= $row['boo_id']; ?>">
+                                <option value="pending" <?= $row['boo_status'] == 'pending' ? 'selected' : ''; ?>>⏳ Pending</option>
+                                <option value="confirmed" <?= $row['boo_status'] == 'confirmed' ? 'selected' : ''; ?>>✅ Confirmed</option>
+                                <option value="canceled" <?= $row['boo_status'] == 'canceled' ? 'selected' : ''; ?>>❌ Canceled</option>
+                            </select>
+                        </td>
                         <td class="text-center">
                             <button class="btn btn-info btn-sm" onclick="bookingModalDetail('<?= htmlspecialchars($row['boo_id'], ENT_QUOTES); ?>');">
                                 <i class="fas fa-eye"></i>
@@ -109,3 +117,14 @@ if ($result->num_rows > 0) { ?>
     echo "<tr><td colspan='11' class='text-center text-muted'>ไม่มีข้อมูลบริการ</td></tr>";
 }
 ?>
+
+<script>
+        // Event Listener สำหรับตรวจจับการเปลี่ยนสถานะ
+    $(document).on('change', 'select[name="boo_status"]', function() {
+        var status = $(this).val();
+        var bookingId = $(this).data('boo_id'); // ตรวจสอบว่า data-boo_id ถูกต้อง
+
+        // เรียกใช้งานฟังก์ชัน updateBookingStatus
+        updateBookingStatus(bookingId, status);
+    });
+</script>
