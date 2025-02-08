@@ -289,51 +289,53 @@
 
     // Event Listener สำหรับตรวจจับการเปลี่ยนสถานะ
     $(document).on('change', 'select[name="boo_status"]', function() {
-        var status = $(this).val();
-        var bookingId = $(this).data('boo_id'); // ตรวจสอบว่า data-boo_id ถูกต้อง
+        var boo_id = $(this).data('boo_id');
+        var new_status = $(this).val();
 
-        // เรียกใช้งานฟังก์ชัน updateBookingStatus
-        updateBookingStatus(bookingId, status);
+        updateBookingStatus(boo_id, new_status);
     });
-    // ฟังก์ชันสำหรับอัปเดตสถานะการจอง
-    function updateBookingStatus(bookingId, status) {
+
+    function updateBookingStatus(boo_id, new_status) {
         $.ajax({
             url: './bookings/booking-status.php',
             type: 'POST',
             data: {
-                id: bookingId,
-                status: status
+                boo_id: boo_id,
+                new_status: new_status
             },
-            dataType: 'text', // ระบุประเภทข้อมูลที่คาดว่าจะได้รับกลับมา
+            dataType: 'json',
             success: function(response) {
-                // ใช้ SweetAlert2 แสดงข้อความ
-                if (response.includes("Success")) {
+                if (response.status === "success") {
+                    let message = (new_status === 'confirmed') ?
+                        'สร้างรายการชำระเงินเรียบร้อยแล้ว ✅' :
+                        (new_status === 'pending') ?
+                        'ลบรายการชำระเงินเรียบร้อยแล้ว ❌' :
+                        'อัพเดตสถานะสำเร็จ';
+
                     Swal.fire({
                         icon: 'success',
                         title: '✅ สำเร็จ!',
-                        text: 'อัพเดตสถานะสำเร็จ',
+                        text: message,
                         showConfirmButton: false,
-                        timer: 500
+                        timer: 1000
                     });
                 } else {
                     Swal.fire({
                         icon: 'error',
                         title: '⚠️ ไม่สำเร็จ!',
-                        text: 'Error: ' + response,
+                        text: response.message || 'เกิดข้อผิดพลาดที่ไม่ทราบสาเหตุ',
                         showConfirmButton: false,
-                        timer: 500
+                        timer: 1500
                     });
                 }
             },
             error: function(jqXHR, textStatus, errorThrown) {
-                console.error('❌ AJAX Error:', textStatus, errorThrown); // แสดง Error ใน Console
-                console.log('Response Text:', jqXHR.responseText); // ตรวจสอบข้อความ Error จาก Server
-
+                // console.error('❌ AJAX Error:', textStatus, errorThrown);
                 Swal.fire({
                     icon: 'error',
-                    title: '❌ Error updating status',
-                    text: 'An error occurred while updating the status: ' + jqXHR.responseText,
-                    confirmButtonText: 'Close'
+                    title: '❌ เกิดข้อผิดพลาด!',
+                    html: `<strong>สถานะ:</strong> ${textStatus}<br><strong>รายละเอียด:</strong> ${errorThrown}`,
+                    confirmButtonText: 'ปิด'
                 });
             }
         });
