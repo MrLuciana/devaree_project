@@ -1,16 +1,25 @@
 <?php
+require_once __DIR__ . '/../../vendor/autoload.php';
+
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../../');
+$dotenv->load();
 class LineLogin
 {
   #### change your id
-  private const CLIENT_ID = '2006737398';
-  private const CLIENT_SECRET = 'f7b0f2ddf53392201484d84461baae8b';
-  private const REDIRECT_URL = 'http://localhost/devaree_project/frontend/includes/callback.php';
+  private $clientId;
+  private $clientSecret;
 
-  private const AUTH_URL = 'https://access.line.me/oauth2/v2.1/authorize';
-  private const PROFILE_URL = 'https://api.line.me/v2/profile';
-  private const TOKEN_URL = 'https://api.line.me/oauth2/v2.1/token';
-  private const REVOKE_URL = 'https://api.line.me/oauth2/v2.1/revoke';
-  private const VERIFYTOKEN_URL = 'https://api.line.me/oauth2/v2.1/verify';
+  public function __construct()
+  {
+    $this->clientId = $_ENV['LINE_CLIENT_ID'];
+    $this->clientSecret = $_ENV['LINE_CLIENT_SECRET'];
+  }
+  private const string REDIRECT_URL = 'http://localhost/devaree_project/frontend/includes/callback.php';
+  private const string AUTH_URL = 'https://access.line.me/oauth2/v2.1/authorize';
+  private const string PROFILE_URL = 'https://api.line.me/v2/profile';
+  private const string TOKEN_URL = 'https://api.line.me/oauth2/v2.1/token';
+  private const string REVOKE_URL = 'https://api.line.me/oauth2/v2.1/revoke';
+  private const string VERIFYTOKEN_URL = 'https://api.line.me/oauth2/v2.1/verify';
 
 
   function getLink()
@@ -21,7 +30,7 @@ class LineLogin
 
     $_SESSION['state'] = hash('sha256', microtime(TRUE) . rand() . $_SERVER['REMOTE_ADDR']);
 
-    $link = self::AUTH_URL . '?response_type=code&client_id=' . self::CLIENT_ID . '&redirect_uri=' . self::REDIRECT_URL . '&scope=profile%20openid%20email&state=' . $_SESSION['state'];
+    $link = self::AUTH_URL . '?response_type=code&client_id=' . $this->clientId . '&redirect_uri=' . self::REDIRECT_URL . '&scope=profile%20openid%20email&state=' . $_SESSION['state'];
     return $link;
   }
 
@@ -31,8 +40,8 @@ class LineLogin
     $data = [
       "grant_type" => "refresh_token",
       "refresh_token" => $token,
-      "client_id" => self::CLIENT_ID,
-      "client_secret" => self::CLIENT_SECRET
+      "client_id" => $this->clientId,
+      "client_secret" => $this->clientSecret
     ];
 
     $response = $this->sendCURL(self::TOKEN_URL, $header, 'POST', $data);
@@ -54,8 +63,8 @@ class LineLogin
       "grant_type" => "authorization_code",
       "code" => $code,
       "redirect_uri" => self::REDIRECT_URL,
-      "client_id" => self::CLIENT_ID,
-      "client_secret" => self::CLIENT_SECRET
+      "client_id" => $this->clientId,
+      "client_secret" => $this->clientSecret
     ];
 
     $response = $this->sendCURL(self::TOKEN_URL, $header, 'POST', $data);
@@ -111,8 +120,8 @@ class LineLogin
     $header = ['Content-Type: application/x-www-form-urlencoded'];
     $data = [
       "access_token" => $token,
-      "client_id" => self::CLIENT_ID,
-      "client_secret" => self::CLIENT_SECRET
+      "client_id" => $this->clientId,
+      "client_secret" => $this->clientSecret
     ];
     $response = $this->sendCURL(self::REVOKE_URL, $header, 'POST', $data);
     return $response;
