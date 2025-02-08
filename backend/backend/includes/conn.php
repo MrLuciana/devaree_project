@@ -3,8 +3,12 @@
 require_once __DIR__ . '/../../../vendor/autoload.php';
 
 // สร้าง instance ของ Dotenv และระบุ path ของไฟล์ .env
+try {
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../../../');
-$dotenv->load(); // โหลด environment variables จากไฟล์ .env เข้าสู่ $_ENV
+    $dotenv->load();
+} catch (\Dotenv\Exception\InvalidPathException $e) {
+    echo $e->getMessage();
+}
 
 $servername = $_ENV['DB_SERVERNAME'];
 $username = $_ENV['DB_USERNAME'];
