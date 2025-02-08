@@ -14,8 +14,17 @@
                     <span class="nav__name">จองบริการ</span>
                 </a>
             </li>
-            <li class="nav-item w-auto">
-                <a class="nav-link d-flex flex-column align-items-center <?= ($page === 'user') ? 'active' : '' ?>" href="?page=user"><i class="bi bi-person-fill"></i>ผู้ใช้</a>
+
+            <li class="nav__item">
+                <a href="?page=user" class="nav__link  <?= ($page === 'user') ? 'active-link' : '' ?>">
+                    <?php
+                    if (isset($_SESSION['profile'])) {
+                        echo '<img src="' . $_SESSION['profile']->picture . '" alt="profile" class="rounded" style="width: 1.5rem; height: 1.5rem;">';
+                    } else {
+                        echo '<i class="bi bi-person-fill nav__icon"></i>';
+                    } ?>
+                    <span class="nav__name"><?php echo isset($_SESSION['profile']) ? $_SESSION['profile']->name : 'ผู้ใช้'; ?></span>
+                </a>
             </li>
         </ul>
     </div>

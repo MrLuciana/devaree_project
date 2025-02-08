@@ -1,6 +1,16 @@
 <?php
 include "includes/head.php";
 
+session_start();
+require_once('includes/LineLogin.php');
+
+if (!isset($_SESSION['profile'])) {
+    $line = new LineLogin();
+    $link = $line->getLink();
+    header("Location: " . $link);
+    exit();
+}
+
 if (isset($_GET['page'])) {
     $page = $_GET['page'];
 } else {
