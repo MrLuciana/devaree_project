@@ -4,7 +4,7 @@ require_once __DIR__ . '/../../vendor/autoload.php';
 
 // สร้าง instance ของ Dotenv และระบุ path ของไฟล์ .env
 try {
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../../');
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
     $dotenv->load();
 } catch (\Dotenv\Exception\InvalidPathException $e) {
     echo $e->getMessage();
