@@ -34,7 +34,7 @@ $row = $result->fetch_assoc();
 
                 while ($row_cats = $result->fetch_assoc()) {
                 ?>
-                    <option value="<?php echo htmlspecialchars($row_cats['cat_id']); ?>">
+                    <option value="<?php echo htmlspecialchars($row_cats['cat_id']); ?>" <?php if ($row['cat_id'] == $row_cats['cat_id']) echo "selected"; ?>>
                         <?php echo htmlspecialchars($row_cats['cat_name']); ?>
                     </option>
                 <?php }

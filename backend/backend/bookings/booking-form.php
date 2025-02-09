@@ -118,7 +118,7 @@ while ($row = mysqli_fetch_assoc($packageResult)) {
             <div class=" row mt-3 mb-3">
                 <div class="col">
                     <label for="notes">หมายเหตุเพิ่มเติม</label>
-                    <input type="text" id="notes" class="form-control" onkeyup="checkNull();">
+                    <textarea type="text" id="notes" class="form-control" onkeyup="checkNull();"></textarea>
                 </div>
             </div>
         </div>
@@ -161,8 +161,6 @@ while ($row = mysqli_fetch_assoc($packageResult)) {
         </div>
 
     </div>
-</div>
-</div>
 </div>
 
 <script>

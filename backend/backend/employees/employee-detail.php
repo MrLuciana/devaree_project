@@ -25,7 +25,15 @@ $row = $result->fetch_assoc();
         </div>
         <div class="col">
             <label for="gender">เพศ:</label>
-            <div style="border:solid 1px #ddd; padding:5px 10px;"><?php echo htmlspecialchars($row['emp_gender']); ?></div>
+            <div style="border:solid 1px #ddd; padding:5px 10px;">
+                <?php
+                $gender_map = [
+                    "male" => "ชาย",
+                    "female" => "หญิง"
+                ];
+                echo isset($gender_map[$row["emp_gender"]]) ? $gender_map[$row["emp_gender"]] : "ไม่ระบุ";
+                ?>
+            </div>
         </div>
     </div>
     <div class="row">

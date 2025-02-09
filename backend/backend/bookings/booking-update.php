@@ -1,29 +1,41 @@
 <?php
 require_once('../includes/conn.php');
 
-$id = $conn->real_escape_string($_POST['id']);
-$code = $conn->real_escape_string($_POST['code']);
-$name = $conn->real_escape_string($_POST['name']);
-$price1 = $conn->real_escape_string($_POST['price1']);
-$price2 = $conn->real_escape_string($_POST['price2']);
-$price3 = $conn->real_escape_string($_POST['price3']);
-$cat_id = $conn->real_escape_string($_POST['cat_id']);
-$description = $conn->real_escape_string($_POST['description']);
-
-$sql = "UPDATE bookings SET 
-        boo_code = '$code',
-        boo_name = '$name', 
-        boo_price1 = '$price1',
-        boo_price2 = '$price2',
-        boo_price3 = '$price3',
-        cat_id = '$cat_id', 
-        boo_description = '$description' 
-        WHERE boo_id = '$id'";  // ใช้ 'boo_id' ตามที่คุณต้องการ
-
-if ($conn->query($sql) === TRUE) {
-        echo json_encode(["status" => "success", "message" => "อัปเดตข้อมูลสำเร็จ"]);
-} else {
-        echo json_encode(["status" => "error", "message" => "เกิดข้อผิดพลาด: " . $conn->error]);
-}
-
-$conn->close();
+// บันทึกการแก้ไข
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $cus_id = $_POST['cus_id'];
+        $emp_id = $_POST['emp_id'];
+        $ser_id = $_POST['ser_id'];
+        $pac_id = $_POST['pac_id'];
+        $boo_date = $_POST['boo_date'];
+        $boo_hours = $_POST['boo_hours'];
+        $boo_start_time = $_POST['boo_start_time'];
+        $boo_method = $_POST['boo_method'];
+        $boo_notes = $_POST['boo_notes'];
+    
+        // คำนวณราคารวม
+        $servicePrice = $_POST['service_price'];
+        $packagePrice = $_POST['package_price'];
+        $boo_total = $servicePrice + $packagePrice;
+    
+        $updateQuery = "UPDATE bookings SET 
+            cus_id = ?, emp_id = ?, ser_id = ?, pac_id = ?, 
+            boo_date = ?, boo_hours = ?, boo_start_time = ?, 
+            boo_method = ?, boo_notes = ?, boo_total = ? 
+            WHERE boo_id = ?";
+    
+        $stmt = $conn->prepare($updateQuery);
+        $stmt->bind_param(
+            "iiiisissdii",
+            $cus_id, $emp_id, $ser_id, $pac_id,
+            $boo_date, $boo_hours, $boo_start_time,
+            $boo_method, $boo_notes, $boo_total, $boo_id
+        );
+    
+        if ($stmt->execute()) {
+            echo "<script>alert('✅ แก้ไขข้อมูลสำเร็จ!');</script>";
+            exit;
+        } else {
+            echo "<script>alert('❌ เกิดข้อผิดพลาดในการบันทึกข้อมูล');</script>";
+        }
+    }

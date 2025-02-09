@@ -66,7 +66,7 @@ if ($result->num_rows > 0) { ?>
                             </select>
                         </td>
                         <td class="text-center">
-                            <button class="btn btn-info btn-sm" onclick="bookingModalDetail('<?= htmlspecialchars($row['boo_id'], ENT_QUOTES); ?>');">
+                            <button class="btn btn-info btn-sm" onclick="bookingModalDetail('<?= htmlspecialchars($row['boo_id'], ENT_QUOTES); ?>', 'รายละเอียดการจอง');">
                                 <i class="fas fa-eye"></i>
                             </button>
                             <button data-toggle="modal" data-target="#IModal" class="btn btn-primary btn-sm" onclick="bookingModalEdit('<?= htmlspecialchars($row['boo_id'], ENT_QUOTES); ?>', 'แก้ไขข้อมูล');">
