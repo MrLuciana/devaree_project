@@ -34,18 +34,18 @@ $lastName = $nameParts[1] ?? '';
         <h4>ตั้งค่าบัญชี</h4>
       </div>
       <div class="card-body">
-        <div>
+        <div id="user-form">
           <div>
             <div class="form-floating mb-3">
-              <input placeholder="ชื่อ (ภาษาไทย)" type="text" name="firstName" id="editUser_firstName" class="form-control" value="<?php echo htmlspecialchars($firstName); ?>">
+              <input placeholder="ชื่อ (ภาษาไทย)" type="text" name="firstName" id="editUser_firstName" class="form-control" v-model="formData.firstName">
               <label for="editUser_firstName">ชื่อ (ภาษาไทย)</label>
             </div>
             <div class="form-floating mb-3">
-              <input placeholder="นามสกุล (ภาษาไทย)" type="text" name="lastName" id="editUser_lastName" class="form-control" value="<?php echo htmlspecialchars($lastName); ?>">
+              <input placeholder="นามสกุล (ภาษาไทย)" type="text" name="lastName" id="editUser_lastName" class="form-control" v-model="formData.lastName">
               <label for="editUser_lastName">นามสกุล (ภาษาไทย)</label>
             </div>
             <div class="form-floating mb-3">
-              <select name="gender" id="editUser_gender" class="form-control">
+              <select name="gender" id="editUser_gender" class="form-control" v-model="formData.gender">
                 <option value="">---- เลือกเพศ ----</option>
                 <option value="male">ชาย</option>
                 <option value="female">หญิง</option>
@@ -53,28 +53,43 @@ $lastName = $nameParts[1] ?? '';
               </select><label for="editUser_gender">เพศ</label>
             </div>
             <div class="form-floating mb-3">
-              <input placeholder="วันเกิด" type="date" name="birthDate" id="editUser_birthDate" class="form-control">
+              <input placeholder="วันเกิด" type="date" name="birthDate" id="editUser_birthDate" class="form-control" v-model="formData.birthDate">
               <label for="editUser_hire_date">วันเกิด</label>
             </div>
             <div class="form-floating mb-3">
-              <input placeholder="เบอร์โทร" type="tel" name="phone" id="editUser_phone" maxlength="10" value="" class="form-control">
+              <input placeholder="เบอร์โทร" type="tel" name="phone" id="editUser_phone" maxlength="10" class="form-control" v-model="formData.phone">
               <label for="editUser_phone">เบอร์โทร</label>
             </div>
             <div class="form-floating mb-3">
-              <input placeholder="อีเมล" type="email" name="email" id="editUser_email" class="form-control" value="<?php echo htmlspecialchars($_SESSION['profile']->email); ?>">
+              <input placeholder="อีเมล" type="email" name="email" id="editUser_email" class="form-control" v-model="formData.email">
               <label for="editUser_email">อีเมล</label>
             </div>
             <div class="form-floating mb-3">
-              <input placeholder="ที่อยู่" type="text" name="address" id="editUser_address" class="form-control">
+              <input placeholder="ที่อยู่" type="text" name="address" id="editUser_address" class="form-control" v-model="formData.address">
               <label for="editUser_address">ที่อยู่</label>
             </div>
 
           </div>
-          <button type="submit" class="btn btn-primary mt-3 w-100" id="editUser_submitBtn" disabled onclick="dummySubmit()">บันทึก</button>
+          <button type="submit" class="btn btn-primary mt-3 w-100" @click="submitForm" :disabled="!checkFields()">บันทึก</button>
         </div>
       </div>
     </div>
+    </div>
+
+    <div class="card mt-3">
+      <div class="card-body">
+        <form action="includes/LineLogout.php" method="POST">
+          <button type="submit" class="btn btn-danger w-100">ออกจากระบบ</button>
+        </form>
+      </div>
+    </div>
   </section>
+  <script>
+    const firstName = "<?php echo htmlspecialchars($firstName); ?>";
+    const lastName = "<?php echo htmlspecialchars($lastName); ?>";
+    const email = "<?php echo htmlspecialchars($_SESSION['profile']->email); ?>";
+  </script>
+  <script src="assets/js/user-form.js" type="module"></script>
 </body>
 
 <style>
@@ -82,64 +97,3 @@ $lastName = $nameParts[1] ?? '';
     margin: 8px 0;
   }
 </style>
-
-<script>
-  const fields = ['editUser_firstName', 'editUser_lastName', 'editUser_email', 'editUser_phone', 'editUser_birthDate'];
-
-  document.addEventListener('DOMContentLoaded', function() {
-    const submitBtn = document.getElementById('editUser_submitBtn');
-    const genderSelect = document.getElementById('editUser_gender');
-
-    // Function to check form validity
-    const checkFormValidity = () => {
-      const hasEmptyFields = fields.some(f => document.getElementById(f).value === '');
-      const isGenderEmpty = genderSelect.value === '';
-      submitBtn.disabled = hasEmptyFields || isGenderEmpty;
-    };
-
-    // Add listeners to text fields
-    fields.forEach(field => {
-      const input = document.getElementById(field);
-      input.addEventListener('input', checkFormValidity);
-    });
-
-    // Add listener to gender select
-    genderSelect.addEventListener('change', checkFormValidity);
-
-    // Initial check
-    checkFormValidity();
-  });
-
-  function dummySubmit() {
-    Swal.fire({
-      icon: "success",
-      title: "บันทึกข้อมูลสำเร็จ",
-      showConfirmButton: false,
-      timer: 1500
-    });
-    const formFields = {
-      'ชื่อ': 'editUser_firstName',
-      'นามสกุล': 'editUser_lastName',
-      'เพศ': 'editUser_gender',
-      'เบอร์โทร': 'editUser_phone',
-      'อีเมล': 'editUser_email',
-      'วันเกิด': 'editUser_birthDate'
-    };
-
-    const formData = {};
-    Object.entries(formFields).forEach(([label, id]) => {
-      formData[label] = document.getElementById(id).value;
-    });
-
-    console.table(formData);
-    // clearForm();
-  }
-
-  function clearForm() {
-    fields.forEach(field => {
-      document.getElementById(field).value = '';
-    });
-    genderSelect.selectedIndex = 0;
-    checkFormValidity();
-  }
-</script>
