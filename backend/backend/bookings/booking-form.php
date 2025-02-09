@@ -134,7 +134,7 @@ while ($row = mysqli_fetch_assoc($packageResult)) {
                         <span id="summary_service">-</span>
                     </div>
                     <div class="mb-2 d-flex justify-content-between">
-                        <span><b>ราคา/ชั่วโมง:</b></span>
+                        <span><b>ราคา:</b></span>
                         <span id="service_price">0</span> บาท
                     </div>
                     <div class="mb-2 d-flex justify-content-between">
