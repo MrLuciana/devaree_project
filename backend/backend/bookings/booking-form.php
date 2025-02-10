@@ -48,79 +48,82 @@ while ($row = mysqli_fetch_assoc($packageResult)) {
                     </select>
                 </div>
             </div>
-            <!-- พนักงาน -->
-            <div class="row mt-3 mb-3">
-                <div class="col">
-                    <label for="addBooking-employee">พนักงาน</label>
-                    <select id="addBooking-employee" class="form-control">
-                        <option value="">-- เลือกพนักงาน --</option>
-                        <?php foreach ($employees as $employee) { ?>
-                            <option value="<?= $employee['emp_id'] ?>"> <?= $employee['emp_fname'] ?>&nbsp;&nbsp;<?= $employee['emp_lname'] ?></option>
-                        <?php } ?>
-                    </select>
+            <div class="booking-details">
+                <!-- พนักงาน -->
+                <div class="row mt-3 mb-3">
+                    <div class="col">
+                        <label for="addBooking-employee">พนักงาน</label>
+                        <select id="addBooking-employee" class="form-control">
+                            <option value="">-- เลือกพนักงาน --</option>
+                            <?php foreach ($employees as $employee) { ?>
+                                <option value="<?= $employee['emp_id'] ?>"> <?= $employee['emp_fname'] ?>&nbsp;&nbsp;<?= $employee['emp_lname'] ?></option>
+                            <?php } ?>
+                        </select>
+                    </div>
                 </div>
-            </div>
 
-            <!-- บริการ & แพ็กเกจ-->
-            <div class="row mt-3 mb-3">
-                <div class="col-8">
-                    <label for="service">บริการ</label>
-                    <select id="service" class="form-control">
-                        <option value="">-- เลือกบริการ --</option>
-                        <?php foreach ($services as $service) { ?>
-                            <option value="<?= $service['ser_id'] ?>" data-price="<?= $service['ser_price1'] ?>">
-                                <?= $service['ser_name'] ?>
-                            </option>
-                        <?php } ?>
-                    </select>
+                <!-- บริการ & แพ็กเกจ-->
+                <div class="row mt-3 mb-3">
+                    <div class="col-8">
+                        <label for="service">บริการ</label>
+                        <select id="service" class="form-control">
+                            <option value="">-- เลือกบริการ --</option>
+                            <?php foreach ($services as $service) { ?>
+                                <option value="<?= $service['ser_id'] ?>" data-price="<?= $service['ser_price1'] ?>">
+                                    <?= $service['ser_name'] ?>
+                                </option>
+                            <?php } ?>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <label for="package">แพ็กเกจที่ใช้งานได้</label>
+                        <select id="package" class="form-control">
+                            <option value="-1">-- เลือกแพ็กเกจ --</option>
+                            <?php foreach ($packages as $package) { ?>
+                                <option value="<?= $package['pac_id'] ?>" data-price="<?= $package['pac_price1'] ?>">
+                                    <?= $package['pac_name'] ?>
+                                </option>
+                            <?php } ?>
+                        </select>
+                    </div>
                 </div>
-                <div class="col">
-                    <label for="package">แพ็กเกจที่ใช้งานได้</label>
-                    <select id="package" class="form-control">
-                        <option value="-1">-- เลือกแพ็กเกจ --</option>
-                        <?php foreach ($packages as $package) { ?>
-                            <option value="<?= $package['pac_id'] ?>" data-price="<?= $package['pac_price1'] ?>">
-                                <?= $package['pac_name'] ?>
-                            </option>
-                        <?php } ?>
-                    </select>
-                </div>
-            </div>
 
-            <div class="row mt-3 mb-3">
-                <div class="col">
-                    <label for="date">วัน/เดือน/ปี ที่จอง</label>
-                    <input type="date" id="date" class="form-control">
+                <div class="row mt-3 mb-3">
+                    <div class="col">
+                        <label for="date">วัน/เดือน/ปี ที่จอง</label>
+                        <input type="date" id="date" class="form-control">
+                    </div>
                 </div>
-            </div>
 
-            <div class="row mt-3 mb-3">
-                <div class="col">
-                    <label for="hour">ชั่วโมง</label>
-                    <input type="number" id="hour" class="form-control" min="1" value="1" oninput="if (this.value < 1) this.value = 1;">
-                </div>
-                <div class="col">
-                    <label for="start_time">เวลาเริ่มต้น</label>
-                    <input type="time" id="start_time" class="form-control"">
+                <div class="row mt-3 mb-3">
+                    <div class="col">
+                        <label for="hour">ชั่วโมง</label>
+                        <input type="number" id="hour" class="form-control" min="1" value="1" oninput="if (this.value < 1) this.value = 1;">
+                    </div>
+                    <div class="col">
+                        <label for="start_time">เวลาเริ่มต้น</label>
+                        <input type="time" id="start_time" class="form-control"">
                 </div>
                 <div class=" col">
-                    <label for="method">วิธีชำระเงิน</label>
-                    <select id="method" name="boo_method" class="form-control">
-                        <option value="">-- เลือกวิธีชำระเงิน --</option>
-                        <option value="cash">เงินสด</option>
-                        <option value="bank_transfer">โอนเงิน</option>
-                    </select>
+                        <label for="method">วิธีชำระเงิน</label>
+                        <select id="method" name="boo_method" class="form-control">
+                            <option value="">-- เลือกวิธีชำระเงิน --</option>
+                            <option value="cash">เงินสด</option>
+                            <option value="bank_transfer">โอนเงิน</option>
+                        </select>
+                    </div>
+
                 </div>
 
-            </div>
 
-
-            <div class=" row mt-3 mb-3">
-                <div class="col">
-                    <label for="notes">หมายเหตุเพิ่มเติม</label>
-                    <textarea type="text" id="notes" class="form-control" onkeyup="checkNull();"></textarea>
+                <div class=" row mt-3 mb-3">
+                    <div class="col">
+                        <label for="notes">หมายเหตุเพิ่มเติม</label>
+                        <textarea type="text" id="notes" class="form-control" onkeyup="checkNull();"></textarea>
+                    </div>
                 </div>
             </div>
+
         </div>
 
         <!-- ส่วนสรุปยอด -->
@@ -164,6 +167,17 @@ while ($row = mysqli_fetch_assoc($packageResult)) {
 </div>
 
 <script>
+    document.getElementById("addBooking-customer").addEventListener("change", function() {
+        let customerSelected = this.value !== "0";
+        let bookingDetails = document.querySelectorAll(".booking-details");
+
+        bookingDetails.forEach(section => {
+            section.style.display = customerSelected ? "block" : "none";
+        });
+
+        checkNull(); // ตรวจสอบว่ากรอกครบถ้วนหรือยัง
+    });
+
     function checkNull() {
         let fields = ["addBooking-customer", "addBooking-employee", "package", "service", "date", "hour", "start_time", "method"];
         let isFilled = fields.every(id => {
@@ -171,8 +185,10 @@ while ($row = mysqli_fetch_assoc($packageResult)) {
             if (!el) console.warn(`❗ ไม่พบ Element ที่มี ID: ${id}`);
             return el && el.value && el.value.trim() !== "";
         });
+
         document.getElementById("submitBtn").disabled = !isFilled;
     }
+
 
     function updatePrice() {
         let serviceSelect = document.getElementById("service");
@@ -208,3 +224,9 @@ while ($row = mysqli_fetch_assoc($packageResult)) {
         });
     });
 </script>
+<style>
+    .booking-details {
+        display: none;
+        /* ซ่อนส่วนการกรอกข้อมูล */
+    }
+</style>

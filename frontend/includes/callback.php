@@ -37,6 +37,9 @@ if ($result->num_rows == 0) {
   $stmt->bind_param("ssss", $lineID, $firstName, $lastName, $email);
   $stmt->execute();
 }
+else {
+  echo "test user already exists";  
+}
 
 
 if (empty($profile) || !is_array($profile)) {

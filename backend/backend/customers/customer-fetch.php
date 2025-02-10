@@ -41,7 +41,7 @@ if ($result->num_rows > 0) { ?>
                     <th scope="col" style="width: 15%;">อีเมล</th>
                     <th scope="col" style="width: 15%;">เบอร์โทร</th>
                     <th scope="col" style="width: 15%;">การจอง</th>
-                    <th scope="col" style="width: 15%;">จัดการ</th>
+                    <th scope="col" style="width: 18%;">จัดการ</th>
                 </tr>
             </thead>
             <tbody>
