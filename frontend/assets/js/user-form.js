@@ -12,10 +12,31 @@ createApp({
       address: ''
     });
 
-    const submitForm = () => {
+    const submitForm = async () => {
+      // Prevent default form submission
       // Handle form submission here
       console.log('Form submitted:', formData.value);
-      // You can add your form submission logic here, e.g., using fetch or axios
+
+      try {
+        const response = await fetch('includes/update_customer.php', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
+          body: new URLSearchParams(formData.value).toString()
+        });
+
+        const data = await response.json();
+
+        if (data.status === 'success') {
+          alert(data.message); // Show success message
+        } else {
+          alert(data.message); // Show error message
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        alert('An error occurred while updating your profile.'); // Show generic error message
+      }
     };
 
     const checkFields = () => {
