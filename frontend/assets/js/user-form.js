@@ -29,9 +29,19 @@ createApp({
         const data = await response.json();
 
         if (data.status === 'success') {
-          alert(data.message); // Show success message
+          Swal.fire({
+            icon: 'success',
+            title: 'แก้ไขข้อมูลสำเร็จ',
+            showConfirmButton: false,
+            timer: 2000
+          });
+          window.location.href = '?page=home'; // Redirect to user profile page
         } else {
-          alert(data.message); // Show error message
+          Swal.fire({
+            icon: 'error',
+            title: 'แก้ไขข้อมูลไม่สำเร็จ',
+            text: 'เกิดข้อผิดพลาดในการแก้ไขข้อมูล',
+          });
         }
       } catch (error) {
         console.error('Error:', error);
