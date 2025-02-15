@@ -16,7 +16,7 @@ $password = $_ENV['DB_PASSWORD'];
 $dbname = $_ENV['DB_NAME'];
 
 $conn = mysqli_connect($servername, $username, $password, $dbname);
-
+$conn->set_charset('utf8');
 // ตรวจสอบการเชื่อมต่อ
 if (!$conn) {
     error_log("Connection failed: " . mysqli_connect_error()); // บันทึกข้อผิดพลาดลงไฟล์ log
