@@ -1,0 +1,55 @@
+@font-face {
+  font-family: 'Noto Sans Thai Looped';
+  src: url('../fonts/NotoSansThaiLooped-Medium.ttf');
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: 'Noto Sans Thai Looped';
+  src: url('../fonts/NotoSansThaiLooped-Regular.ttf');
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'Noto Sans Thai Looped';
+  src: url('../fonts/NotoSansThaiLooped-SemiBold.ttf');
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: 'Noto Sans Thai Looped';
+  src: url('../fonts/NotoSansThaiLooped-Bold.ttf');
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: 'Noto Sans Thai Looped';
+  src: url('../fonts/NotoSansThaiLooped-ExtraBold.ttf');
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: 'Cabin';
+  src: url('../fonts/Cabin-Regular.ttf');
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'Cabin';
+  src: url('../fonts/Cabin-Bold.ttf');
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: 'Cabin';
+  src: url('../fonts/Cabin-SemiBold.ttf');
+  font-weight: 500;
+}
+
+body.home {
+  margin-bottom: 100px;
+}
+
+.startingprice {
+  font-size: 0.75rem;
+}

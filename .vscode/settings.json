@@ -1,0 +1,7 @@
+{
+    "conventionalCommits.scopes": [
+        "Backend - Booking"
+    ],
+    "php.executablePath": "C:\\wamp64\\bin\\php\\php8.3.14\\php.exe",
+    "php.version": "8.3"
+}

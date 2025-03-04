@@ -26,7 +26,7 @@ if ($result->num_rows > 0) { ?>
     <div class="table-responsive-lg">
         <table id="basic-datatables" class="display table table-striped table-hover">
             <thead>
-                <tr>
+                <tr class="text-center">
                     <th scope="col" style="width: 3%;">รหัส</th>
                     <th scope="col" style="width: 15%;">ชื่อแพ็กเกจ</th>
                     <th scope="col" style="width: 10%;">ราคา (1 ชม.)</th>
@@ -43,11 +43,11 @@ if ($result->num_rows > 0) { ?>
                     <tr>
                         <td><?php echo htmlspecialchars($row["pac_code"]); ?></td>
                         <td><?php echo htmlspecialchars($row["pac_name"]); ?></td>
-                        <td><?php echo number_format($row["pac_price1"]); ?></td>
-                        <td><?php echo number_format($row["pac_price2"]); ?></td>
-                        <td><?php echo number_format($row["pac_price3"]); ?></td>
-                        <td><?php echo htmlspecialchars($row["cat_name"]); ?></td>
-                        <td>
+                        <td class="text-end"><?php echo number_format($row["pac_price1"]); ?></td>
+                        <td class="text-end"><?php echo number_format($row["pac_price2"]); ?></td>
+                        <td class="text-end"><?php echo number_format($row["pac_price3"]); ?></td>
+                        <td class="text-center"><?php echo htmlspecialchars($row["cat_name"]); ?></td>
+                        <td class="text-center">
                             <?php
                             $active = ($row['pac_active'] == 'yes') ? 'yes' : 'no'; // ตรวจสอบค่า active
                             ?>
@@ -57,7 +57,7 @@ if ($result->num_rows > 0) { ?>
                                 <?php echo ($active == 'yes') ? 'เปิด' : 'ปิด'; ?>
                             </button>
                         </td>
-                        <td>
+                        <td class="text-center">
                             <button class="btn btn-info btn-sm" onclick="packageModalDetail('<?php echo $row['pac_id']; ?>');"><i class="fas fa-eye"></i></button>
                             <button data-toggle="modal" data-target="#IModal" class="btn btn-primary btn-sm" onclick="packageModalEdit('<?php echo $row['pac_id']; ?>','แก้ไขข้อมูล');"><i class="fas fa-edit"></i></button>
                             <button class="btn btn-danger btn-sm" onclick="packageModalDelete('<?php echo $row['pac_id']; ?>');"><i class="fas fa-trash"></i></button>

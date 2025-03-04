@@ -78,7 +78,7 @@
                     <div class="col col-stats ms-3 ms-sm-0">
                         <div class="numbers">
                             <p class="card-category">การจอง</p>
-                            <h4 class="card-title">576</h4>
+                            <h4 class="card-title"><?php echo number_format($total_bookings); ?></h4>
                         </div>
                     </div>
                 </div>

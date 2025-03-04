@@ -1,0 +1,10 @@
+$primary: #B82132;
+$enable-dark-mode: false;
+$body-bg: #ffe9ee;
+$card-bg: #fff;
+$carousel-control-color: black;
+$carousel-control-hover-opacity: 1;
+$carousel-control-icon-width: 6rem;
+$font-family-base: 'Cabin', 'Noto Sans Thai Looped';
+@import 'bootstrap/bootstrap.scss';
+// ก่อนปรับแต่ง นำเข้า SCSS Source Codeของ Bootstrap มาไว้ในโฟลเดอร์ frontend/assets/css/bootstrap

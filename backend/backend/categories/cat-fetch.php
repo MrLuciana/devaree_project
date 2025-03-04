@@ -26,7 +26,7 @@ if ($result->num_rows > 0) { ?>
     <div class="table-responsive-lg">
         <table id="basic-datatables" class="display table table-striped table-hover">
             <thead>
-                <tr>
+                <tr class="text-center">
                     <th scope="col" style="width: 1%;">#</th>
                     <th scope="col" style="width: 50%;">ชื่อหมวดหมู่</th>
                     <th scope="col" style="width: 15%;">จัดการ</th>

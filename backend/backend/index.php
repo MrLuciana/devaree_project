@@ -3,7 +3,6 @@ session_start();
 include "includes/conn.php";
 
 $page = $_GET['page'];
-$act = $_GET['act'];
 
 if (!isset($_SESSION['user_id'])) {
    header('location: ../login/login.php');
@@ -37,6 +36,8 @@ if (!isset($_SESSION['user_id'])) {
             include "employee.php";
          } else if ($page == 'booking') {
             include "booking.php";
+         } else if ($page == 'payment') {
+            include "payment.php";
          } else if ($page == '404') {
             include "404.php";
          }

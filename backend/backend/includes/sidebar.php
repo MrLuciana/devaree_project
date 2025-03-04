@@ -50,13 +50,18 @@
                                 </a>
                             </li>
                             <li>
+                                <a href="?page=payment">
+                                    <span class="sub-item">ชำระเงิน</span>
+                                </a>
+                            </li>
+                            <li>
                                 <a href="">
                                     <span class="sub-item">ปฏิทิน</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="">
-                                    <span class="sub-item">ประวัติการใช้งาน</span>
+                                    <span class="sub-item">ประวัติการจอง</span>
                                 </a>
                             </li>
                         </ul>
