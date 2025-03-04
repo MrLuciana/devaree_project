@@ -1,23 +1,23 @@
 <script>
     var page;
     $(document).ready(function() {
-        bookingList(page);
+        paymentList(page);
     })
 
     $("#keyWord").keyup(function(event) {
         if (event.keyCode === 13) {
-            bookingList(page);
+            paymentList(page);
         }
     });
 
     // กําหนดหน้า
     $(document).on("click", ".pagination a", function() {
         page = $(this).attr('id')
-        bookingList(page);
+        paymentList(page);
     });
     // เปลี่ยนข้อมูลแต่ละหน้า
     $("#perPage").change(function() {
-        bookingList();
+        paymentList();
     })
 
     function checkKeyWord() {
@@ -33,15 +33,15 @@
     function clearSearch() {
         document.getElementById('btnClear').hidden = true;
         document.getElementById('keyWord').value = "";
-        bookingList(page);
+        paymentList(page);
     }
 
     //=========== Modal Function ===========//
-    // ฟอร์มการจอง
-    function bookingModalForm(title) {
+    // ฟอร์มการชำระเงิน
+    function paymentModalForm(title) {
         document.getElementById('ModalTitle').innerHTML = title;
         $.ajax({
-            url: "./bookings/booking-form.php",
+            url: "./payments/payment-form.php",
             type: "GET",
             success: function(data) {
                 $('#IModal .modal-body').html(data);
@@ -54,10 +54,10 @@
     }
 
     // ฟอร์มดูรายละเอียด
-    function bookingModalDetail(id, title) {
+    function paymentModalDetail(id, title) {
         document.getElementById('ModalTitle').innerHTML = title;
         $.ajax({
-            url: "./bookings/booking-detail.php",
+            url: "./payments/payment-detail.php",
             type: "POST",
             data: {
                 id: id
@@ -69,11 +69,11 @@
         });
     }
 
-    // ฟอร์มแก้ไขการจอง
-    function bookingModalEdit(id, title) {
+    // ฟอร์มแก้ไขการชำระเงิน
+    function paymentModalEdit(id, title) {
         document.getElementById('ModalTitle').innerHTML = title;
         $.ajax({
-            url: "./bookings/booking-edit.php",
+            url: "./payments/payment-edit.php",
             type: "POST",
             data: {
                 id: id
@@ -85,8 +85,8 @@
         });
     }
 
-    // ฟังก์ชันลบการจอง
-    function bookingModalDelete(id) {
+    // ฟังก์ชันลบการชำระเงิน
+    function paymentModalDelete(id) {
         Swal.fire({
             text: "ยืนยันการลบรายการนี้",
             icon: "warning",
@@ -98,7 +98,7 @@
         }).then((result) => {
             if (result.isConfirmed) {
                 $.ajax({
-                    url: "./bookings/booking-delete.php",
+                    url: "./payments/payment-delete.php",
                     type: 'POST',
                     data: {
                         id: id
@@ -113,7 +113,7 @@
                                 showConfirmButton: false,
                                 timer: 500
                             }).then(() => {
-                                bookingList(); // รีโหลดหน้า
+                                paymentList(); // รีโหลดหน้า
                             });
                         } else {
                             Swal.fire({
@@ -139,7 +139,7 @@
     //=========== End Modal Function ===========//
 
     // ฟังก์ชันดึงข้อมูล
-    function bookingList(page) {
+    function paymentList(page) {
         var keyword = $('#keyWord').val();
         var perPage = document.getElementById("perPage").value;
 
@@ -150,41 +150,41 @@
                 per_page: perPage,
                 page_no: page
             },
-            url: "./bookings/booking-fetch.php",
+            url: "./payments/payment-fetch.php",
             success: (data, res) => {
-                $('#bookingTables').html(data);
+                $('#paymentTables').html(data);
             }
         })
     }
 
-    // ฟังก์ชันเพิ่มการจอง 
-    function bookingAdd() {
+    // ฟังก์ชันเพิ่มการชำระเงิน 
+    function paymentAdd() {
         // ดึงค่าจากฟอร์ม
-        const customer = $('#addBooking-customer').val().trim();
-        const employee = $('#addBooking-employee').val().trim();
+        const customer = $('#addpayment-customer').val().trim();
+        const employee = $('#addpayment-employee').val().trim();
         const service = $('#service').val().trim();
         const package = $('#package').val().trim();
-        const bookingDate = $('#date').val().trim();
+        const paymentDate = $('#date').val().trim();
         const hours = $('#hour').val().trim();
         const startTime = $('#start_time').val().trim();
         const notes = $('#notes').val().trim();
         const method = $('#method').val().trim();
 
-        console.log(customer, employee, service, package, bookingDate, hours, startTime, notes, method);
+        console.log(customer, employee, service, package, paymentDate, hours, startTime, notes, method);
         // คำนวณราคา
         const servicePricePerHour = parseFloat(document.getElementById("service").selectedOptions[0]?.getAttribute("data-price")) || 0;
         const packagePrice = parseFloat(document.getElementById("package").selectedOptions[0]?.getAttribute("data-price")) || 0;
         const totalPrice = (servicePricePerHour * hours) + packagePrice;
 
         // ตรวจสอบข้อมูลก่อนส่ง (Validation)
-        if (!customer || !employee || !service || !package || !bookingDate || !hours || !startTime || !method) {
+        if (!customer || !employee || !service || !package || !paymentDate || !hours || !startTime || !method) {
             alert("กรุณากรอกข้อมูลให้ครบถ้วน!");
             return;
         }
 
         // ส่งข้อมูลด้วย AJAX
         $.ajax({
-            url: "./bookings/booking-add.php",
+            url: "./payments/payment-add.php",
             type: 'POST',
             contentType: 'application/json', // ✅ เพิ่ม Content-Type เป็น JSON
             data: JSON.stringify({ // ✅ แปลงข้อมูลเป็น JSON
@@ -192,7 +192,7 @@
                 emp_id: employee,
                 ser_id: service,
                 pac_id: package,
-                boo_date: bookingDate,
+                boo_date: paymentDate,
                 boo_hours: hours,
                 boo_start_time: startTime,
                 boo_notes: notes,
@@ -209,8 +209,8 @@
                         showConfirmButton: false,
                         timer: 1000
                     }).then(() => {
-                        if (typeof bookingList === 'function') {
-                            bookingList();
+                        if (typeof paymentList === 'function') {
+                            paymentList();
                         }
                     });
                 } else {
@@ -234,8 +234,8 @@
 
     }
 
-    // ฟังก์ชันแก้ไขการจอง
-    function bookingUpdate(id) {
+    // ฟังก์ชันแก้ไขการชำระเงิน
+    function paymentUpdate(id) {
         var code = $('#code').val().trim();
         var name = $('#name').val().trim();
         var price1 = $('#price1').val().trim();
@@ -244,7 +244,7 @@
         var cat_id = $('#cat_id').val();
         var description = $('#description').val().trim();
         $.ajax({
-            url: "./bookings/booking-update.php",
+            url: "./payments/payment-update.php",
             type: 'POST',
             data: {
                 id: id,
@@ -266,7 +266,7 @@
                         showConfirmButton: false,
                         timer: 500
                     }).then(() => {
-                        bookingList(); // โหลดข้อมูลใหม่
+                        paymentList(); // โหลดข้อมูลใหม่
                     });
                 } else {
                     Swal.fire({
@@ -290,28 +290,28 @@
     }
 
     // Event Listener สำหรับตรวจจับการเปลี่ยนสถานะ
-    $(document).on('change', 'select[name="boo_status"]', function() {
-        var boo_id = $(this).data('boo_id');
+    $(document).on('change', 'select[name="pay_status"]', function() {
+        var pay_id = $(this).data('pay_id');
         var new_status = $(this).val();
 
-        updateBookingStatus(boo_id, new_status);
+        updatePaymentStatus(pay_id, new_status);
     });
 
-    function updateBookingStatus(boo_id, new_status) {
+    function updatePaymentStatus(pay_id, new_status) {
         $.ajax({
-            url: './bookings/booking-status.php',
+            url: './payments/payment-status.php',
             type: 'POST',
             data: {
-                boo_id: boo_id,
+                pay_id: pay_id,
                 new_status: new_status
             },
             dataType: 'json',
             success: function(response) {
                 if (response.status === "success") {
-                    let message = (new_status === 'confirmed') ?
-                        'สร้างรายการชำระเงินเรียบร้อยแล้ว ✅' :
+                    let message = (new_status === 'paid') ?
+                        'ชำระเงินเรียบร้อยแล้ว ✅' :
                         (new_status === 'pending') ?
-                        'ลบรายการชำระเงินเรียบร้อยแล้ว ❌' :
+                        'ยังไม่ได้ชำระเงิน ❌' :
                         'อัพเดตสถานะสำเร็จ';
 
                     Swal.fire({

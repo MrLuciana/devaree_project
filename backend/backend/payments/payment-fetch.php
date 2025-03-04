@@ -4,33 +4,15 @@ require_once('../includes/conn.php');
 $perPage = isset($_POST['per_page']) ? intval($_POST['per_page']) : 5;
 $page = isset($_POST['page_no']) ? intval($_POST['page_no']) : 1;
 $start = ($page - 1) * $perPage;
-$keyword = isset($_POST['keyword']) ? $conn->real_escape_string($_POST['keyword']) : '';
-
 // ✅ Query หลัก
-$sql = "SELECT 
-    b.boo_id, b.cus_id, b.emp_id, b.ser_id, b.pac_id, 
-    b.boo_date, b.boo_hours, b.boo_start_time, 
-    b.boo_status, b.boo_amount, b.boo_updated_at,
-    c.cus_fname, c.cus_lname, s.ser_name, p.pac_name
-FROM bookings AS b
-LEFT JOIN customers AS c ON b.cus_id = c.cus_id
-LEFT JOIN employees AS e ON b.emp_id = e.emp_id
-LEFT JOIN services AS s ON b.ser_id = s.ser_id
-LEFT JOIN packages AS p ON b.pac_id = p.pac_id";
-
-if (!empty($keyword)) {
-    $sql .= " WHERE 
-        b.boo_id LIKE '%$keyword%' OR 
-        c.cus_fname LIKE '%$keyword%' OR 
-        e.emp_fname LIKE '%$keyword%' ";
-}
-
-$sql .= " ORDER BY b.boo_date ASC, b.boo_start_time ASC LIMIT $start, $perPage";
-$result = $conn->query($sql);
-if (!$result) {
-    die("เกิดข้อผิดพลาดใน SQL: " . $conn->error);
-}
-
+$sql = "SELECT * FROM payments 
+        LEFT JOIN bookings ON payments.boo_id = bookings.boo_id
+        LEFT JOIN customers ON bookings.cus_id = customers.cus_id
+        LEFT JOIN services ON bookings.ser_id = services.ser_id
+        ORDER BY payments.pay_id DESC";
+$stmt = $conn->prepare($sql);
+$stmt->execute();
+$result = $stmt->get_result();
 
 if ($result->num_rows > 0) { ?>
     <div class="table-responsive-lg">
@@ -57,16 +39,16 @@ if ($result->num_rows > 0) { ?>
                         <td><?= htmlspecialchars($row['ser_name']); ?></td>
                         <td class="text-center"><?= date('d M Y', strtotime($row['boo_date'])); ?></td>
                         <td class="text-center"><?= htmlspecialchars($row['boo_hours']); ?> ชม.</td>
-                        <td class="text-end"><?= is_numeric($row['boo_amount']) ? number_format($row['boo_amount'], 2) : '0.00'; ?></td>
+                        <td class="text-end"><?= is_numeric($row['boo_amount']) ? number_format($row['pay_amount'], 2) : '0.00'; ?></td>
                         <td class="text-center">
-                            <select name="boo_status" class="form-select status-select" data-boo_id="<?= $row['boo_id']; ?>">
-                                <option value="pending" <?= $row['boo_status'] == 'pending' ? 'selected' : ''; ?>>⏳ Pending</option>
-                                <option value="confirmed" <?= $row['boo_status'] == 'confirmed' ? 'selected' : ''; ?>>✅ Confirmed</option>
-                                <option value="canceled" <?= $row['boo_status'] == 'canceled' ? 'selected' : ''; ?>>❌ Canceled</option>
+                            <select name="pay_status" class="form-select status-select" data-pay_id="<?= $row['pay_id']; ?>">
+                                <option value="pending" <?= $row['pay_status'] == 'pending' ? 'selected' : ''; ?>>⏳ Pending</option>
+                                <option value="confirmed" <?= $row['pay_status'] == 'paid' ? 'selected' : ''; ?>>✅ paid</option>
+                                <option value="canceled" <?= $row['pay_status'] == 'canceled' ? 'selected' : ''; ?>>❌ Canceled</option>
                             </select>
                         </td>
                         <td class="text-center">
-                            <button class="btn btn-info btn-sm" onclick="bookingModalDetail('<?= htmlspecialchars($row['boo_id'], ENT_QUOTES); ?>', 'รายละเอียดการจอง');">
+                            <button class="btn btn-info btn-sm" onclick="bookingModalDetail('<?= htmlspecialchars($row['boo_id'], ENT_QUOTES); ?>', 'รายละเอียดการชำระเงิน');">
                                 <i class="fas fa-eye"></i>
                             </button>
                             <button data-toggle="modal" data-target="#IModal" class="btn btn-primary btn-sm" onclick="bookingModalEdit('<?= htmlspecialchars($row['boo_id'], ENT_QUOTES); ?>', 'แก้ไขข้อมูล');">
@@ -82,7 +64,7 @@ if ($result->num_rows > 0) { ?>
         </table>
 
         <?php
-        $count_sql = "SELECT COUNT(*) AS total FROM bookings";
+        $count_sql = "SELECT COUNT(*) AS total FROM payments";
         $fetch_query = $conn->query($count_sql);
         $total_record = $fetch_query->fetch_assoc()['total'];
         $total_page = ceil($total_record / $perPage);

@@ -36,7 +36,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        z-index: 100;
+
     }
 
     .nav__menu {
@@ -52,6 +52,7 @@
         align-content: center;
         border-radius: 1.25rem 1.25rem 0 0;
         transition: .4s;
+        z-index: 10;
     }
 
     .nav__list {

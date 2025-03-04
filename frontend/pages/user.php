@@ -80,7 +80,7 @@ if ($result->num_rows > 0) {
               <label for="editUser_email">อีเมล</label>
             </div>
             <div class="form-floating mb-3">
-              <input placeholder="ที่อยู่" type="text" name="address" id="editUser_address" class="form-control">
+              <input placeholder="ที่อยู่" type="text" name="address" id="editUser_address" class="form-control" v-model="formData.address">
               <label for="editUser_address">ที่อยู่</label>
             </div>
           </div>

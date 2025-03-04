@@ -3,7 +3,6 @@ session_start();
 include "includes/conn.php";
 
 $page = $_GET['page'];
-$act = $_GET['act'];
 
 if (!isset($_SESSION['user_id'])) {
    header('location: ../login/login.php');
