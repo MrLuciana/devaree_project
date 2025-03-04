@@ -12,13 +12,13 @@ if (!isset($_SESSION['profile'])) {
 $lineID = $_SESSION['profile']->userId;
 
 // Get the form data
-$firstName = $_POST['firstName'] ?? '';
-$lastName = $_POST['lastName'] ?? '';
-$gender = $_POST['gender'] ?? '';
-$birthDate = $_POST['birthDate'] ?? '';
-$phone = $_POST['phone'] ?? '';
-$email = $_POST['email'] ?? '';
-$address = $_POST['address'] ?? '';
+$firstName = $_POST['firstName'];
+$lastName = $_POST['lastName'];
+$gender = $_POST['gender'];
+$birthDate = $_POST['birthDate'];
+$phone = $_POST['phone'];
+$email = $_POST['email'];
+$address = $_POST['address'];
 
 // Sanitize the input data
 $firstName = htmlspecialchars($firstName);
@@ -39,6 +39,17 @@ $stmt = $conn->prepare("UPDATE customers SET cus_fname = ?, cus_lname = ?, cus_g
 $stmt->bind_param("ssssssss", $firstName, $lastName, $gender, $birthDate, $phone, $email, $address, $lineID);
 
 if ($stmt->execute()) {
+  // Fetch updated user data
+  $stmt = $conn->prepare("SELECT * FROM customers WHERE cus_lineID = ?");
+  $stmt->bind_param("s", $lineID);
+  $stmt->execute();
+  $result = $stmt->get_result();
+  $customerData = $result->fetch_assoc();
+
+  // Update session data
+  $_SESSION['customer'] = $customerData;
+  $_SESSION['profile'] = (object) array_merge((array) $_SESSION['profile'], $customerData);
+
   echo json_encode(['status' => 'success', 'message' => 'Profile updated successfully']);
 } else {
   echo json_encode(['status' => 'error', 'message' => 'Failed to update profile']);
