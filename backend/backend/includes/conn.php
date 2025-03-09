@@ -4,13 +4,11 @@ require_once __DIR__ . '/../../../vendor/autoload.php';
 
 // สร้าง instance ของ Dotenv และระบุ path ของไฟล์ .env
 // Load .env only in non-production environments
-if (getenv('APP_ENV') !== 'production') {
-    try {
-        $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
-        $dotenv->load();
-    } catch (\Dotenv\Exception\InvalidPathException $e) {
-        echo $e->getMessage();
-    }
+try {
+    $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../../../');
+    $dotenv->load();
+} catch (\Dotenv\Exception\InvalidPathException $e) {
+    echo $e->getMessage();
 }
 
 $servername = $_ENV['DB_SERVERNAME'];
