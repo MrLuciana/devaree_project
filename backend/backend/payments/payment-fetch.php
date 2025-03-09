@@ -9,8 +9,10 @@ $sql = "SELECT * FROM payments
         LEFT JOIN bookings ON payments.boo_id = bookings.boo_id
         LEFT JOIN customers ON bookings.cus_id = customers.cus_id
         LEFT JOIN services ON bookings.ser_id = services.ser_id
-        ORDER BY payments.pay_id DESC";
+        ORDER BY payments.pay_id DESC 
+        LIMIT ? OFFSET ?";
 $stmt = $conn->prepare($sql);
+$stmt->bind_param("ii", $perPage, $start);
 $stmt->execute();
 $result = $stmt->get_result();
 
@@ -39,24 +41,22 @@ if ($result->num_rows > 0) { ?>
                         <td><?= htmlspecialchars($row['ser_name']); ?></td>
                         <td class="text-center"><?= date('d M Y', strtotime($row['boo_date'])); ?></td>
                         <td class="text-center"><?= htmlspecialchars($row['boo_hours']); ?> ชม.</td>
-                        <td class="text-end"><?= is_numeric($row['boo_amount']) ? number_format($row['pay_amount'], 2) : '0.00'; ?></td>
+                        <td class="text-end"><?= is_numeric($row['pay_amount']) ? number_format($row['pay_amount'], 2) : '0.00'; ?></td>
                         <td class="text-center">
                             <select name="pay_status" class="form-select status-select" data-pay_id="<?= $row['pay_id']; ?>">
                                 <option value="pending" <?= $row['pay_status'] == 'pending' ? 'selected' : ''; ?>>⏳ Pending</option>
-                                <option value="confirmed" <?= $row['pay_status'] == 'paid' ? 'selected' : ''; ?>>✅ paid</option>
+                                <option value="paid" <?= $row['pay_status'] == 'paid' ? 'selected' : ''; ?>>✅ paid</option>
                                 <option value="canceled" <?= $row['pay_status'] == 'canceled' ? 'selected' : ''; ?>>❌ Canceled</option>
                             </select>
                         </td>
                         <td class="text-center">
-                            <button class="btn btn-info btn-sm" onclick="bookingModalDetail('<?= htmlspecialchars($row['boo_id'], ENT_QUOTES); ?>', 'รายละเอียดการชำระเงิน');">
+                            <button class="btn btn-info btn-sm" onclick="paymentModalDetail('<?= htmlspecialchars($row['pay_id'], ENT_QUOTES); ?>', 'รายละเอียดการชำระเงิน');">
                                 <i class="fas fa-eye"></i>
                             </button>
-                            <button data-toggle="modal" data-target="#IModal" class="btn btn-primary btn-sm" onclick="bookingModalEdit('<?= htmlspecialchars($row['boo_id'], ENT_QUOTES); ?>', 'แก้ไขข้อมูล');">
+                            <button data-toggle="modal" data-target="#IModal" class="btn btn-primary btn-sm" onclick="paymentModalEdit('<?= htmlspecialchars($row['pay_id'], ENT_QUOTES); ?>', 'แก้ไขข้อมูล');">
                                 <i class="fas fa-edit"></i>
                             </button>
-                            <button class="btn btn-danger btn-sm" onclick="bookingModalDelete('<?= htmlspecialchars($row['boo_id'], ENT_QUOTES); ?>');">
-                                <i class="fas fa-trash"></i>
-                            </button>
+                            <a href="export_payments.php" class="btn btn-success btn-sm"><i class="fas fa-file-excel"></i> Export Excel</a>
                         </td>
                     </tr>
                 <?php } ?>

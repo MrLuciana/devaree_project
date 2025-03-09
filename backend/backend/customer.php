@@ -8,12 +8,12 @@
         <div class="card-header">
           <div class="d-flex align-items-center">
             <h4 class="card-title">รายชื่อลูกค้าทั้งหมด</h4>
-            <button data-toggle="modal" data-target="#IModal"
+            <!-- <button data-toggle="modal" data-target="#IModal"
               onclick="customerModalForm('เพิ่มลูกค้า')" type="button"
               class="btn btn-primary btn-round ms-auto">
               <i class="fa fa-plus"></i>
               เพิ่มรายการ
-            </button>
+            </button> -->
           </div>
           <div class="row mt-3">
             <div class='col d-flex align-items-center'>
