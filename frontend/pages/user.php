@@ -21,9 +21,10 @@ if ($result->num_rows > 0) {
 ?>
 
 <body>
+  <nav class="bg-primary text-center text-white py-2 sticky-top mb-4">
+    <h4 class="m-0">ข้อมูลลูกค้า</h4>
+  </nav>
   <section class="container mt-2">
-    <h1>หน้าข้อมูลผู้ใช้</h1>
-    <p>แสดงรายละเอียดบัญชีผู้ใช้ / ประวัติการใช้บริการ</p>
     <div class="card">
       <div class="card-header">
         <h4 class="m-0">เกี่ยวกับคุณ</h4>
@@ -88,6 +89,13 @@ if ($result->num_rows > 0) {
         </div>
       </div>
     </div>
+    <div class="card mt-3">
+      <div class="card-header">
+        <h4>ประวัติการใช้บริการ</h4>
+      </div>
+      <div class="card-body">
+        <p>ไม่มีประวัติการใช้บริการ</p>
+      </div>
     </div>
   </section>
   <?php include_once("includes/user/user-script.php"); ?>
