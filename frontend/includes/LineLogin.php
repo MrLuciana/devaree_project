@@ -14,13 +14,12 @@ class LineLogin
     $this->clientId = $_ENV['LINE_CLIENT_ID'];
     $this->clientSecret = $_ENV['LINE_CLIENT_SECRET'];
   }
-  
-  private const string REDIRECT_URL = 'http://localhost/devaree_project/frontend/includes/callback.php';
-  private const string AUTH_URL = 'https://access.line.me/oauth2/v2.1/authorize';
-  private const string PROFILE_URL = 'https://api.line.me/v2/profile';
-  private const string TOKEN_URL = 'https://api.line.me/oauth2/v2.1/token';
-  private const string REVOKE_URL = 'https://api.line.me/oauth2/v2.1/revoke';
-  private const string VERIFYTOKEN_URL = 'https://api.line.me/oauth2/v2.1/verify';
+  const REDIRECT_URL = 'http://localhost/devaree_project/frontend/includes/callback.php';
+  const AUTH_URL = 'https://access.line.me/oauth2/v2.1/authorize';
+  const PROFILE_URL = 'https://api.line.me/v2/profile';
+  const TOKEN_URL = 'https://api.line.me/oauth2/v2.1/token';
+  const REVOKE_URL = 'https://api.line.me/v2.1/revoke';
+  const VERIFYTOKEN_URL = 'https://api.line.me/oauth2/v2.1/verify';
 
 
   function getLink()

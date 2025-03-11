@@ -21,9 +21,10 @@ $_SESSION['profile'] = $profile;
 require_once('conn.php');
 
 $lineID = $profile->userId;
-$firstName = explode(' ', $profile->name)[0] ?? '';
-$lastName = explode(' ', $profile->name)[1] ?? '';
-$email = $profile->email ?? null;
+$nameParts = explode(' ', $profile->name);
+$firstName = isset($nameParts[0]) ? $nameParts[0] : '';
+$lastName = isset($nameParts[1]) ? $nameParts[1] : '';
+$email = isset($profile->email) ? $profile->email : null;
 
 // Check if user exists
 $stmt = $conn->prepare("SELECT cus_lineID FROM customers WHERE cus_lineID = ?");
@@ -36,11 +37,21 @@ if ($result->num_rows == 0) {
   $stmt = $conn->prepare("INSERT INTO customers (cus_lineID, cus_fname, cus_lname, cus_email) VALUES (?, ?, ?, ?)");
   $stmt->bind_param("ssss", $lineID, $firstName, $lastName, $email);
   $stmt->execute();
-}
-else {
-  echo "test user already exists";  
+} else {
+  echo "test user already exists";
 }
 
+$stmt = $conn->prepare("SELECT * FROM customers WHERE cus_lineID = ?");
+$stmt->bind_param("s", $lineID);
+$stmt->execute();
+$result = $stmt->get_result();
+$customerData = $result->fetch_assoc();
+
+// Store customer data in session
+$_SESSION['customer'] = $customerData;
+
+// Store profile data in session
+$_SESSION['profile'] = (object) array_merge((array) $_SESSION['profile'], $customerData);
 
 if (empty($profile) || !is_array($profile)) {
   header('location: ../index.php');

@@ -30,8 +30,8 @@ $customerPhone = $_SESSION['customer']['cus_phone'] ?? '';
 ?>
 
 <body>
-  <nav class="bg-primary text-center text-white py-1 sticky-top mb-4">
-    <h3>จองบริการ</h3>
+  <nav class="bg-primary text-center text-white py-2 sticky-top mb-4">
+    <h4 class="m-0">จองบริการ</h4>
   </nav>
   <section class="container">
     <!-- <h1 class="text-center my-3">จองบริการ</h1> -->
@@ -123,35 +123,15 @@ $customerPhone = $_SESSION['customer']['cus_phone'] ?? '';
           <div class="row mb-3">
             <div class="col-md-6">
               <label for="reserve_date" class="form-label">เลือกวันที่ <span class="text-danger">*</span></label>
-              <input type="date" class="form-control" id="reserve_date" name="reserve_date" required>
+              <input type="text" class="form-control" id="reserve_date" name="reserve_date" required>
               <div class="invalid-feedback">กรุณาเลือกวันที่</div>
             </div>
             <div class="col-md-6">
-              <label for="reserve_time" class="form-label">เลือกเวลา <span class="text-danger">*</span></label>
-              <select class="form-select" id="reserve_time" name="reserve_time" required>
-                <option value="">---เลือกเวลา---</option>
-                <option value="08:00">08:00</option>
-                <option value="08:30">08:30</option>
-                <option value="09:00">09:00</option>
-                <option value="09:30">09:30</option>
-                <option value="10:00">10:00</option>
-                <option value="10:30">10:30</option>
-                <option value="11:00">11:00</option>
-                <option value="11:30">11:30</option>
-                <option value="12:00">12:00</option>
-                <option value="12:30">12:30</option>
-                <option value="13:00">13:00</option>
-                <option value="13:30">13:30</option>
-                <option value="14:00">14:00</option>
-                <option value="14:30">14:30</option>
-                <option value="15:00">15:00</option>
-                <option value="15:30">15:30</option>
-                <option value="16:00">16:00</option>
-                <option value="16:30">16:30</option>
-                <option value="17:00">17:00</option>
-                <option value="17:30">17:30</option>
-                <option value="18:00">18:00</option>
-              </select>
+              <div class="input">
+                <label for="reserve_time" class="form-label">เลือกเวลา <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="reserve_time">
+                <!-- <span class="input-group-addon"><i class="fa fa-clock-o" aria-hidden="true"></i></span> -->
+              </div>
               <div class="invalid-feedback">กรุณาเลือกเวลา</div>
             </div>
           </div>
@@ -214,15 +194,61 @@ $customerPhone = $_SESSION['customer']['cus_phone'] ?? '';
       <span class="visually-hidden">กำลังโหลด...</span>
     </div>
   </div>
-
   <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const datePicker = new tempusDominus.TempusDominus(document.getElementById('reserve_date'), {
+        localization: {
+          format: 'dd/MM/yyyy',
+          hourCycle: 'h24',
+          locale: 'th',
+        },
+        defaultDate: new Date(),
+        restrictions: {
+          minDate: new Date(),
+          maxDate: new Date(new Date().setFullYear(new Date().getFullYear() + 1)),
+        },
+        display: {
+          icons: {
+            previous: 'bi bi-chevron-left',
+            next: 'bi bi-chevron-right',
+          },
+          viewMode: 'calendar',
+          components: {
+            calendar: true,
+            clock: false,
+          },
+        },
+      });
+      const timePicker = new tempusDominus.TempusDominus(document.getElementById('reserve_time'), {
+        localization: {
+          format: "HH:mm",
+          hourCycle: 'h24',
+        },
+        restrictions: {
+          enabledHours: [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18],
+
+        },
+        stepping: 30,
+        defaultDate: new Date(),
+        display: {
+          icons: {
+            up: 'bi bi-chevron-up',
+            down: 'bi bi-chevron-down',
+          },
+          viewMode: 'clock',
+          components: {
+            calendar: false,
+            hours: true,
+            minutes: true,
+            seconds: false,
+          },
+        },
+      });
+    });
     $(document).ready(function() {
+
       // Hide any loading spinners
       $(".spinner-border").parent().hide();
-
-      // Set minimum date for date input to today
-      const today = new Date().toISOString().split('T')[0];
-      $("#reserve_date").attr('min', today);
 
       // Function to update price summary
       function updatePriceSummary() {
@@ -317,7 +343,7 @@ $customerPhone = $_SESSION['customer']['cus_phone'] ?? '';
 
         // Send AJAX request
         $.ajax({
-          url: "../includes/reserve-action.php",
+          url: "includes/reserve-action.php",
           type: "POST",
           data: formData,
           dataType: "json",

@@ -141,11 +141,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     $stmt->close();
 
-    // Calculate end time
-    $start_datetime = new DateTime($reserve_date . ' ' . $reserve_time);
-    $end_datetime = clone $start_datetime;
-    $end_datetime->modify('+' . $duration . ' hours');
-    $end_time = $end_datetime->format('H:i');
 
     // Get service price
     $service_query = "SELECT ser_price1 FROM services WHERE ser_id = ?";
@@ -161,9 +156,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $total_price = $service_price * $duration;
 
     // Insert booking into database
-    $booking_query = "INSERT INTO bookings (cus_id, ser_id, book_date, book_time_start, book_time_end, book_duration, book_price, book_note, book_status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'pending')";
+    $booking_query = "INSERT INTO bookings (cus_id, ser_id, emp_id, pac_id, boo_date, boo_start_time, boo_hours, boo_amount, boo_notes, boo_method, boo_status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 'cash', 'pending')";
     $stmt = $conn->prepare($booking_query);
-    $stmt->bind_param("iisssiis", $cus_id, $ser_id, $reserve_date, $reserve_time, $end_time, $duration, $total_price, $special_requests);
+    $emp_id = NULL;
+    $pac_id = NULL;
+    $stmt->bind_param("iiiissids", $cus_id, $ser_id, $emp_id, $pac_id, $reserve_date, $reserve_time, $duration, $total_price, $special_requests);
 
     if ($stmt->execute()) {
       // Success
