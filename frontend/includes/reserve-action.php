@@ -83,8 +83,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $errors[] = "กรุณาเลือกบริการ";
     }
 
-    if (empty($reserve_date) || !isValidDate($reserve_date)) {
-      $errors[] = "กรุณาเลือกวันที่ให้ถูกต้อง";
+    if (empty($reserve_date)) {
+      $errors[] = "กรุณาเลือกวันที่";
+    } else {
+      $parsed_date = isValidDate($reserve_date);
+      if ($parsed_date === false) {
+        $errors[] = "รูปแบบวันที่ไม่ถูกต้อง";
+      } else {
+        $reserve_date = $parsed_date; // Use the parsed date
+      }
     }
 
     if (empty($reserve_time) || !isValidTime($reserve_time)) {
