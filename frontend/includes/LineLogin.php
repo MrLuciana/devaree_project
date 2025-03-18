@@ -8,13 +8,14 @@ class LineLogin
   #### change your id
   private $clientId;
   private $clientSecret;
+  private $redirectUrl;
 
   public function __construct()
   {
-    $this->clientId = $_ENV['LINE_CLIENT_ID'];
+    $this->clientId = $_ENV['LINE_CLIENT_ID']; 
     $this->clientSecret = $_ENV['LINE_CLIENT_SECRET'];
+    $this->redirectUrl = $_ENV['WEB_HOST'] . '/frontend/includes/callback.php';
   }
-  const REDIRECT_URL = 'http://localhost/devaree_project/frontend/includes/callback.php';
   const AUTH_URL = 'https://access.line.me/oauth2/v2.1/authorize';
   const PROFILE_URL = 'https://api.line.me/v2/profile';
   const TOKEN_URL = 'https://api.line.me/oauth2/v2.1/token';
@@ -30,7 +31,7 @@ class LineLogin
 
     $_SESSION['state'] = hash('sha256', microtime(TRUE) . rand() . $_SERVER['REMOTE_ADDR']);
 
-    $link = self::AUTH_URL . '?response_type=code&client_id=' . $this->clientId . '&redirect_uri=' . self::REDIRECT_URL . '&scope=profile%20openid%20email&state=' . $_SESSION['state'];
+    $link = self::AUTH_URL . '?response_type=code&client_id=' . $this->clientId . '&redirect_uri=' . $this->redirectUrl . '&scope=profile%20openid%20email&state=' . $_SESSION['state'];
     return $link;
   }
 
@@ -62,7 +63,7 @@ class LineLogin
     $data = [
       "grant_type" => "authorization_code",
       "code" => $code,
-      "redirect_uri" => self::REDIRECT_URL,
+      "redirect_uri" => $this->redirectUrl,
       "client_id" => $this->clientId,
       "client_secret" => $this->clientSecret
     ];
