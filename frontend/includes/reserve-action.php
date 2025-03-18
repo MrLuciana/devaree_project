@@ -18,11 +18,11 @@ function sanitize($data)
 }
 
 // Function to validate date format (YYYY-MM-DD)
-function isValidDate($date)
-{
-  $d = DateTime::createFromFormat('Y-m-d', $date);
-  return $d && $d->format('Y-m-d') === $date;
-}
+// function isValidDate($date)
+// {
+//   $d = DateTime::createFromFormat('Y-m-d', $date);
+//   return $d && $d->format('Y-m-d') === $date;
+// }
 
 // Function to validate time format (HH:MM)
 function isValidTime($time)
@@ -63,9 +63,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $errors[] = "กรุณาเลือกบริการ";
     }
 
-    if (empty($reserve_date) || !isValidDate($reserve_date)) {
-      $errors[] = "กรุณาเลือกวันที่ให้ถูกต้อง";
-    }
+    // if (empty($reserve_date) || !isValidDate($reserve_date)) {
+    //   $errors[] = "กรุณาเลือกวันที่ให้ถูกต้อง";
+    // }
 
     if (empty($reserve_time) || !isValidTime($reserve_time)) {
       $errors[] = "กรุณาเลือกเวลาให้ถูกต้อง";
