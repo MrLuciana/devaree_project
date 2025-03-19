@@ -35,12 +35,8 @@ $row = $result->fetch_assoc();
             <div style="border:solid 1px #ddd; padding:5px 10px;"><?php echo htmlspecialchars($row['ser_price1']); ?></div>
         </div>
         <div class="col">
-            <label for="price2">ราคา (2 ชม.)</label>
-            <div style="border:solid 1px #ddd; padding:5px 10px;"><?php echo htmlspecialchars($row['ser_price2']); ?></div>
-        </div>
-        <div class="col">
-            <label for="price3">ราคา (3 ชม.)</label>
-            <div style="border:solid 1px #ddd; padding:5px 10px;"><?php echo htmlspecialchars($row['ser_price3']); ?></div>
+            <label for="hour">ราคา (2 ชม.)</label>
+            <div style="border:solid 1px #ddd; padding:5px 10px;"><?php echo htmlspecialchars($row['ser_hour']); ?></div>
         </div>
     </div>
 

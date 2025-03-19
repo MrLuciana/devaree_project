@@ -47,25 +47,12 @@ $newServiceCode = 'SERV' . $newNumberPart;
 
     <div class="row mt-3 mb-3">
         <div class="col">
-            <label>
-                <input type="checkbox" id="enablePrice1" onchange="toggleInput('price1', this.checked)">
-            </label>
-            <label for="price1">ราคา (1 ชม.)</label>
-            <input onkeyup="checkNull();" type="number" id="price1" class="form-control" disabled>
+            <label for="price1">ราคา</label>
+            <input onkeyup="checkNull();" type="number" id="price1" class="form-control">
         </div>
         <div class="col">
-            <label>
-                <input type="checkbox" id="enablePrice2" onchange="toggleInput('price2', this.checked)">
-            </label>
-            <label for="price2">ราคา (2 ชม.)</label>
-            <input onkeyup="checkNull();" type="number" id="price2" class="form-control" disabled>
-        </div>
-        <div class="col">
-            <label>
-                <input type="checkbox" id="enablePrice3" onchange="toggleInput('price3', this.checked)">
-            </label>
-            <label for="price3">ราคา (3 ชม.)</label>
-            <input onkeyup="checkNull();" type="number" id="price3" class="form-control" disabled>
+            <label for="hour">จำนวนชั่วโมง</label>
+            <input onkeyup="checkNull();" type="number" id="hour" class="form-control">
         </div>
     </div>
 
@@ -95,12 +82,11 @@ $newServiceCode = 'SERV' . $newNumberPart;
         const cat_id = document.getElementById('cat_id').value.trim();
 
         const price1 = document.getElementById('price1').disabled ? true : parseFloat(document.getElementById('price1').value.trim()) > 0;
-        const price2 = document.getElementById('price2').disabled ? true : parseFloat(document.getElementById('price2').value.trim()) > 0;
-        const price3 = document.getElementById('price3').disabled ? true : parseFloat(document.getElementById('price3').value.trim()) > 0;
+        const hour = document.getElementById('hour').disabled ? true : parseFloat(document.getElementById('hour').value.trim()) > 0;
 
         const btnSubmit = document.getElementById('btnSubmit');
 
-        if (code && name && description && cat_id && price1 && price2 && price3) {
+        if (code && name && description && cat_id && price1 && hour) {
             btnSubmit.disabled = false;
         } else {
             btnSubmit.disabled = true;
@@ -118,18 +104,9 @@ $newServiceCode = 'SERV' . $newNumberPart;
     function clearForm() {
         document.getElementById('name').value = "";
         document.getElementById('price1').value = "";
-        document.getElementById('price2').value = "";
-        document.getElementById('price3').value = "";
+        document.getElementById('hour').value = "";
         document.getElementById('description').value = "";
         document.getElementById('cat_id').value = "";
-
-        document.getElementById('enablePrice1').checked = false;
-        document.getElementById('enablePrice2').checked = false;
-        document.getElementById('enablePrice3').checked = false;
-
-        toggleInput('price1', false);
-        toggleInput('price2', false);
-        toggleInput('price3', false);
 
         document.getElementById('btnSubmit').disabled = true;
     }

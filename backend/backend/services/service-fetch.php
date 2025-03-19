@@ -29,9 +29,8 @@ if ($result->num_rows > 0) { ?>
                 <tr class="text-center">
                     <th scope="col" style="width: 3%;">รหัส</th>
                     <th scope="col" style="width: 15%;">ชื่อบริการ</th>
-                    <th scope="col" style="width: 10%;">ราคา (1 ชม.)</th>
-                    <th scope="col" style="width: 10%;">ราคา (2 ชม.)</th>
-                    <th scope="col" style="width: 10%;">ราคา (3 ชม.)</th>
+                    <th scope="col" style="width: 10%;">ราคา</th>
+                    <th scope="col" style="width: 10%;">จำนวนชั่วโมง</th>
                     <th scope="col" style="width: 8%;">หมวดหมู่</th>
                     <th scope="col" style="width: 5%;">สถานะ</th>
                     <th scope="col" style="width: 15%;">จัดการ</th>
@@ -44,8 +43,7 @@ if ($result->num_rows > 0) { ?>
                         <td><?php echo htmlspecialchars($row["ser_code"]); ?></td>
                         <td><?php echo htmlspecialchars($row["ser_name"]); ?></td>
                         <td class="text-end"><?php echo number_format($row["ser_price1"]); ?></td>
-                        <td class="text-end"><?php echo number_format($row["ser_price2"]); ?></td>
-                        <td class="text-end"><?php echo number_format($row["ser_price3"]); ?></td>
+                        <td class="text-end"><?php echo number_format($row["ser_hour"]); ?></td>
                         <td class="text-center"><?php echo htmlspecialchars($row["cat_name"]); ?></td>
                         <td class="text-center">
                             <?php
