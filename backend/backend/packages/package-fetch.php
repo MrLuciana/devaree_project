@@ -28,9 +28,10 @@ if ($result->num_rows > 0) { ?>
             <thead>
                 <tr class="text-center">
                     <th scope="col" style="width: 3%;">รหัส</th>
-                    <th scope="col" style="width: 15%;">ชื่อแพ็กเกจ</th>
+                    <th scope="col" style="width: 10%;">ชื่อแพ็กเกจ</th>
+                    <th scope="col" style="width: 15%;">รายละเอียด</th>
                     <th scope="col" style="width: 10%;">ราคา</th>
-                    <th scope="col" style="width: 10%;">จำนวนชั่วโมง</th>
+                    <th scope="col" style="width: 10%;">ชั่วโมง/นาที</th>
                     <th scope="col" style="width: 8%;">หมวดหมู่</th>
                     <th scope="col" style="width: 5%;">สถานะ</th>
                     <th scope="col" style="width: 15%;">จัดการ</th>
@@ -42,8 +43,9 @@ if ($result->num_rows > 0) { ?>
                     <tr>
                         <td><?php echo htmlspecialchars($row["pac_code"]); ?></td>
                         <td><?php echo htmlspecialchars($row["pac_name"]); ?></td>
+                        <td><?php echo htmlspecialchars($row["pac_description"]); ?></td>
                         <td class="text-end"><?php echo number_format($row["pac_price1"]); ?></td>
-                        <td class="text-end"><?php echo number_format($row["pac_hour"]); ?></td>
+                        <td class="text-end"><?php echo htmlspecialchars($row["pac_hour"]); ?></td>
                         <td class="text-center"><?php echo htmlspecialchars($row["cat_name"]); ?></td>
                         <td class="text-center">
                             <?php

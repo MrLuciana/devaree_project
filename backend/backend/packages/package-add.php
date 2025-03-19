@@ -9,7 +9,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $code = isset($_POST['code']) ? trim($_POST['code']) : '';
         $name = isset($_POST['name']) ? trim($_POST['name']) : '';
         $price1 = isset($_POST['price1']) && is_numeric($_POST['price1']) ? (float)$_POST['price1'] : 0;
-        $hour = isset($_POST['hour']) && is_numeric($_POST['hour']) ? (float)$_POST['hour'] : 0;
+        $hour = isset($_POST['hour']) ? trim($_POST['hour']) : '';
         $cat_id = isset($_POST['cat_id']) ? $_POST['cat_id'] : '';
         $description = isset($_POST['description']) ? trim($_POST['description']) : '';
 
@@ -34,9 +34,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // บันทึกข้อมูล
         $sqlInsert = "INSERT INTO packages (pac_code, pac_name, pac_price1, pac_hour, cat_id, pac_description)
-                      VALUES (?, ?, ?, ?, ?, ?, ?)";
+                      VALUES (?, ?, ?, ?, ?, ?)";
         $stmt = $conn->prepare($sqlInsert);
-        $stmt->bind_param("ssdddss", $code, $name, $price1, $hour, $cat_id, $description);
+        $stmt->bind_param("ssdsss", $code, $name, $price1, $hour, $cat_id, $description);
 
         if ($stmt->execute()) {
             echo json_encode(["status" => "success", "message" => "บันทึกข้อมูลสำเร็จ"]);
