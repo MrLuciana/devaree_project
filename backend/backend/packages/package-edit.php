@@ -46,12 +46,13 @@ $row = $result->fetch_assoc();
 
     <div class="row">
         <div class="col">
-            <label for="price1">ราคา (1 ชม.)</label>
+            <label for="price1">ราคา</label>
             <input onkeyup="checkNull();" value="<?php echo htmlspecialchars($row['pac_price1']); ?>" type="number" id="price1" class="form-control">
         </div>
         <div class="col">
-            <label for="hour">ราคา (2 ชม.)</label>
-            <input onkeyup="checkNull();" value="<?php echo htmlspecialchars($row['pac_hour']); ?>" type="number" id="hour" class="form-control">
+            <label for="hour">จำนวนชั่วโมง : นาที</label>
+            <input type="text" id="hour" class="form-control" placeholder="hh:mm" maxlength="5" onkeyup="timeInput();" value="<?php echo htmlspecialchars($row['pac_hour']); ?>">
+            <small id="timeError" class="text-danger" style="display: none;">กรุณากรอกเวลาในรูปแบบ hh:mm (เช่น 02:30 หรือ 12:45)</small>
         </div>
     </div>
 
@@ -105,5 +106,31 @@ $row = $result->fetch_assoc();
 
         document.getElementById('btnSubmit').disabled = true;
         document.getElementById('formError').textContent = "";
+    }
+
+    function timeInput() {
+        document.getElementById("hour").addEventListener("input", function(event) {
+            let input = this.value.replace(/\D/g, ""); // เอาเฉพาะตัวเลข
+            let timeError = document.getElementById("timeError");
+
+            if (input.length > 4) {
+                input = input.substring(0, 4); // จำกัดให้ไม่เกิน 4 หลัก
+            }
+
+            if (input.length > 2) {
+                input = input.substring(0, 2) + ":" + input.substring(2);
+            }
+
+            this.value = input;
+
+            let regex = /^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/;
+            if (regex.test(input)) {
+                this.classList.remove("is-invalid");
+                timeError.style.display = "none";
+            } else {
+                this.classList.add("is-invalid");
+                timeError.style.display = "block";
+            }
+        });
     }
 </script>
