@@ -164,23 +164,39 @@
         const employee = $('#addBooking-employee').val().trim();
         const service = $('#service').val().trim();
         const package = $('#package').val().trim();
-        const bookingDate = $('#date').val().trim();
-        const hours = $('#hour').val().trim();
-        const startTime = $('#start_time').val().trim();
+        const serviceHours = $('#service_hours').val().trim();
+        const packageHours = $('#package_hours').text().trim();
+        const bookingAmount = $('#total_price').text().trim();
+        const bookingDate = $('#reserve_date').val().trim();
+        const reserveTime = $('#reserve_time').val().trim();
         const notes = $('#notes').val().trim();
         const method = $('#method').val().trim();
 
-        console.log(customer, employee, service, package, bookingDate, hours, startTime, notes, method);
-        // คำนวณราคา
-        const servicePricePerHour = parseFloat(document.getElementById("service").selectedOptions[0]?.getAttribute("data-price")) || 0;
-        const packagePrice = parseFloat(document.getElementById("package").selectedOptions[0]?.getAttribute("data-price")) || 0;
-        const totalPrice = (servicePricePerHour * hours) + packagePrice;
-
         // ตรวจสอบข้อมูลก่อนส่ง (Validation)
-        if (!customer || !employee || !service || !package || !bookingDate || !hours || !startTime || !method) {
-            alert("กรุณากรอกข้อมูลให้ครบถ้วน!");
+        if (!customer || !employee || !(service || package) || !bookingDate || !reserveTime || !method) {
+            Swal.fire({
+                icon: "warning",
+                title: "ข้อมูลไม่ครบ!",
+                text: "กรุณากรอกข้อมูลให้ครบถ้วน",
+            });
             return;
         }
+        // ✅ LOG ข้อมูลที่ส่งไปยัง AJAX
+        const requestData = {
+            cus_id: customer,
+            emp_id: employee,
+            ser_id: service,
+            pac_id: package,
+            boo_ser_hours: serviceHours,
+            boo_pac_hours: packageHours,
+            boo_amount: bookingAmount,
+            boo_date: bookingDate,
+            boo_res_time: reserveTime,
+            boo_notes: notes,
+            boo_method: method
+        };
+
+        console.log("📌 ข้อมูลที่กำลังส่งไปยังเซิร์ฟเวอร์:", requestData);
 
         // ส่งข้อมูลด้วย AJAX
         $.ajax({
@@ -192,11 +208,12 @@
                 emp_id: employee,
                 ser_id: service,
                 pac_id: package,
+                boo_ser_hours: serviceHours,
+                boo_pac_hours: packageHours,
+                boo_amount: bookingAmount,
                 boo_date: bookingDate,
-                boo_hours: hours,
-                boo_start_time: startTime,
+                boo_res_time: reserveTime,
                 boo_notes: notes,
-                boo_amount: totalPrice,
                 boo_method: method
             }),
             dataType: "json",
@@ -209,9 +226,7 @@
                         showConfirmButton: false,
                         timer: 1000
                     }).then(() => {
-                        if (typeof bookingList === 'function') {
-                            bookingList();
-                        }
+                        bookingList(); // โหลดข้อมูลใหม่
                     });
                 } else {
                     Swal.fire({

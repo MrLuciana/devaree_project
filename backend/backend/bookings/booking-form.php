@@ -108,7 +108,7 @@ while ($row = mysqli_fetch_assoc($packageResult)) {
                         </select>
 
                         <label for="package_hours">จำนวนชั่วโมง</label>
-                        <div style="border:solid 1px #ddd; padding:5px 10px;" id="package_hours">- ชม.</div>
+                        <div style="border:solid 1px #ddd; padding:5px 10px;" id="package_hours" value="<?php echo $package['pac_hour']; ?>">- ชม.</div>
                     </div>
                 </div>
 
@@ -140,7 +140,7 @@ while ($row = mysqli_fetch_assoc($packageResult)) {
                 <div class=" row mt-3 mb-3">
                     <div class="col">
                         <label for="notes">หมายเหตุเพิ่มเติม</label>
-                        <textarea type="text" id="notes" class="form-control" onkeyup="checkNull();"></textarea>
+                        <textarea type="text" id="notes" class="form-control"></textarea>
                     </div>
                 </div>
             </div>
@@ -167,7 +167,7 @@ while ($row = mysqli_fetch_assoc($packageResult)) {
                     </div>
                     <div class="mb-2 d-flex justify-content-between">
                         <span><b>จำนวนชั่วโมง:</b></span>
-                        <span id="summary_hours">0</span> ชม.
+                        <span id="summary_hours">-</span> ชม.
                     </div>
                     <hr>
                     <div class="d-flex justify-content-between align-items-center">
@@ -175,7 +175,7 @@ while ($row = mysqli_fetch_assoc($packageResult)) {
                         <h5 class="m-0 text-danger"><b><span id="total_price">0</span> บาท</b></h5>
                     </div>
                     <hr>
-                    <button id="submitBtn" class="btn btn-primary w-100" onclick="bookingAdd();" disabled>✅ ยืนยันการจอง</button>
+                    <button id="submitBtn" class="btn btn-primary w-100" onclick="bookingAdd();">✅ ยืนยันการจอง</button>
                 </div>
             </div>
         </div>
@@ -195,22 +195,22 @@ while ($row = mysqli_fetch_assoc($packageResult)) {
         });
 
         // ตรวจสอบฟอร์มว่ากรอกครบถ้วนหรือไม่
-        checkNull();
+        // checkNull();
     }
 
     // ผูก event listener กับ select โดยตรง
     document.getElementById("addBooking-customer").addEventListener("change", customerChange);
 
-    function checkNull() {
-        let fields = ["addBooking-customer", "addBooking-employee", "package", "service", "date", "hour", "start_time", "method"];
-        let isFilled = fields.every(id => {
-            let el = document.getElementById(id);
-            if (!el) console.warn(`❗ ไม่พบ Element ที่มี ID: ${id}`);
-            return el && el.value && el.value.trim() !== "";
-        });
+    // function checkNull() {
+    //     let fields = ["addBooking-customer", "addBooking-employee", "package", "service", "reserve_date", "reserve_time", "method"];
+    //     let isFilled = fields.every(id => {
+    //         let el = document.getElementById(id);
+    //         if (!el) console.warn(`❗ ไม่พบ Element ที่มี ID: ${id}`);
+    //         return el && el.value && el.value.trim() !== "";
+    //     });
 
-        document.getElementById("submitBtn").disabled = !isFilled;
-    }
+    //     document.getElementById("submitBtn").disabled = !isFilled;
+    // }
 
     function updatePrice() {
         let selectionType = document.getElementById('selection_type').value;
@@ -244,31 +244,44 @@ while ($row = mysqli_fetch_assoc($packageResult)) {
         document.getElementById("summary_price").innerText = selectPrice.toLocaleString();
         document.getElementById("summary_hours").innerText = selectHour;
         document.getElementById("total_price").innerText = selectPrice.toLocaleString();
+        
     }
 
     // Event Listener สำหรับการเปลี่ยนค่า
-    ["hour", "service", "package", "selection_type"].forEach(id => {
+    ["service", "package", "selection_type"].forEach(id => {
         document.getElementById(id).addEventListener("change", () => {
             updatePrice();
-            checkNull();
+            // checkNull();
         });
     });
 
     // ฟังก์ชัน selectionType ที่จะถูกเรียกเมื่อมีการเปลี่ยนแปลงการเลือกประเภท
     function selectionType() {
-        const selectedValue = document.getElementById('selection_type').value;
+        const selection = $("#selection_type").val();
 
-        // ซ่อนทั้งสอง div ก่อน
-        document.getElementById('service_container').style.display = 'none';
-        document.getElementById('package_container').style.display = 'none';
+        if (selection === "service") {
+            // แสดงบริการ, ซ่อนแพ็กเกจ
+            $("#service_container").show();
+            $("#package_container").hide();
 
-        // แสดง div ตามประเภทที่เลือก
-        if (selectedValue === 'service') {
-            document.getElementById('service_container').style.display = 'block';
-        } else if (selectedValue === 'package') {
-            document.getElementById('package_container').style.display = 'block';
+            // รีเซ็ตค่าแพ็กเกจ
+            $("#package").val(""); // รีเซ็ต dropdown
+            $("#package_hours").text(""); // รีเซ็ตจำนวนชั่วโมง
+
+        } else if (selection === "package") {
+            // แสดงแพ็กเกจ, ซ่อนบริการ
+            $("#package_container").show();
+            $("#service_container").hide();
+
+            // รีเซ็ตค่าบริการ
+            $("#service").val(""); // รีเซ็ต dropdown
+            $("#service_hours").val(""); // รีเซ็ตจำนวนชั่วโมง
+        } else {
+            // ถ้าไม่เลือกอะไร ให้ซ่อนทั้งสอง
+            $("#service_container, #package_container").hide();
         }
     }
+
 
     // ผูก event listener กับ select
     document.getElementById('selection_type').addEventListener('change', selectionType);
@@ -282,11 +295,6 @@ while ($row = mysqli_fetch_assoc($packageResult)) {
         let price2 = selectedOption.getAttribute("data-price2");
         let price3 = selectedOption.getAttribute("data-price3");
 
-        // console.log("บริการที่เลือก:", selectedOption.text);
-        // console.log("ราคา 1:", price1);
-        // console.log("ราคา 2:", price2);
-        // console.log("ราคา 3:", price3);
-
         document.getElementById("service_hours").value = 1;
 
         document.getElementById("service_hours").addEventListener("change", function() {
@@ -296,7 +304,7 @@ while ($row = mysqli_fetch_assoc($packageResult)) {
         });
 
         updatePrice();
-        checkNull();
+        // checkNull();
     }
 
     function updatePackageHours() {
@@ -305,7 +313,7 @@ while ($row = mysqli_fetch_assoc($packageResult)) {
 
         if (selectedOption) {
             let packageHours = selectedOption.getAttribute("data-hours") || "-";
-            document.getElementById("package_hours").innerText = packageHours + " ชม.";
+            document.getElementById("package_hours").innerText = packageHours;
         }
         updatePrice();
     }
