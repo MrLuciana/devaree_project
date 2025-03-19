@@ -162,7 +162,8 @@
         var code = $('#code').val().trim();
         var name = $('#name').val().trim();
         var price1 = $('#price1').is(':disabled') ? null : $('#price1').val().trim();
-        var hour = $('#hour').is(':disabled') ? null : $('#hour').val().trim();
+        var price2 = $('#price2').is(':disabled') ? null : $('#price2').val().trim();
+        var price3 = $('#price3').is(':disabled') ? null : $('#price3').val().trim();
         var cat_id = $('#cat_id').val();
         var description = $('#description').val().trim();
 
@@ -173,7 +174,8 @@
                 code: code,
                 name: name,
                 price1: price1,
-                hour: hour,
+                price2: price2,
+                price3: price3,
                 cat_id: cat_id,
                 description: description,
             },
@@ -217,7 +219,8 @@
         var code = $('#code').val().trim();
         var name = $('#name').val().trim();
         var price1 = $('#price1').val().trim();
-        var hour = $('#hour').val().trim();
+        var price2 = $('#price2').val().trim();
+        var price3 = $('#price3').val().trim();
         var cat_id = $('#cat_id').val();
         var description = $('#description').val().trim();
         $.ajax({
@@ -228,7 +231,8 @@
                 code: code,
                 name: name,
                 price1: price1,
-                hour: hour,
+                price2: price2,
+                price3: price3,
                 cat_id: cat_id,
                 description: description,
             },

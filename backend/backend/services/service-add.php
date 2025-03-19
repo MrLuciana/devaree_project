@@ -9,7 +9,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $code = isset($_POST['code']) ? trim($_POST['code']) : '';
         $name = isset($_POST['name']) ? trim($_POST['name']) : '';
         $price1 = isset($_POST['price1']) && is_numeric($_POST['price1']) ? (float)$_POST['price1'] : 0;
-        $hour = isset($_POST['hour']) && is_numeric($_POST['hour']) ? (float)$_POST['hour'] : 0;
+        $price2 = isset($_POST['price2']) && is_numeric($_POST['price2']) ? (float)$_POST['price2'] : 0;
+        $price3 = isset($_POST['price3']) && is_numeric($_POST['price3']) ? (float)$_POST['price3'] : 0;
         $cat_id = isset($_POST['cat_id']) ? $_POST['cat_id'] : '';
         $description = isset($_POST['description']) ? trim($_POST['description']) : '';
 
@@ -33,10 +34,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->close();
 
         // บันทึกข้อมูล
-        $sqlInsert = "INSERT INTO services (ser_code, ser_name, ser_price1, ser_hour, cat_id, ser_description)
-                      VALUES (?, ?, ?, ?, ?, ?)";
+        $sqlInsert = "INSERT INTO services (ser_code, ser_name, ser_price1, ser_price2, ser_price3, cat_id, ser_description)
+                      VALUES (?, ?, ?, ?, ?, ?, ?)";
         $stmt = $conn->prepare($sqlInsert);
-        $stmt->bind_param("ssdddss", $code, $name, $price1, $hour, $cat_id, $description);
+        $stmt->bind_param("ssdddss", $code, $name, $price1, $price2, $price3, $cat_id, $description);
 
         if ($stmt->execute()) {
             echo json_encode(["status" => "success", "message" => "บันทึกข้อมูลสำเร็จ"]);

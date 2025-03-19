@@ -46,12 +46,16 @@ $row = $result->fetch_assoc();
 
     <div class="row">
         <div class="col">
-            <label for="price1">ราคา</label>
+            <label for="price1">ราคา (1 ชม.)</label>
             <input onkeyup="checkNull();" value="<?php echo htmlspecialchars($row['ser_price1']); ?>" type="number" id="price1" class="form-control">
         </div>
         <div class="col">
-            <label for="hour">จำนวนชั่วโมง</label>
-            <input onkeyup="checkNull();" value="<?php echo htmlspecialchars($row['ser_hour']); ?>" type="number" id="hour" class="form-control">
+            <label for="price2">ราคา (2 ชม.)</label>
+            <input onkeyup="checkNull();" value="<?php echo htmlspecialchars($row['ser_price2']); ?>" type="number" id="price2" class="form-control">
+        </div>
+        <div class="col">
+            <label for="price3">ราคา (3 ชม.)</label>
+            <input onkeyup="checkNull();" value="<?php echo htmlspecialchars($row['ser_price3']); ?>" type="number" id="price3" class="form-control">
         </div>
     </div>
 
@@ -80,11 +84,12 @@ $row = $result->fetch_assoc();
         const code = document.getElementById('code').value.trim();
         const name = document.getElementById('name').value.trim();
         const price1 = document.getElementById('price1').value.trim();
-        const hour = document.getElementById('hour').value.trim();
+        const price2 = document.getElementById('price2').value.trim();
+        const price3 = document.getElementById('price3').value.trim();
         const description = document.getElementById('description').value.trim();
         const error = document.getElementById('formError');
 
-        if (code && name && price1 && hour && description) {
+        if (code && name && price1 && price2 && price3 && description) {
             document.getElementById('btnSubmit').disabled = false;
             error.textContent = ""; // ลบข้อความแจ้งเตือน
         } else {
@@ -99,7 +104,8 @@ $row = $result->fetch_assoc();
         document.getElementById('code').value = "";
         document.getElementById('name').value = "";
         document.getElementById('price1').value = "";
-        document.getElementById('hour').value = "";
+        document.getElementById('price2').value = "";
+        document.getElementById('price3').value = "";
         document.getElementById('description').value = "";
         document.getElementById('cat_id').selectedIndex = 0;
 
