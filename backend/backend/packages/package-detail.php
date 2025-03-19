@@ -31,11 +31,11 @@ $row = $result->fetch_assoc();
 
     <div class="row">
         <div class="col">
-            <label for="price1">ราคา (1 ชม.)</label>
+            <label for="price1">ราคา</label>
             <div style="border:solid 1px #ddd; padding:5px 10px;"><?php echo htmlspecialchars($row['pac_price1']); ?></div>
         </div>
         <div class="col">
-            <label for="hour">ราคา (2 ชม.)</label>
+            <label for="hour">จำนวนชั่วโมง : นาที</label>
             <div style="border:solid 1px #ddd; padding:5px 10px;"><?php echo htmlspecialchars($row['pac_hour']); ?></div>
         </div>
     </div>

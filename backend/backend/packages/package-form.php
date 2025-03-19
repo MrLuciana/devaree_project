@@ -51,7 +51,7 @@ $newpackageCode = 'PACK' . $newNumberPart;
             <input onkeyup="checkNull();" type="number" id="price1" class="form-control">
         </div>
         <div class="col">
-            <label for="hour">จำนวนชั่วโมง:นาที</label>
+            <label for="hour">จำนวนชั่วโมง : นาที</label>
             <input type="text" id="hour" class="form-control" placeholder="hh:mm" maxlength="5" onkeyup="timeInput();">
             <small id="timeError" class="text-danger" style="display: none;">กรุณากรอกเวลาในรูปแบบ hh:mm (เช่น 02:30 หรือ 12:45)</small>
         </div>
