@@ -42,6 +42,11 @@
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="./assets/js/core/jquery-3.7.1.min.js"></script>
 
+   <!-- Tempus Dominus JavaScript -->
+   <script src="https://cdn.jsdelivr.net/npm/@eonasdan/tempus-dominus@6.9.4/dist/js/tempus-dominus.min.js" crossorigin="anonymous"></script>
+  <!-- Tempus Dominus Styles -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@eonasdan/tempus-dominus@6.9.4/dist/css/tempus-dominus.min.css" crossorigin="anonymous">
+
   <style>
     #perPage {
       width: 50px;
