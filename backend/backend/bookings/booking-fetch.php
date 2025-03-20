@@ -57,7 +57,7 @@ if ($result->num_rows > 0) { ?>
                         <td><?= htmlspecialchars($row['cus_fname'] . " " . $row['cus_lname']); ?></td>
                         <td><?= htmlspecialchars($row['ser_name'] ?? $row['pac_name']); ?></td>
                         <td class="text-center"><?= htmlspecialchars($row['boo_date']); ?></td>
-                        <td class="text-center"><?= date('H:i', strtotime($row['boo_res_time'])); ?></td>
+                        <td class="text-center"><?= date('H:i', strtotime($row['boo_res_time'])); ?> ชม.</td>
                         <td class="text-center"><?= htmlspecialchars($row['boo_amount']); ?></td>
                         <td class="text-center">
                             <select name="boo_status" class="form-select status-select" data-boo_id="<?= $row['boo_id']; ?>">
