@@ -123,7 +123,7 @@ while ($row = mysqli_fetch_assoc($packageResult)) {
                 <!-- เวลาเริ่มต้น & วิธีชำระเงิน-->
                 <div class="row mt-3 mb-3">
                     <div class="col">
-                        <label for="reserve_time">เวลาเริ่มต้น</label>
+                        <label for="reserve_time">เริ่มเวลา</label>
                         <input type="text" id="reserve_time" class="form-control" onfocus="timePicker();">
                     </div>
                     <div class=" col">

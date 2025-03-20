@@ -9,7 +9,7 @@ $keyword = isset($_POST['keyword']) ? $conn->real_escape_string($_POST['keyword'
 // ✅ Query หลัก
 $sql = "SELECT 
     b.boo_id, b.cus_id, b.emp_id, b.ser_id, b.pac_id, 
-    b.boo_date, b.boo_hours, b.boo_start_time, 
+    b.boo_date, b.boo_ser_hours, b.boo_pac_hours, b.boo_res_time, 
     b.boo_status, b.boo_amount, b.boo_updated_at,
     c.cus_fname, c.cus_lname, s.ser_name, p.pac_name
 FROM bookings AS b
@@ -25,7 +25,7 @@ if (!empty($keyword)) {
         e.emp_fname LIKE '%$keyword%' ";
 }
 
-$sql .= " ORDER BY b.boo_date ASC, b.boo_start_time ASC LIMIT $start, $perPage";
+$sql .= " ORDER BY b.boo_date ASC, b.boo_res_time ASC LIMIT $start, $perPage";
 $result = $conn->query($sql);
 if (!$result) {
     die("เกิดข้อผิดพลาดใน SQL: " . $conn->error);
@@ -39,12 +39,13 @@ if ($result->num_rows > 0) { ?>
                 <tr class="text-center">
                     <th scope="col" style="width: 5%;">#</th>
                     <th scope="col" style="width: 14%;">ชื่อลูกค้า</th>
-                    <th scope="col" style="width: 15%;">บริการ</th>
-                    <th scope="col" style="width: 15%;">วันที่จอง</th>
-                    <th scope="col" style="width: 10%;">จำนวนชั่วโมง</th>
+                    <th scope="col" style="width: 13%;">สินค้าที่จอง</th>
+                    <th scope="col" style="width: 13%;">วันที่จอง</th>
+                    <th scope="col" style="width: 13%;">เริ่มเวลา</th>
+                    <!-- <th scope="col" style="width: 10%;">ชั่วโมง : นาที</th> -->
                     <th scope="col" style="width: 10%;">ยอดเงิน (บาท)</th>
                     <th scope="col" style="width: 15%;">สถานะ</th>
-                    <th scope="col" style="width: 15%;">จัดการ</th>
+                    <th scope="col" style="width: 20%;">จัดการ</th>
                 </tr>
             </thead>
             <tbody>
@@ -54,10 +55,10 @@ if ($result->num_rows > 0) { ?>
                     <tr>
                         <td class="text-center"><?php echo htmlspecialchars($i = $i + 1); ?></td>
                         <td><?= htmlspecialchars($row['cus_fname'] . " " . $row['cus_lname']); ?></td>
-                        <td><?= htmlspecialchars($row['ser_name']); ?></td>
-                        <td class="text-center"><?= date('d M Y', strtotime($row['boo_date'])); ?></td>
-                        <td class="text-center"><?= htmlspecialchars($row['boo_hours']); ?> ชม.</td>
-                        <td class="text-end"><?= is_numeric($row['boo_amount']) ? number_format($row['boo_amount'], 2) : '0.00'; ?></td>
+                        <td><?= htmlspecialchars($row['ser_name'] ?? $row['pac_name']); ?></td>
+                        <td class="text-center"><?= htmlspecialchars($row['boo_date']); ?></td>
+                        <td class="text-center"><?= date('H:i', strtotime($row['boo_res_time'])); ?></td>
+                        <td class="text-center"><?= htmlspecialchars($row['boo_amount']); ?></td>
                         <td class="text-center">
                             <select name="boo_status" class="form-select status-select" data-boo_id="<?= $row['boo_id']; ?>">
                                 <option value="pending" <?= $row['boo_status'] == 'pending' ? 'selected' : ''; ?>>⏳ Pending</option>
