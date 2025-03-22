@@ -56,12 +56,7 @@
                             </li>
                             <li>
                                 <a href="">
-                                    <span class="sub-item">ปฏิทิน</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="">
-                                    <span class="sub-item">ประวัติการจอง</span>
+                                    <span class="sub-item">ประวัติการใช้งาน</span>
                                 </a>
                             </li>
                         </ul>
@@ -108,11 +103,6 @@
                                     <span class="sub-item">รายชื่อทั้งหมด</span>
                                 </a>
                             </li>
-                            <li>
-                                <a href="components/buttons.html">
-                                    <span class="sub-item">รายละเอียด</span>
-                                </a>
-                            </li>
                         </ul>
                     </div>
                 </li>
@@ -130,15 +120,10 @@
                                     <span class="sub-item">รายชื่อทั้งหมด</span>
                                 </a>
                             </li>
-                            <li>
-                                <a href="components/buttons.html">
-                                    <span class="sub-item">รายละเอียด</span>
-                                </a>
-                            </li>
                         </ul>
                     </div>
                 </li>
-                <!-- การเงิน -->
+                <!-- การเงิน
                 <li class="nav-item">
                     <a data-bs-toggle="collapse" href="#money">
                         <i class="fas fa-wallet"></i>
@@ -164,7 +149,7 @@
                             </li>
                         </ul>
                     </div>
-                </li>
+                </li> -->
             </ul>
         </div>
     </div>
