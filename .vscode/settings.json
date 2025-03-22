@@ -3,5 +3,21 @@
         "Backend - Booking"
     ],
     "php.executablePath": "C:\\wamp64\\bin\\php\\php8.3.14\\php.exe",
-    "php.version": "8.3"
+    "php.version": "8.3",
+    "sqltools.connections": [
+        {
+            "mysqlOptions": {
+                "authProtocol": "default",
+                "enableSsl": "Disabled"
+            },
+            "previewLimit": 50,
+            "server": "devareespa.mrluciana.com",
+            "port": 3306,
+            "driver": "MariaDB",
+            "name": "devaree-db",
+            "database": "devaree-db",
+            "username": "mrlu_devaree",
+            "password": "03Gep0^5f"
+        }
+    ]
 }

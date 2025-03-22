@@ -1,41 +1,23 @@
 <?php
 require_once('../includes/conn.php');
 
-// บันทึกการแก้ไข
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $cus_id = $_POST['cus_id'];
-        $emp_id = $_POST['emp_id'];
-        $ser_id = $_POST['ser_id'];
-        $pac_id = $_POST['pac_id'];
-        $boo_date = $_POST['boo_date'];
-        $boo_hours = $_POST['boo_hours'];
-        $boo_start_time = $_POST['boo_start_time'];
-        $boo_method = $_POST['boo_method'];
-        $boo_notes = $_POST['boo_notes'];
-    
-        // คำนวณราคารวม
-        $servicePrice = $_POST['service_price'];
-        $packagePrice = $_POST['package_price'];
-        $boo_total = $servicePrice + $packagePrice;
-    
-        $updateQuery = "UPDATE bookings SET 
-            cus_id = ?, emp_id = ?, ser_id = ?, pac_id = ?, 
-            boo_date = ?, boo_hours = ?, boo_start_time = ?, 
-            boo_method = ?, boo_notes = ?, boo_total = ? 
-            WHERE boo_id = ?";
-    
-        $stmt = $conn->prepare($updateQuery);
-        $stmt->bind_param(
-            "iiiisissdii",
-            $cus_id, $emp_id, $ser_id, $pac_id,
-            $boo_date, $boo_hours, $boo_start_time,
-            $boo_method, $boo_notes, $boo_total, $boo_id
-        );
-    
-        if ($stmt->execute()) {
-            echo "<script>alert('✅ แก้ไขข้อมูลสำเร็จ!');</script>";
-            exit;
-        } else {
-            echo "<script>alert('❌ เกิดข้อผิดพลาดในการบันทึกข้อมูล');</script>";
-        }
-    }
+$id = $conn->real_escape_string($_POST['boo_id']);
+$boo_notes = $conn->real_escape_string($_POST['boo_notes']);
+$boo_date = $conn->real_escape_string($_POST['boo_date']);
+$boo_res_time = $conn->real_escape_string($_POST['boo_res_time']);
+$boo_method = $conn->real_escape_string($_POST['boo_method']);
+
+$sql = "UPDATE bookings SET 
+        boo_notes = '$boo_notes',
+        boo_date = '$boo_date',
+        boo_res_time = '$boo_res_time'
+        boo_method = '$boo_method'
+        WHERE boo_id = '$id'";  // ใช้ 'boo_id' ตามที่คุณต้องการ
+
+if ($conn->query($sql) === TRUE) {
+        echo json_encode(["status" => "success", "message" => "อัปเดตข้อมูลสำเร็จ"]);
+} else {
+        echo json_encode(["status" => "error", "message" => "เกิดข้อผิดพลาด: " . $conn->error]);
+}
+
+$conn->close();

@@ -251,25 +251,37 @@
 
     // ฟังก์ชันแก้ไขการจอง
     function bookingUpdate(id) {
-        var code = $('#code').val().trim();
-        var name = $('#name').val().trim();
-        var price1 = $('#price1').val().trim();
-        var price2 = $('#price2').val().trim();
-        var price3 = $('#price3').val().trim();
-        var cat_id = $('#cat_id').val();
-        var description = $('#description').val().trim();
+        console.log("Updating booking with ID: " + id);
+        var boo_date = $('#reserve_date').val()
+        var boo_res_time = $('#reserve_time').val()
+        var boo_notes = $('#notes').val()
+        var boo_method = $('#method').val()
+
+        // ตรวจสอบข้อมูลก่อนส่ง (Validation)
+        if (!boo_date || !boo_res_time || !boo_method) {
+            Swal.fire({
+                icon: "warning",
+                title: "ข้อมูลไม่ครบ!",
+                text: "กรุณากรอกข้อมูลให้ครบถ้วน",
+            });
+            return;
+        }
+        // console.log("📌 ข้อมูลที่กำลังส่งไปยังเซิร์ฟเวอร์:", {
+        //     boo_date,
+        //     boo_res_time,
+        //     boo_notes,
+        //     boo_method
+        // });
+        
         $.ajax({
             url: "./bookings/booking-update.php",
             type: 'POST',
             data: {
-                id: id,
-                code: code,
-                name: name,
-                price1: price1,
-                price2: price2,
-                price3: price3,
-                cat_id: cat_id,
-                description: description,
+                boo_id: id,
+                boo_date: boo_date,
+                boo_res_time: boo_res_time,
+                boo_notes: boo_notes,
+                boo_method: boo_method
             },
             dataType: "json", // ระบุว่ารับค่า JSON กลับมา
             success: function(response) {

@@ -21,15 +21,45 @@ $row = $result->fetch_assoc();
             <!-- ลูกค้า -->
             <div class="row mt-3 mb-3">
                 <div class="col">
-                    <label for="addBooking-customer">ชื่อลูกค้า</label>
-                    <div style="border:solid 1px #ddd; padding:5px 10px;"><?php echo htmlspecialchars($row['cus_fname']); ?>&nbsp;&nbsp;<?php echo htmlspecialchars($row['cus_lname']); ?></div>
+                    <label for="editBooking-customer">ชื่อลูกค้า</label>
+                    <select id="editBooking-customer" class="form-control">
+                        <?php
+                        $sql = "SELECT * FROM customers";
+                        $stmt = $conn->prepare($sql);
+                        $stmt->execute();
+                        $result = $stmt->get_result();
+
+                        while ($row_cus = $result->fetch_assoc()) {
+                        ?>
+                            <option value="<?php echo $row_cus['cus_id']; ?>" <?php if ($row['cus_id'] == $row_cus['cus_id']) echo "selected"; ?>>
+                                <?php echo htmlspecialchars($row_cus['cus_fname']); ?>&nbsp;&nbsp;<?php echo htmlspecialchars($row_cus['cus_lname']); ?>
+                            </option>
+                        <?php }
+                        $stmt->close();
+                        ?>
+                    </select>
                 </div>
             </div>
             <!-- พนักงาน -->
             <div class="row mt-3 mb-3">
                 <div class="col">
-                    <label for="addBooking-employee">ชื่อพนักงาน</label>
-                    <div style="border:solid 1px #ddd; padding:5px 10px;"><?php echo htmlspecialchars($row['emp_fname']); ?>&nbsp;&nbsp;<?php echo htmlspecialchars($row['emp_lname']); ?></div>
+                    <label for="editBooking-employee">ชื่อพนักงาน</label>
+                    <select id="editBooking-employee" class="form-control">
+                        <?php
+                        $sql = "SELECT * FROM employees";
+                        $stmt = $conn->prepare($sql);
+                        $stmt->execute();
+                        $result = $stmt->get_result();
+
+                        while ($row_emp = $result->fetch_assoc()) {
+                        ?>
+                            <option value="<?php echo $row_emp['emp_id']; ?>" <?php if ($row['emp_id'] == $row_emp['emp_id']) echo "selected"; ?>>
+                                <?php echo htmlspecialchars($row_emp['emp_fname']); ?>&nbsp;&nbsp;<?php echo htmlspecialchars($row_emp['emp_lname']); ?>
+                            </option>
+                        <?php }
+                        $stmt->close();
+                        ?>
+                    </select>
                 </div>
             </div>
 
@@ -37,22 +67,53 @@ $row = $result->fetch_assoc();
             <div class="row mt-3 mb-3">
                 <div class="col-8">
                     <label for="serpac">บริการ & แพ็กเกจ</label>
-                    <div style="border:solid 1px #ddd; padding:5px 10px;"><?php echo htmlspecialchars($row['ser_name'] ?? $row['pac_name']); ?></div>
+                    <select id="serpac" class="form-control">
+                        <option value="" disabled>---------บริการ---------</option>
+                        <?php
+                        $sql = "SELECT * FROM services";
+                        $stmt = $conn->prepare($sql);
+                        $stmt->execute();
+                        $result = $stmt->get_result();
+
+                        while ($row_ser = $result->fetch_assoc()) {
+                        ?>
+                            <option value="<?php echo $row_ser['ser_id']; ?>" <?php if ($row['ser_id'] == $row_ser['ser_id']) echo "selected"; ?>>
+                                <?php echo htmlspecialchars($row_ser['ser_name']); ?>
+                            </option>
+                        <?php }
+                        $stmt->close();
+                        ?>
+                        <option value="" disabled>---------แพ็กเกจ---------</option>
+                        <?php
+                        $sql = "SELECT * FROM packages";
+                        $stmt = $conn->prepare($sql);
+                        $stmt->execute();
+                        $result = $stmt->get_result();
+
+                        while ($row_pac = $result->fetch_assoc()) {
+                        ?>
+                            <option value="<?php echo $row_pac['pac_id']; ?>" <?php if ($row['pac_id'] == $row_pac['pac_id']) echo "selected"; ?>>
+                                <?php echo htmlspecialchars($row_pac['pac_name']); ?>
+                            </option>
+                        <?php }
+                        $stmt->close();
+                        ?>
+                    </select>
                 </div>
             </div>
 
             <!-- วัน/เดือน/ปี ที่จอง -->
             <div class="row mt-3 mb-3">
                 <div class="col">
-                    <label for="reserve_date">วัน/เดือน/ปี ที่จอง</label>
-                    <input value="<?php echo $row['boo_date']; ?>" id="reserve_date" class="form-control" onfocus="datePicker();">
+                    <label for="date">วัน/เดือน/ปี ที่จอง</label>
+                    <input value="<?php echo $row['boo_date']; ?>" type="text" id="reserve_date" class="form-control" onfocus="datePicker();">
                 </div>
             </div>
 
             <div class="row mt-3 mb-3">
                 <div class="col">
-                    <label for="reserve_time">เริ่มเวลา</label>
-                    <input value="<?php echo $row['boo_res_time']; ?>" id="reserve_time" class="form-control" onfocus="timePicker();">
+                    <label for="date">เริ่มเวลา</label>
+                    <input value="<?php echo $row['boo_res_time']; ?>" type="text" id="reserve_time" class="form-control" onfocus="timePicker();">
                 </div>
                 <div class="col">
                     <label for="method">วิธีชำระเงิน</label>
@@ -105,7 +166,7 @@ $row = $result->fetch_assoc();
                 </div>
             </div>
             <div class="text-center">
-                <button onclick="bookingUpdate('<?php echo htmlspecialchars($id); ?>');" class="btn btn-primary" id="updateBooking">บันทึกการจอง</button>
+                <button type="submit" class="btn btn-primary" id="updateBooking" onclick="bookingUpdate('<?php echo $id; ?>');">บันทึกการจอง</button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">ยกเลิก</button>
             </div>
         </div>

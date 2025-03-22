@@ -116,7 +116,7 @@ while ($row = mysqli_fetch_assoc($packageResult)) {
                 <div class="row mt-3 mb-3">
                     <div class="col">
                         <label for="reserve_date">วัน/เดือน/ปี ที่จอง</label>
-                        <input type="text" id="reserve_date" class="form-control" onfocus="datePicker();">
+                        <input id="reserve_date" class="form-control" onfocus="datePicker();">
                     </div>
                 </div>
 
@@ -124,7 +124,7 @@ while ($row = mysqli_fetch_assoc($packageResult)) {
                 <div class="row mt-3 mb-3">
                     <div class="col">
                         <label for="reserve_time">เริ่มเวลา</label>
-                        <input type="text" id="reserve_time" class="form-control" onfocus="timePicker();">
+                        <input id="reserve_time" class="form-control" onfocus="timePicker();">
                     </div>
                     <div class=" col">
                         <label for="method">วิธีชำระเงิน</label>
