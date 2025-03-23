@@ -143,6 +143,15 @@ $customerPhone = $_SESSION['customer']['cus_phone'] ?? '';
             <div class="invalid-feedback">กรุณาระบุระยะเวลา</div>
           </div>
 
+          <div class="mb-3">
+            <label for="payment_method" class="form-label">วิธีการชำระเงิน</label>
+            <select class="form-select" id="payment_method" name="payment_method">
+              <option value="">---เลือกวิธีการชำระเงิน---</option>
+              <option value="cash">เงินสด (ชำระหน้าร้าน)</option>
+              <option value="promptpay">พร้อมเพย์</option>
+            </select>
+            <div class="invalid-feedback">กรุณาระบุวิธีการชำระเงิน</div>
+          </div>
           <!-- Special Requests -->
           <div class="mb-3">
             <label for="special_requests" class="form-label">ข้อมูลเพิ่มเติม</label>
@@ -274,7 +283,8 @@ $customerPhone = $_SESSION['customer']['cus_phone'] ?? '';
           "#ser_id",
           "#reserve_date",
           "#reserve_time",
-          "#duration"
+          "#duration",
+          "#payment_method",
         ];
 
         // Check required fields
