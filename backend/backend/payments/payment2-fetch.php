@@ -94,6 +94,6 @@ if ($result->num_rows > 0) { ?>
     </div>
 <?php
 } else {
-    echo "<tr><td colspan='11' class='text-center text-muted'>ไม่มีข้อมูลการชำระเงิน</td></tr>";
+    echo "<tr><td colspan='11' class='text-center text-muted'>ไม่มีข้อมูลประวัติการใช้งาน</td></tr>";
 }
 ?>
