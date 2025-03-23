@@ -96,7 +96,7 @@
                         (new_status === 'pending') ?
                         'ยังไม่ได้ชำระเงิน ❌' :
                         (new_status === 'canceled') ?
-                        'ยกเลิกการชำระเงิน ❌':
+                        'ยกเลิกการชำระเงิน ❌' :
                         'อัพเดตสถานะสำเร็จ';
                     location.reload();
 
@@ -125,6 +125,22 @@
                     html: `<strong>สถานะ:</strong> ${textStatus}<br><strong>รายละเอียด:</strong> ${errorThrown}`,
                     confirmButtonText: 'ปิด'
                 });
+            }
+        });
+    }
+
+    // ฟอร์มดูรายละเอียด
+    function bookingModalDetail(id, title) {
+        document.getElementById('ModalTitle').innerHTML = title;
+        $.ajax({
+            url: "./bookings/booking-detail.php",
+            type: "POST",
+            data: {
+                id: id
+            },
+            success: function(data) {
+                $('#IModal .modal-body').html(data);
+                $('#IModal').modal('show');
             }
         });
     }

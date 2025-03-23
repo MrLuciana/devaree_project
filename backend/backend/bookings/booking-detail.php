@@ -118,6 +118,17 @@ $row = $result->fetch_assoc();
                         <h5 class="m-0 text-danger"><b><span id="total_price"><?php echo $row['boo_amount']; ?></span> บาท</b></h5>
                     </div>
                     <hr>
+                    <h5 class="card-title text-center mb-3">หลักฐานการโอนเงิน</h5>
+                    <div class="text-center">
+                        <?php if (!empty($row['boo_receipt'])): ?>
+                            <img src="../uploads/<?= htmlspecialchars($row['boo_receipt'], ENT_QUOTES, 'UTF-8'); ?>"
+                                class="img-fluid"
+                                alt="receipt"
+                                style="max-height: 200px;">
+                        <?php else: ?>
+                            <p class="text-muted">ไม่มีหลักฐานการโอนเงิน</p>
+                        <?php endif; ?>
+                    </div>
                 </div>
             </div>
         </div>

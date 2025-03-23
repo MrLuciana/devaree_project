@@ -27,7 +27,7 @@ if ($result->num_rows > 0) { ?>
                     <th scope="col" style="width: 14%;">ชื่อลูกค้า</th>
                     <th scope="col" style="width: 15%;">บริการ</th>
                     <th scope="col" style="width: 15%;">วันที่จอง</th>
-                    <th scope="col" style="width: 10%;">จำนวนชั่วโมง</th>
+                    <th scope="col" style="width: 10%;">เริ่มเวลา</th>
                     <th scope="col" style="width: 10%;">ยอดเงิน (บาท)</th>
                     <th scope="col" style="width: 15%;">สถานะ</th>
                     <th scope="col" style="width: 15%;">จัดการ</th>
@@ -42,7 +42,7 @@ if ($result->num_rows > 0) { ?>
                         <td><?= htmlspecialchars($row['cus_fname'] . " " . $row['cus_lname']); ?></td>
                         <td><?= htmlspecialchars($row['ser_name']); ?></td>
                         <td class="text-center"><?= date('d M Y', strtotime($row['boo_date'])); ?></td>
-                        <td class="text-center"><?= htmlspecialchars($row['boo_hours']); ?> ชม.</td>
+                        <td class="text-center"><?= date('H:i', strtotime($row['boo_res_time'])); ?> น.</td>
                         <td class="text-end"><?= is_numeric($row['pay_amount']) ? number_format($row['pay_amount'], 2) : '0.00'; ?></td>
                         <td class="text-center">
                             <select name="pay_status" class="form-select status-select" data-pay_id="<?= $row['pay_id']; ?>">
@@ -52,7 +52,7 @@ if ($result->num_rows > 0) { ?>
                             </select>
                         </td>
                         <td class="text-center">
-                            <button class="btn btn-info btn-sm" onclick="paymentModalDetail('<?= htmlspecialchars($row['pay_id'], ENT_QUOTES); ?>', 'รายละเอียดการชำระเงิน');">
+                            <button class="btn btn-info btn-sm" onclick="bookingModalDetail('<?= htmlspecialchars($row['boo_id'], ENT_QUOTES); ?>', 'รายละเอียดการชำระเงิน');">
                                 <i class="fas fa-eye"></i>
                             </button>
                         </td>
