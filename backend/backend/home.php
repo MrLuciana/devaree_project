@@ -28,7 +28,7 @@ $total_bookings = $row['total_bookings'];
 
     <?php
     include 'widgets/widget-total.php';
-    include 'widgets/widget-service-history.php';
+    include 'widgets/widget-payment.php';
     ?>
   </div>
 </div>
