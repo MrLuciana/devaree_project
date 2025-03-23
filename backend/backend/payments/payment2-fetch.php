@@ -9,7 +9,7 @@ $sql = "SELECT * FROM payments
         LEFT JOIN bookings ON payments.boo_id = bookings.boo_id
         LEFT JOIN customers ON bookings.cus_id = customers.cus_id
         LEFT JOIN services ON bookings.ser_id = services.ser_id
-        WHERE payments.pay_status = 'pending'
+        WHERE payments.pay_status IN ('paid', 'canceled')
         ORDER BY payments.pay_id DESC 
         LIMIT ? OFFSET ?";
 
@@ -62,7 +62,7 @@ if ($result->num_rows > 0) { ?>
         </table>
 
         <?php
-        $count_sql = "SELECT COUNT(*) AS total FROM payments WHERE pay_status = 'pending'";
+        $count_sql = "SELECT COUNT(*) AS total FROM payments WHERE pay_status IN ('paid', 'canceled')";
         $fetch_query = $conn->query($count_sql);
         $total_record = $fetch_query->fetch_assoc()['total'];
         $total_page = ceil($total_record / $perPage);

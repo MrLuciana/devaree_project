@@ -55,7 +55,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="">
+                                <a href="?page=booking-history">
                                     <span class="sub-item">ประวัติการใช้งาน</span>
                                 </a>
                             </li>

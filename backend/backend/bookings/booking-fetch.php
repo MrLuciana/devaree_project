@@ -16,7 +16,10 @@ FROM bookings AS b
 LEFT JOIN customers AS c ON b.cus_id = c.cus_id
 LEFT JOIN employees AS e ON b.emp_id = e.emp_id
 LEFT JOIN services AS s ON b.ser_id = s.ser_id
-LEFT JOIN packages AS p ON b.pac_id = p.pac_id";
+LEFT JOIN packages AS p ON b.pac_id = p.pac_id
+-- WHERE bookings.boo_status = 'pending', 'canceled', 'confirmed'
+-- ORDER BY bookings.boo_date ASC, bookings.boo_res_time ASC LIMIT $start, $perPage
+";
 
 if (!empty($keyword)) {
     $sql .= " WHERE 

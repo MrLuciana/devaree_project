@@ -1,23 +1,23 @@
 <script>
     var page;
     $(document).ready(function() {
-        paymentList(page);
+        payment2List(page);
     })
 
     $("#keyWord").keyup(function(event) {
         if (event.keyCode === 13) {
-            paymentList(page);
+            paymen2tList(page);
         }
     });
 
     // กําหนดหน้า
     $(document).on("click", ".pagination a", function() {
         page = $(this).attr('id')
-        paymentList(page);
+        paymen2tList(page);
     });
     // เปลี่ยนข้อมูลแต่ละหน้า
     $("#perPage").change(function() {
-        paymentList();
+        paymen2tList();
     })
 
     function checkKeyWord() {
@@ -33,7 +33,7 @@
     function clearSearch() {
         document.getElementById('btnClear').hidden = true;
         document.getElementById('keyWord').value = "";
-        paymentList(page);
+        paymen2tList(page);
     }
 
     //=========== Modal Function ===========//
@@ -55,7 +55,7 @@
     //=========== End Modal Function ===========//
 
     // ฟังก์ชันดึงข้อมูล
-    function paymentList(page) {
+    function payment2List(page) {
         var keyword = $('#keyWord').val();
         var perPage = document.getElementById("perPage").value;
 
@@ -66,13 +66,12 @@
                 per_page: perPage,
                 page_no: page
             },
-            url: "./payments/payment-fetch.php",
+            url: "./payments/payment2-fetch.php",
             success: (data, res) => {
-                $('#paymentTables').html(data);
+                $('#payment2Tables').html(data);
             }
         })
     }
-
     // Event Listener สำหรับตรวจจับการเปลี่ยนสถานะ
     $(document).on('change', 'select[name="pay_status"]', function() {
         var pay_id = $(this).data('pay_id');
