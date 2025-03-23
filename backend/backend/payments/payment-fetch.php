@@ -9,8 +9,10 @@ $sql = "SELECT * FROM payments
         LEFT JOIN bookings ON payments.boo_id = bookings.boo_id
         LEFT JOIN customers ON bookings.cus_id = customers.cus_id
         LEFT JOIN services ON bookings.ser_id = services.ser_id
+        WHERE payments.pay_status = 'pending'
         ORDER BY payments.pay_id DESC 
         LIMIT ? OFFSET ?";
+
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("ii", $perPage, $start);
 $stmt->execute();
@@ -53,10 +55,6 @@ if ($result->num_rows > 0) { ?>
                             <button class="btn btn-info btn-sm" onclick="paymentModalDetail('<?= htmlspecialchars($row['pay_id'], ENT_QUOTES); ?>', 'รายละเอียดการชำระเงิน');">
                                 <i class="fas fa-eye"></i>
                             </button>
-                            <button data-toggle="modal" data-target="#IModal" class="btn btn-primary btn-sm" onclick="paymentModalEdit('<?= htmlspecialchars($row['pay_id'], ENT_QUOTES); ?>', 'แก้ไขข้อมูล');">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <a href="export_payments.php" class="btn btn-success btn-sm"><i class="fas fa-file-excel"></i> Export Excel</a>
                         </td>
                     </tr>
                 <?php } ?>

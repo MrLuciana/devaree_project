@@ -8,12 +8,6 @@
         <div class="card-header">
           <div class="d-flex align-items-center">
             <h4 class="card-title">รายการทั้งหมด</h4>
-            <!-- <button data-toggle="modal" data-target="#IModal"
-              onclick="paymentModalForm('เพิ่มการจอง')" type="button"
-              class="btn btn-primary btn-round ms-auto">
-              <i class="fa fa-plus"></i>
-              เพิ่มรายการ
-            </button> -->
           </div>
           <div class="row mt-3">
             <div class='col d-flex align-items-center'>
