@@ -16,6 +16,18 @@ if (!isset($_SESSION['profile'])) {
     exit();
 }
 
+// อัพเดทข้อมูลผู้ใช้ใน session
+if (isset($_SESSION['customer'])) {
+    $stmt = $conn->prepare("SELECT * FROM customers WHERE cus_lineID = ?");
+    $stmt->bind_param("s", $_SESSION['profile']->userId);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $customerData = $result->fetch_assoc();
+
+    $_SESSION['customer'] = $customerData;
+    $_SESSION['profile'] = (object) array_merge((array) $_SESSION['profile'], $customerData);
+}
+
 // If there's a redirect set after login, handle it
 if (!empty($redirect_after_login)) {
     // Clear the redirect session variable
