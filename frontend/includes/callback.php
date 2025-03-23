@@ -58,5 +58,6 @@ if (empty($profile) || !is_array($profile)) {
   exit();
 }
 
-header('location: ../index.php');
+$redirect_url = isset($_GET['page']) ? '../index.php?page=' . urlencode($_GET['page']) : '../index.php';
+header('location: ' . $redirect_url);
 exit();
