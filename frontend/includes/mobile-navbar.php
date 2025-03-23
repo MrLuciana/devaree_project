@@ -97,7 +97,7 @@
 
     .active-link {
         position: relative;
-        color: red;
+        color: var(--bs-primary);
         transition: .3s;
     }
 
