@@ -57,11 +57,5 @@ $row = $result->fetch_assoc();
         </div>
 
     </div>
-    <div class="row">
-        <div class="col">
-            <label for="address">ที่อยู่</label>
-            <div style="border:solid 1px #ddd; padding:5px 10px;"><?php echo htmlspecialchars($row['cus_address']); ?></div>
-        </div>
-    </div>
 
 </div>

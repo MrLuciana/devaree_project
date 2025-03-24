@@ -4,7 +4,7 @@ require_once('../includes/conn.php');
 $id = isset($_POST['id']) ? $_POST['id'] : '';
 
 if (empty($id)) {
-    die("Error: ไม่พบ ID พนักงาน");
+    die("Error: ไม่พบ ID ลูกค้า");
 }
 
 $sql = "SELECT * FROM customers 
@@ -46,12 +46,6 @@ $row = $result->fetch_assoc();
             <input onchange="checkNull();" value="<?php echo $row['cus_birthdate']; ?>" type="date" name="birthdate" id="birthdate" class="form-control">
         </div>
     </div>
-    <div class="row">
-        <div class="col">
-            <label for="address">ที่อยู่</label>
-            <input onkeyup="checkNull();" value="<?php echo $row['cus_address']; ?>" type="text" id="address" class="form-control">
-        </div>
-    </div>
 
 </div>
 
@@ -73,10 +67,9 @@ $row = $result->fetch_assoc();
         const phone = document.getElementById('phone').value.trim();
         const gender = document.getElementById('gender').value;
         const birthdate = document.getElementById('birthdate').value;
-        const address = document.getElementById('address').value;
 
 
-        if (fname && lname && email && phone && gender && birthdate && address) {
+        if (fname && lname && email && phone && gender && birthdate) {
             document.getElementById('btnSubmit').disabled = false;
         } else {
             document.getElementById('btnSubmit').disabled = true;
@@ -89,7 +82,6 @@ $row = $result->fetch_assoc();
         document.getElementById('email').value = "";
         document.getElementById('phone').value = "";
         document.getElementById('gender').selectedIndex = 0; // กลับไปค่าเริ่มต้น
-        document.getElementById('address').value = "";
 
         document.getElementById('btnSubmit').disabled = true;
     }

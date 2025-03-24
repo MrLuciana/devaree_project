@@ -9,10 +9,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $phone = isset($_POST['phone']) ? $_POST['phone'] : '';
     $email = isset($_POST['email']) ? $_POST['email'] : '';
     $birthdate = isset($_POST['birthdate']) ? $_POST['birthdate'] : '';
-    $address = isset($_POST['address']) ? $_POST['address'] : '';
 
     // ตรวจสอบว่าข้อมูลถูกส่งมาครบหรือไม่
-    if (empty($fname) || empty($lname) || empty($gender) || empty($phone) || empty($email) || empty($birthdate) || empty($address)) {
+    if (empty($fname) || empty($lname) || empty($gender) || empty($phone) || empty($email) || empty($birthdate)) {
         echo json_encode(["status" => "error", "message" => "กรุณากรอกข้อมูลให้ครบถ้วน"]);
         exit;
     }
@@ -24,11 +23,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $phone = $conn->real_escape_string($phone);
     $email = $conn->real_escape_string($email);
     $birthdate = $conn->real_escape_string($birthdate);
-    $address = $conn->real_escape_string($address);
+
 
     // SQL Insert
-    $sql = "INSERT INTO customers (cus_fname, cus_lname, cus_gender, cus_phone, cus_email, cus_birthdate, cus_address)
-            VALUES ('$fname', '$lname', '$gender', '$phone', '$email', '$birthdate', '$address')";
+    $sql = "INSERT INTO customers (cus_fname, cus_lname, cus_gender, cus_phone, cus_email, cus_birthdate)
+            VALUES ('$fname', '$lname', '$gender', '$phone', '$email', '$birthdate')";
 
     if ($conn->query($sql) === TRUE) {
         echo json_encode(["status" => "success", "message" => "บันทึกข้อมูลสำเร็จ"]);

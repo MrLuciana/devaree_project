@@ -36,12 +36,6 @@ require_once('../includes/conn.php');
             <input onchange="checkNull();" type="date" id="birthdate" class="form-control">
         </div>
     </div>
-    <div class="row">
-        <div class="col">
-            <label for="address">ที่อยู่</label>
-            <input onkeyup="checkNull();" type="text" id="address" class="form-control">
-        </div>
-    </div>
 </div>
 
 <div class="modal-footer">
@@ -61,9 +55,8 @@ require_once('../includes/conn.php');
         const phone = document.getElementById('phone').value.trim();
         const gender = document.getElementById('gender').value
         const birthdate = document.getElementById('birthdate').value
-        const address = document.getElementById('address').value
 
-        if (fname && lname && email && phone && gender && birthdate && address) {
+        if (fname && lname && email && phone && gender && birthdate) {
             document.getElementById('btnSubmit').disabled = false;
         } else {
             document.getElementById('btnSubmit').disabled = true;
@@ -77,7 +70,6 @@ require_once('../includes/conn.php');
         document.getElementById('phone').value = "";
         document.getElementById('gender').value = "";
         document.getElementById('birthdate').value = "";
-        document.getElementById('address').value = "";
 
         checkNull();
     }
