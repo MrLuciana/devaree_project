@@ -8,7 +8,7 @@ $email = $_SESSION['profile']->email ?: '';
 $lineID = $_SESSION['profile']->userId;
 
 // Fetch user data from the database
-$stmt = $conn->prepare("SELECT cus_fname, cus_lname, cus_gender, cus_birthdate, cus_phone, cus_email, cus_address FROM customers WHERE cus_lineID = ?");
+$stmt = $conn->prepare("SELECT cus_fname, cus_lname, cus_gender, cus_birthdate, cus_phone, cus_email FROM customers WHERE cus_lineID = ?");
 $stmt->bind_param("s", $lineID);
 $stmt->execute();
 $result = $stmt->get_result();
@@ -79,10 +79,6 @@ if ($result->num_rows > 0) {
             <div class="form-floating mb-3">
               <input placeholder="อีเมล" type="email" name="email" id="editUser_email" class="form-control">
               <label for="editUser_email">อีเมล</label>
-            </div>
-            <div class="form-floating mb-3">
-              <input placeholder="ที่อยู่" type="text" name="address" id="editUser_address" class="form-control" v-model="formData.address">
-              <label for="editUser_address">ที่อยู่</label>
             </div>
           </div>
           <button type="submit" class="btn btn-primary mt-3 w-100">บันทึก</button>
