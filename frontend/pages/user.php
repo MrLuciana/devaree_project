@@ -88,7 +88,7 @@ if ($result->num_rows > 0) {
                     </div>
                   </li>
                   <?php if ($row['boo_status'] == 'confirmed') { ?>
-                    <li><span>สถานะการชำระเงิน:</span></li>
+                    <li id="payment_status"><span>สถานะการชำระเงิน:</span></li>
                   <?php } ?>
                 </ul>
               </div>
@@ -111,48 +111,48 @@ if ($result->num_rows > 0) {
         }
         ?>
       </div>
-      </div>
+    </div>
 
-      <div class="card mt-3">
-        <div class="card-header">
-          <h4>ตั้งค่าบัญชี</h4>
-        </div>
-        <div class="card-body">
-          <div id="user-form">
-            <div>
-              <div class="form-floating mb-3">
-                <input placeholder="ชื่อ (ภาษาไทย)" type="text" name="firstName" id="editUser_firstName" class="form-control">
-                <label for="editUser_firstName">ชื่อ (ภาษาไทย)</label>
-              </div>
-              <div class="form-floating mb-3">
-                <input placeholder="นามสกุล (ภาษาไทย)" type="text" name="lastName" id="editUser_lastName" class="form-control">
-                <label for="editUser_lastName">นามสกุล (ภาษาไทย)</label>
-              </div>
-              <div class="form-floating mb-3">
-                <select name="gender" id="editUser_gender" class="form-control">
-                  <option value="">---- เลือกเพศ ----</option>
-                  <option value="male">ชาย</option>
-                  <option value="female">หญิง</option>
-                  <option value="other">อื่นๆ</option>
-                </select><label for="editUser_gender">เพศ</label>
-              </div>
-              <div class="form-floating mb-3">
-                <input placeholder="วันเกิด" type="date" name="birthDate" id="editUser_birthDate" class="form-control">
-                <label for="editUser_birthDate">วันเกิด</label>
-              </div>
-              <div class="form-floating mb-3">
-                <input placeholder="เบอร์โทร" type="tel" name="phone" id="editUser_phone" maxlength="10" class="form-control">
-                <label for="editUser_phone">เบอร์โทร</label>
-              </div>
-              <div class="form-floating mb-3">
-                <input placeholder="อีเมล" type="email" name="email" id="editUser_email" class="form-control">
-                <label for="editUser_email">อีเมล</label>
-              </div>
+    <div class="card mt-3">
+      <div class="card-header">
+        <h4>ตั้งค่าบัญชี</h4>
+      </div>
+      <div class="card-body">
+        <div id="user-form">
+          <div>
+            <div class="form-floating mb-3">
+              <input placeholder="ชื่อ (ภาษาไทย)" type="text" name="firstName" id="editUser_firstName" class="form-control">
+              <label for="editUser_firstName">ชื่อ (ภาษาไทย)<span class="text-danger">*</span></label>
             </div>
-            <button type="submit" class="btn btn-primary mt-3 w-100">บันทึก</button>
+            <div class="form-floating mb-3">
+              <input placeholder="นามสกุล (ภาษาไทย)" type="text" name="lastName" id="editUser_lastName" class="form-control">
+              <label for="editUser_lastName">นามสกุล (ภาษาไทย)<span class="text-danger">*</span></label>
+            </div>
+            <div class="form-floating mb-3">
+              <select name="gender" id="editUser_gender" class="form-control">
+                <option value="">---- เลือกเพศ ----</option>
+                <option value="male">ชาย</option>
+                <option value="female">หญิง</option>
+                <option value="other">อื่นๆ</option>
+              </select><label for="editUser_gender">เพศ<span class="text-danger">*</span></label>
+            </div>
+            <div class="form-floating mb-3">
+              <input placeholder="วันเกิด" type="date" name="birthDate" id="editUser_birthDate" class="form-control">
+              <label for="editUser_birthDate">วันเกิด <span class="text-danger">*</span></label>
+            </div>
+            <div class="form-floating mb-3">
+              <input placeholder="เบอร์โทร" type="tel" name="phone" id="editUser_phone" maxlength="10" class="form-control">
+              <label for="editUser_phone">เบอร์โทร<span class="text-danger">*</span></label>
+            </div>
+            <div class="form-floating mb-3">
+              <input placeholder="อีเมล" type="email" name="email" id="editUser_email" class="form-control">
+              <label for="editUser_email">อีเมล</label>
+            </div>
           </div>
+          <button type="submit" class="btn btn-primary mt-3 w-100">บันทึก</button>
         </div>
       </div>
+    </div>
   </section>
   <?php include_once("includes/user/user-script.php"); ?>
 </body>
@@ -174,8 +174,7 @@ if ($result->num_rows > 0) {
         <p class="text-center">กรุณาชำระเงินจำนวน <strong>*** บาท</strong> ผ่าน QR Code ด้านบน</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Understood</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">เสร็จสิ้น</button>
       </div>
     </div>
   </div>

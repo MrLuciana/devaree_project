@@ -28,7 +28,7 @@
       const email = $('#editUser_email').val();
 
       // Return true if all required fields are filled
-      return firstName && lastName && gender && birthDate && phone && email;
+      return firstName && lastName && gender && birthDate && phone;
     }
 
     // Update submit button state on input change
