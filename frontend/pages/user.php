@@ -1,6 +1,4 @@
 <?php
-
-use chillerlan\QRCode\QRCode;
 // Split the full name into parts
 require_once('includes/conn.php');
 $nameParts = explode(' ', $_SESSION['profile']->name);
@@ -24,6 +22,7 @@ if ($result->num_rows > 0) {
 
 <head>
   <title>ข้อมูลลูกค้า : NK Wellness & Spa</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body>
@@ -96,8 +95,8 @@ if ($result->num_rows > 0) {
                         echo '<span class="badge bg-warning text-dark">รอการยืนยัน</span>';
                       } else if ($row['boo_status'] == 'confirmed') {
                         echo '<span class="badge bg-primary">ยืนยันแล้ว</span>';
-                      } else if ($row['boo_status'] == 'cancelled') {
-                        echo '<span class="badge bg-danger">ยกเลิกแล้ว</span>';
+                      } else if ($row['boo_status'] == 'canceled') {
+                        echo '<span class="badge bg-danger">ยกเลิก</span>';
                       } else {
                         echo '<span class="badge bg-secondary">ไม่ทราบสถานะ</span>';
                       } ?>
@@ -111,7 +110,7 @@ if ($result->num_rows > 0) {
                         echo '<span class="badge bg-warning text-dark">รอการชำระเงิน</span>';
                       } else if ($row['pay_status'] == 'paid') {
                         echo '<span class="badge bg-success">ชำระแล้ว</span>';
-                      } else if ($row['pay_status'] == 'cancelled') {
+                      } else if ($row['pay_status'] == 'canceled') {
                         echo '<span class="badge bg-danger">ยกเลิก</span>';
                       } else {
                         echo '<span class="badge bg-secondary">ไม่ทราบสถานะ</span>';
@@ -129,9 +128,8 @@ if ($result->num_rows > 0) {
                     </div>
                   <?php } else if ($row['boo_status'] == 'confirmed') { ?>
                     <div id="payment_status">
-                      <button class="btn btn-primary" id="paymentButton" data-bs-toggle="modal" data-bs-target="#staticBackdrop">ชำระเงิน</button>
+                      <button class="btn btn-primary paymentButton" data-amount="<?php echo htmlspecialchars($row['boo_amount']); ?>">ชำระเงิน</button>
                     </div>
-
                   <?php } ?>
                   </div>
               </div>
@@ -187,30 +185,27 @@ if ($result->num_rows > 0) {
   </section>
   <?php include_once("includes/user/user-script.php"); ?>
 </body>
-
-<!-- Modal -->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="staticBackdropLabel">QRCode พร้อมเพย์</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <?php
-        $pp = new \KS\PromptPay();
-        $target = '0656208219';
-        echo '<img src="' . (new QRCode)->render($pp->generatePayload($target)) . '" alt="QR Code" />';
-        ?>
-        <p class="text-center">กรุณาชำระเงินจำนวน <strong>*** บาท</strong> ผ่าน QR Code ด้านบน</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">เสร็จสิ้น</button>
-      </div>
-    </div>
-  </div>
-</div>
-
+<script>
+  $(document).ready(function() {
+    $('.paymentButton').click(function() {
+      var amount = $(this).data('amount');
+      $.ajax({
+        url: 'pages/payment_modal.php',
+        type: 'GET',
+        data: {
+          amount: amount
+        },
+        success: function(data) {
+          $('body').append(data);
+          $('#paymentModal').modal('show');
+          $('#paymentModal').on('hidden.bs.modal', function() {
+            $(this).remove();
+          });
+        }
+      });
+    });
+  });
+</script>
 <style>
   .card .card-header h4 {
     margin: 8px 0;
