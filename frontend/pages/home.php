@@ -1,3 +1,7 @@
+<head>
+    <title>หน้าหลัก : NK Wellness & Care</title>
+</head>
+
 <body>
     <?php
     include_once("includes/carousel.php");

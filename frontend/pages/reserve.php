@@ -29,171 +29,173 @@ $customerPhone = $_SESSION['customer']['cus_phone'] ?? '';
 
 ?>
 
+<head>
+  <title>จองบริการ : NK Wellness & Spa</title>
+</head>
+
 <body>
   <nav class="bg-primary text-center text-white py-2 sticky-top mb-4">
     <h4 class="m-0">จองบริการ</h4>
   </nav>
   <section class="container">
-    <!-- <h1 class="text-center my-3">จองบริการ</h1> -->
-    <!-- <pre><?php print_r($_SESSION['profile']); ?></pre> -->
 
-    <div class="card">
+    <!-- User Information Card -->
+    <div class="card mb-4">
+      <div class="card-header">
+        <h5 class="m-0">ข้อมูลผู้จอง</h5>
+      </div>
       <div class="card-body">
-        <!-- User Information Card -->
-        <div class="card mb-4">
-          <div class="card-header">
-            <h5 class="m-0">ข้อมูลผู้จอง</h5>
-          </div>
-          <div class="card-body">
-            <div class="row">
-              <div class="col-md-2 text-center mb-3 mb-md-0">
-                <?php if (isset($_SESSION['profile']->picture)): ?>
-                  <img src="<?php echo htmlspecialchars($_SESSION['profile']->picture); ?>" alt="Profile Picture" class="rounded-circle" style="width: 80px; height: 80px; object-fit: cover;">
-                <?php else: ?>
-                  <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center" style="width: 80px; height: 80px; margin: 0 auto;">
-                    <i class="bi bi-person-fill text-white" style="font-size: 2rem;"></i>
-                  </div>
-                <?php endif; ?>
-              </div>
-              <div class="col-md-10">
-                <h5><?php echo htmlspecialchars($customerName); ?></h5>
-                <p class="mb-1"><i class="bi bi-envelope me-2"></i><?php echo htmlspecialchars($customerEmail ?: 'ไม่ระบุอีเมล'); ?></p>
-                <p class="mb-1"><i class="bi bi-telephone me-2"></i><?php echo htmlspecialchars($customerPhone ?: 'ไม่ระบุเบอร์โทรศัพท์'); ?></p>
-                <?php if (empty($customerPhone)): ?>
-                  <div class="alert alert-warning mt-2" role="alert">
-                    <i class="bi bi-exclamation-triangle-fill me-2"></i>
-                    กรุณาเพิ่มเบอร์โทรศัพท์ในหน้า <a href="user.php" class="alert-link">ข้อมูลผู้ใช้</a> เพื่อให้ทางร้านสามารถติดต่อกลับได้
-                  </div>
-                <?php endif; ?>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <form id="reservationForm">
-          <!-- Hidden fields for customer information -->
-          <input type="hidden" id="customer_name" name="customer_name" value="<?php echo htmlspecialchars($customerName); ?>">
-          <input type="hidden" id="customer_phone" name="customer_phone" value="<?php echo htmlspecialchars($customerPhone); ?>">
-          <input type="hidden" id="customer_email" name="customer_email" value="<?php echo htmlspecialchars($customerEmail); ?>">
-          <input type="hidden" id="line_user_id" name="line_user_id" value="<?php echo htmlspecialchars($lineUserId); ?>">
-
-          <!-- Service Selection -->
-          <div class="mb-3">
-            <label for="ser_id" class="form-label">เลือกบริการ <span class="text-danger">*</span></label>
-            <select class="form-select" id="ser_id" name="ser_id" required>
-              <option value="">---เลือกบริการ---</option>
-              <?php
-              // Fallback services in case database query fails
-              $fallbackServices = [
-                ['id' => 1, 'name' => 'นวดแผนไทย', 'price' => 600],
-                ['id' => 2, 'name' => 'นวดน้ำมันอโรมา', 'price' => 1200],
-                ['id' => 3, 'name' => 'นวดเท้า', 'price' => 500],
-                ['id' => 4, 'name' => 'สปาหน้า', 'price' => 1500]
-              ];
-
-              // Try to get services from database
-              $hasDbServices = false;
-              try {
-                $sql = "SELECT * FROM services WHERE ser_active = 'yes' ORDER BY ser_id DESC";
-                $result = $conn->query($sql);
-
-                if ($result && $result->num_rows > 0) {
-                  $hasDbServices = true;
-                  while ($row = $result->fetch_assoc()) {
-                    echo "<option value='{$row['ser_id']}' data-price='{$row['ser_price1']}'>{$row['ser_name']}</option>";
-                  }
-                }
-              } catch (Exception $e) {
-                // Log error but continue with fallback options
-                error_log("Error fetching services: " . $e->getMessage());
-              }
-
-              // Use fallback services if no database services were found
-              if (!$hasDbServices) {
-                foreach ($fallbackServices as $service) {
-                  echo "<option value='{$service['id']}' data-price='{$service['price']}'>{$service['name']}</option>";
-                }
-              }
-              ?>
-            </select>
-            <div class="invalid-feedback">กรุณาเลือกบริการ</div>
-          </div>
-
-          <!-- Date and Time Selection -->
-          <div class="row mb-3">
-            <div class="col-md-6">
-              <label for="reserve_date" class="form-label">เลือกวันที่ <span class="text-danger">*</span></label>
-              <input type="text" class="form-control" id="reserve_date" name="reserve_date" required>
-              <div class="invalid-feedback">กรุณาเลือกวันที่</div>
-            </div>
-            <div class="col-md-6">
-              <div class="input">
-                <label for="reserve_time" class="form-label">เลือกเวลา <span class="text-danger">*</span></label>
-                <input type="text" class="form-control" id="reserve_time">
-                <!-- <span class="input-group-addon"><i class="fa fa-clock-o" aria-hidden="true"></i></span> -->
-              </div>
-              <div class="invalid-feedback">กรุณาเลือกเวลา</div>
-            </div>
-          </div>
-
-          <!-- Duration -->
-          <div class="mb-3">
-            <label for="duration" class="form-label">ระยะเวลา (ชั่วโมง) <span class="text-danger">*</span></label>
-            <input type="number" class="form-control" id="duration" name="duration" min="1" value="1" required>
-            <div class="invalid-feedback">กรุณาระบุระยะเวลา</div>
-          </div>
-
-          <div class="mb-3">
-            <label for="payment_method" class="form-label">วิธีการชำระเงิน</label>
-            <select class="form-select" id="payment_method" name="payment_method">
-              <option value="">---เลือกวิธีการชำระเงิน---</option>
-              <option value="cash">เงินสด (ชำระหน้าร้าน)</option>
-              <option value="promptpay">พร้อมเพย์</option>
-            </select>
-            <div class="invalid-feedback">กรุณาระบุวิธีการชำระเงิน</div>
-          </div>
-          <!-- Special Requests -->
-          <div class="mb-3">
-            <label for="special_requests" class="form-label">ข้อมูลเพิ่มเติม</label>
-            <textarea class="form-control" id="special_requests" name="special_requests" rows="3"></textarea>
-          </div>
-
-          <!-- Price Summary -->
-          <div class="card mb-3">
-            <div class="card-body">
-              <h5 class="card-title">สรุปการจอง</h5>
-              <div class="d-flex justify-content-between">
-                <span>บริการ:</span>
-                <span id="summary_service">-</span>
-              </div>
-              <div class="d-flex justify-content-between">
-                <span>ราคา/ชั่วโมง:</span>
-                <span><span id="service_price">0</span> บาท</span>
-              </div>
-              <div class="d-flex justify-content-between">
-                <span>จำนวนชั่วโมง:</span>
-                <span><span id="summary_hours">1</span> ชม.</span>
-              </div>
-              <hr>
-              <div class="d-flex justify-content-between">
-                <h5 class="m-0">รวมทั้งสิ้น:</h5>
-                <h5 class="m-0 text-danger"><span id="total_price">0</span> บาท</h5>
-              </div>
-            </div>
-          </div>
-
-          <div class="mb-3">
-            <button type="submit" id="reserve_submitBtn" class="btn btn-primary w-100" <?php echo empty($customerPhone) ? 'disabled' : ''; ?>>
-              <i class="bi bi-calendar-plus me-2"></i>ยืนยันการจอง
-            </button>
-            <?php if (empty($customerPhone)): ?>
-              <div class="text-danger mt-2 text-center">
-                <small>กรุณาเพิ่มเบอร์โทรศัพท์ในหน้าข้อมูลผู้ใช้ก่อนทำการจอง</small>
+        <div class="row">
+          <div class="col-md-2 text-center mb-3 mb-md-0">
+            <?php if (isset($_SESSION['profile']->picture)): ?>
+              <img src="<?php echo htmlspecialchars($_SESSION['profile']->picture); ?>" alt="Profile Picture" class="rounded-circle" style="width: 80px; height: 80px; object-fit: cover;">
+            <?php else: ?>
+              <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center" style="width: 80px; height: 80px; margin: 0 auto;">
+                <i class="bi bi-person-fill text-white" style="font-size: 2rem;"></i>
               </div>
             <?php endif; ?>
           </div>
-        </form>
+          <div class="col-md-10">
+            <h5><?php echo htmlspecialchars($customerName); ?></h5>
+            <p class="mb-1"><i class="bi bi-envelope me-2"></i><?php echo htmlspecialchars($customerEmail ?: 'ไม่ระบุอีเมล'); ?></p>
+            <p class="mb-1"><i class="bi bi-telephone me-2"></i><?php echo htmlspecialchars($customerPhone ?: 'ไม่ระบุเบอร์โทรศัพท์'); ?></p>
+            <?php if (empty($customerPhone)): ?>
+              <div class="alert alert-warning mt-2" role="alert">
+                <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                กรุณาเพิ่มเบอร์โทรศัพท์ในหน้า <a href="user.php" class="alert-link">ข้อมูลผู้ใช้</a> เพื่อให้ทางร้านสามารถติดต่อกลับได้
+              </div>
+            <?php endif; ?>
+          </div>
+        </div>
       </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <ul class="nav nav-pills nav-fill">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="spa-tab" data-bs-toggle="tab" data-bs-target="#spa-reserve-form" type="button" role="tab" aria-controls="spa-reserve-form" aria-selected="true">สปา</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="package-tab" data-bs-toggle="tab" data-bs-target="#package-reserve-form" type="button" role="tab" aria-controls="package-reserve-form" aria-selected="false">แพ็คเกจ</button>
+          </li>
+        </ul>
+      </div>
+      <div class="card-body">
+        <div class="tab-content">
+          <div class="tab-pane active" id="spa-reserve-form" role="tabpanel" aria-labelledby="spa-tab" tabindex="0">
+            <form id="reservationForm">
+              <!-- Hidden fields for customer information -->
+              <input type="hidden" id="customer_name" name="customer_name" value="<?php echo htmlspecialchars($customerName); ?>">
+              <input type="hidden" id="customer_phone" name="customer_phone" value="<?php echo htmlspecialchars($customerPhone); ?>">
+              <input type="hidden" id="customer_email" name="customer_email" value="<?php echo htmlspecialchars($customerEmail); ?>">
+              <input type="hidden" id="line_user_id" name="line_user_id" value="<?php echo htmlspecialchars($lineUserId); ?>">
+
+              <!-- Service Selection -->
+              <div class="mb-3">
+                <label for="ser_id" class="form-label">เลือกบริการ <span class="text-danger">*</span></label>
+                <select class="form-select" id="ser_id" name="ser_id" required>
+                  <option value="">---เลือกบริการ---</option>
+                  <?php
+                  try {
+                    $sql = "SELECT * FROM services WHERE ser_active = 'yes' ORDER BY ser_id DESC";
+                    $result = $conn->query($sql);
+
+                    if ($result && $result->num_rows > 0) {
+                      while ($row = $result->fetch_assoc()) {
+                        echo "<option value='{$row['ser_id']}' data-price='{$row['ser_price1']}'>{$row['ser_name']}</option>";
+                      }
+                    }
+                  } catch (Exception $e) {
+                    // Log error but continue with fallback options
+                    error_log("Error fetching services: " . $e->getMessage());
+                  }
+                  ?>
+                </select>
+                <div class="invalid-feedback">กรุณาเลือกบริการ</div>
+              </div>
+
+              <!-- Date and Time Selection -->
+              <div class="row mb-3">
+                <div class="col-md-6">
+                  <label for="reserve_date" class="form-label">เลือกวันที่ <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control" id="reserve_date" name="reserve_date" required>
+                  <div class="invalid-feedback">กรุณาเลือกวันที่</div>
+                </div>
+                <div class="col-md-6">
+                  <div class="input">
+                    <label for="reserve_time" class="form-label">เลือกเวลา <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" id="reserve_time">
+                    <!-- <span class="input-group-addon"><i class="fa fa-clock-o" aria-hidden="true"></i></span> -->
+                  </div>
+                  <div class="invalid-feedback">กรุณาเลือกเวลา</div>
+                </div>
+              </div>
+
+              <!-- Duration -->
+              <div class="mb-3">
+                <label for="duration" class="form-label">ระยะเวลา (ชั่วโมง) <span class="text-danger">*</span></label>
+                <input type="number" class="form-control" id="duration" name="duration" min="1" value="1" required>
+                <div class="invalid-feedback">กรุณาระบุระยะเวลา</div>
+              </div>
+
+              <div class="mb-3">
+                <label for="payment_method" class="form-label">วิธีการชำระเงิน</label>
+                <select class="form-select" id="payment_method" name="payment_method">
+                  <option value="">---เลือกวิธีการชำระเงิน---</option>
+                  <option value="cash">เงินสด (ชำระหน้าร้าน)</option>
+                  <option value="promptpay">พร้อมเพย์</option>
+                </select>
+                <div class="invalid-feedback">กรุณาระบุวิธีการชำระเงิน</div>
+              </div>
+              <!-- Special Requests -->
+              <div class="mb-3">
+                <label for="special_requests" class="form-label">ข้อมูลเพิ่มเติม</label>
+                <textarea class="form-control" id="special_requests" name="special_requests" rows="3"></textarea>
+              </div>
+
+              <!-- Price Summary -->
+              <div class="card mb-3 bg-primary-subtle">
+                <div class="card-body">
+                  <h5 class="card-title">สรุปการจอง</h5>
+                  <div class="d-flex justify-content-between">
+                    <span>บริการ:</span>
+                    <span id="summary_service">-</span>
+                  </div>
+                  <div class="d-flex justify-content-between">
+                    <span>ราคา/ชั่วโมง:</span>
+                    <span><span id="service_price">0</span> บาท</span>
+                  </div>
+                  <div class="d-flex justify-content-between">
+                    <span>จำนวนชั่วโมง:</span>
+                    <span><span id="summary_hours">1</span> ชม.</span>
+                  </div>
+                  <hr>
+                  <div class="d-flex justify-content-between">
+                    <h5 class="m-0">รวมทั้งสิ้น:</h5>
+                    <h5 class="m-0 text-danger"><span id="total_price">0</span> บาท</h5>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <button type="submit" id="reserve_submitBtn" class="btn btn-primary w-100" <?php echo empty($customerPhone) ? 'disabled' : ''; ?>>
+                  <i class="bi bi-calendar-plus me-2"></i>ยืนยันการจอง
+                </button>
+                <?php if (empty($customerPhone)): ?>
+                  <div class="text-danger mt-2 text-center">
+                    <small>กรุณาเพิ่มเบอร์โทรศัพท์ในหน้าข้อมูลผู้ใช้ก่อนทำการจอง</small>
+                  </div>
+                <?php endif; ?>
+              </div>
+            </form>
+          </div>
+          <div class="tab-pane" id="package-reserve-form" role="tabpanel" aria-labelledby="package-tab" tabindex="0">
+            <?php include 'reserve-form-package.php'; ?>
+          </div>
+        </div>
+      </div>
+    </div>
     </div>
   </section>
 
@@ -348,7 +350,8 @@ $customerPhone = $_SESSION['customer']['cus_phone'] ?? '';
           reserve_date: $("#reserve_date").val(),
           reserve_time: $("#reserve_time").val(),
           duration: $("#duration").val(),
-          special_requests: $("#special_requests").val()
+          special_requests: $("#special_requests").val(),
+          payment_method: $("#payment_method").val(),
         };
 
         // Send AJAX request
