@@ -74,7 +74,7 @@ $customerPhone = $_SESSION['customer']['cus_phone'] ?? '';
       <div class="card-header">
         <ul class="nav nav-pills nav-fill">
           <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="spa-tab" data-bs-toggle="tab" data-bs-target="#spa-reserve-form" type="button" role="tab" aria-controls="spa-reserve-form" aria-selected="true">สปา</button>
+            <button class="nav-link active" id="spa-tab" data-bs-toggle="tab" data-bs-target="#spa-reserve-form" type="button" role="tab" aria-controls="spa-reserve-form" aria-selected="true">บริการ</button>
           </li>
           <li class="nav-item" role="presentation">
             <button class="nav-link" id="package-tab" data-bs-toggle="tab" data-bs-target="#package-reserve-form" type="button" role="tab" aria-controls="package-reserve-form" aria-selected="false">แพ็คเกจ</button>
