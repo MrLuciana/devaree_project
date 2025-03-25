@@ -28,10 +28,9 @@
       const birthDate = $('#editUser_birthDate').val();
       const phone = $('#editUser_phone').val();
       const email = $('#editUser_email').val();
-      const address = $('#editUser_address').val();
 
       // Return true if all required fields are filled
-      return firstName && lastName && gender && birthDate && phone && email && address;
+      return firstName && lastName && gender && birthDate && phone && email;
     }
 
     // Update submit button state on input change
