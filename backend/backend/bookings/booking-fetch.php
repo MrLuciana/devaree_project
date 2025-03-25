@@ -66,6 +66,7 @@ if ($result->num_rows > 0) { ?>
                             <select name="boo_status" class="form-select status-select" data-boo_id="<?= $row['boo_id']; ?>">
                                 <option value="pending" <?= $row['boo_status'] == 'pending' ? 'selected' : ''; ?>>⏳ Pending</option>
                                 <option value="confirmed" <?= $row['boo_status'] == 'confirmed' ? 'selected' : ''; ?>>✅ Confirmed</option>
+                                <option value="completed" <?= $row['boo_status'] == 'completed' ? 'selected' : ''; ?>>✅ Completed</option>
                                 <option value="canceled" <?= $row['boo_status'] == 'canceled' ? 'selected' : ''; ?>>❌ Canceled</option>
                             </select>
                         </td>
