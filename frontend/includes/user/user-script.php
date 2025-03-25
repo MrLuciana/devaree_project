@@ -8,7 +8,6 @@
       birthDate: '<?php echo isset($userData["cus_birthdate"]) ? htmlspecialchars($userData["cus_birthdate"]) : ""; ?>',
       phone: '<?php echo isset($userData["cus_phone"]) ? htmlspecialchars($userData["cus_phone"]) : ""; ?>',
       email: '<?php echo isset($userData["cus_email"]) ? htmlspecialchars($userData["cus_email"]) : htmlspecialchars($email); ?>',
-      address: '<?php echo isset($userData["cus_address"]) ? htmlspecialchars($userData["cus_address"]) : ""; ?>'
     };
 
     // Set initial form values
@@ -18,7 +17,6 @@
     $('#editUser_birthDate').val(userData.birthDate);
     $('#editUser_phone').val(userData.phone);
     $('#editUser_email').val(userData.email);
-    $('#editUser_address').val(userData.address);
 
     // Function to check if all required fields are filled
     function checkFields() {
@@ -54,7 +52,6 @@
         birthDate: $('#editUser_birthDate').val(),
         phone: $('#editUser_phone').val(),
         email: $('#editUser_email').val(),
-        address: $('#editUser_address').val()
       };
 
       console.log('Form submitted:', formData);
