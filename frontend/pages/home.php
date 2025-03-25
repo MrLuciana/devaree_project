@@ -27,7 +27,7 @@
                                 <p class="startingprice m-0">ราคาเริ่มต้น
                                 <h4 class="d-inline fw-bold"><?php echo $row['ser_price1']; ?> <span style="font-size: 10pt;">บาท</span></h4>
                                 </p>
-                                <a class="btn btn-primary"><i class="bi bi-calendar-plus-fill me-2"></i>จองบริการ</a>
+                                <a class="btn btn-primary" href="index.php?page=reserve"><i class="bi bi-calendar-plus-fill me-2"></i>จองบริการ</a>
                             </div>
                         </div>
                     </div>
