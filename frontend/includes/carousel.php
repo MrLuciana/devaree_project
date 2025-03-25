@@ -1,11 +1,11 @@
 <div id="carouselExample" class="carousel slide">
   <div class="carousel-inner">
     <div class="carousel-item active">
-      <img src="assets/img/banner1.png" class="d-block w-100" alt="...">
+      <img src="assets/img/cover1.jpg" class="d-block w-100" alt="...">
     </div>
-    <div class="carousel-item active">
+    <!-- <div class="carousel-item active">
       <img src="assets/img/banner2.png" class="d-block w-100" alt="...">
-    </div>
+    </div> -->
   </div>
   <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
