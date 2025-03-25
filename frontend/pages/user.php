@@ -111,6 +111,7 @@ if ($result->num_rows > 0) {
         }
         ?>
       </div>
+      </div>
 
       <div class="card mt-3">
         <div class="card-header">
