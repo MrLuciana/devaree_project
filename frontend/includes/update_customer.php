@@ -25,7 +25,6 @@ $lastName = htmlspecialchars($lastName);
 $gender = htmlspecialchars($gender);
 $phone = htmlspecialchars($phone);
 $email = filter_var($email, FILTER_SANITIZE_EMAIL);
-$address = htmlspecialchars($address);
 
 // Validate the input data (add more validation as needed)
 if (empty($firstName) || empty($lastName) || empty($gender) || empty($phone)) {
