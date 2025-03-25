@@ -20,6 +20,10 @@ if ($result->num_rows > 0) {
 }
 ?>
 
+<head>
+  <title>ข้อมูลลูกค้า : NK Wellness & Spa</title>
+</head>
+
 <body>
   <nav class="bg-primary text-center text-white py-2 sticky-top mb-4">
     <h4 class="m-0">ข้อมูลลูกค้า</h4>
@@ -36,7 +40,6 @@ if ($result->num_rows > 0) {
             <h3 class="text-md-start text-center"><?php echo htmlspecialchars($userData['cus_fname'] . ' ' . $userData['cus_lname']); ?></h3>
             <p class="m-0">อีเมล: <?php echo htmlspecialchars($userData['cus_email'] ?: ''); ?></p>
             <p class="m-0">เบอร์โทร: <?php echo htmlspecialchars($userData['cus_phone'] ?: ''); ?></p>
-            <p class="m-0">ที่อยู่: <?php echo htmlspecialchars($userData['cus_address'] ?: ''); ?></p>
           </div>
         </div>
       </div>
