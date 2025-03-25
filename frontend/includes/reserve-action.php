@@ -32,11 +32,11 @@ function isValidDate($date)
         }
       }
     }
-    
+
     if (!$d) {
       return false;
     }
-    
+
     // Format the date to Y-m-d
     return $d->format('Y-m-d');
   } catch (Exception $e) {
@@ -64,6 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $reserve_time = isset($_POST['reserve_time']) ? sanitize($_POST['reserve_time']) : '';
     $duration = isset($_POST['duration']) ? intval($_POST['duration']) : 1;
     $special_requests = isset($_POST['special_requests']) ? sanitize($_POST['special_requests']) : '';
+    $payment_method = isset($_POST['payment_method']) ? sanitize($_POST['payment_method']) : 'cash';
 
     // Validate required fields
     $errors = [];
@@ -183,11 +184,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $total_price = $service_price * $duration;
 
     // Insert booking into database
-    $booking_query = "INSERT INTO bookings (cus_id, ser_id, emp_id, pac_id, boo_date, boo_start_time, boo_hours, boo_amount, boo_notes, boo_method, boo_status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 'cash', 'pending')";
+    $booking_query = "INSERT INTO bookings (cus_id, ser_id, emp_id, pac_id, boo_date, boo_res_time, boo_ser_hours, boo_amount, boo_notes, boo_method, boo_status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'pending')";
     $stmt = $conn->prepare($booking_query);
     $emp_id = NULL;
     $pac_id = NULL;
-    $stmt->bind_param("iiiissids", $cus_id, $ser_id, $emp_id, $pac_id, $reserve_date, $reserve_time, $duration, $total_price, $special_requests);
+    $stmt->bind_param("iiiissidss", $cus_id, $ser_id, $emp_id, $pac_id, $reserve_date, $reserve_time, $duration, $total_price, $special_requests, $payment_method);
 
     if ($stmt->execute()) {
       // Success
