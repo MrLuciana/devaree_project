@@ -55,10 +55,14 @@ if ($result->num_rows > 0) {
         <h4>ประวัติการใช้บริการ</h4>
       </div>
       <div class="card-body">
-        <!-- <?php print_r($_SESSION['profile']); ?> -->
         <!-- Fetch and display the user's service history from the database -->
         <?php
-        $stmt = $conn->prepare("SELECT boo_id, ser_name, boo_date, boo_res_time, boo_amount, boo_status FROM bookings INNER JOIN services ON bookings.ser_id = services.ser_id WHERE cus_id = ? ORDER BY boo_date DESC, boo_res_time DESC");
+        $stmt = $conn->prepare("SELECT bookings.boo_id, ser_name, boo_date, boo_res_time, boo_amount, boo_status, pay_status 
+        FROM bookings 
+        INNER JOIN services ON bookings.ser_id = services.ser_id 
+        LEFT JOIN payments ON bookings.boo_id = payments.boo_id 
+        WHERE cus_id = ? 
+        ORDER BY boo_date DESC, boo_res_time DESC");
         $stmt->bind_param("s", $_SESSION['profile']->cus_id);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -87,9 +91,19 @@ if ($result->num_rows > 0) {
                       } ?>
                     </div>
                   </li>
-                  <?php if ($row['boo_status'] == 'confirmed') { ?>
-                    <li id="payment_status"><span>สถานะการชำระเงิน:</span></li>
-                  <?php } ?>
+                  <li id="payment_status"><span>สถานะการชำระเงิน:</span>
+                    <?php
+                    if ($row['pay_status'] == 'pending') {
+                      echo '<span class="badge bg-warning text-dark">รอการชำระเงิน</span>';
+                    } else if ($row['pay_status'] == 'paid') {
+                      echo '<span class="badge bg-success">ชำระแล้ว</span>';
+                    } else if ($row['pay_status'] == 'cancelled') {
+                      echo '<span class="badge bg-danger">ยกเลิก</span>';
+                    } else {
+                      echo '<span class="badge bg-secondary">ไม่ทราบสถานะ</span>';
+                    }
+                    ?>
+                  </li>
                 </ul>
               </div>
               <div class="card-footer d-flex justify-content-between align-items-center">
@@ -108,6 +122,8 @@ if ($result->num_rows > 0) {
               </div>
             </div>
         <?php }
+        } else {
+          echo '<div class="alert alert-info" role="alert">ยังไม่มีประวัติการใช้บริการ</div>';
         }
         ?>
       </div>
