@@ -144,7 +144,7 @@ $customerPhone = $_SESSION['customer']['cus_phone'] ?? '';
                 <select class="form-select" id="payment_method" name="payment_method">
                   <option value="">---เลือกวิธีการชำระเงิน---</option>
                   <option value="cash">เงินสด (ชำระหน้าร้าน)</option>
-                  <option value="promptpay">พร้อมเพย์</option>
+                  <option value="bank_transfer">โอนเงินผ่านธนาคาร</option>
                 </select>
                 <div class="invalid-feedback">กรุณาระบุวิธีการชำระเงิน</div>
               </div>
