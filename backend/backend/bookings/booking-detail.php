@@ -4,7 +4,7 @@ require_once('../includes/conn.php');
 $id = $_POST['id'];
 $sql = "SELECT * FROM bookings
     INNER JOIN customers ON bookings.cus_id = customers.cus_id
-    INNER JOIN employees ON bookings.emp_id = employees.emp_id
+    LEFT JOIN employees ON bookings.emp_id = employees.emp_id
     LEFT JOIN services ON bookings.ser_id = services.ser_id
     LEFT JOIN packages ON bookings.pac_id = packages.pac_id
     WHERE bookings.boo_id = ?";
@@ -29,7 +29,15 @@ $row = $result->fetch_assoc();
             <div class="row mt-3 mb-3">
                 <div class="col">
                     <label for="addBooking-employee">ชื่อพนักงาน</label>
-                    <div style="border:solid 1px #ddd; padding:5px 10px;"><?php echo htmlspecialchars($row['emp_fname']); ?>&nbsp;&nbsp;<?php echo htmlspecialchars($row['emp_lname']); ?></div>
+                    <div style="border:solid 1px #ddd; padding:5px 10px;">
+                        <?php 
+                        if (!empty($row['emp_fname']) && !empty($row['emp_lname'])) {
+                            echo htmlspecialchars($row['emp_fname']) . "&nbsp;&nbsp;" . htmlspecialchars($row['emp_lname']);
+                        } else {
+                            echo "ยังไม่ได้ระบุ";
+                        }
+                        ?>
+                    </div>
                 </div>
             </div>
 
