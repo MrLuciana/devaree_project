@@ -1,10 +1,13 @@
-$primary: #B82132;
+$primary: #A55B4B;
 $enable-dark-mode: false;
-$body-bg: #ffe9ee;
+$body-bg: #fae8e4;
 $card-bg: #fff;
+$input-bg: #fff;
+$input-border-color: #d7a89e;
 $carousel-control-color: black;
 $carousel-control-hover-opacity: 1;
+$modal-content-bg: #ffffff;
 $carousel-control-icon-width: 6rem;
 $font-family-base: 'Cabin', 'Noto Sans Thai Looped';
 @import 'bootstrap/bootstrap.scss';
-// ก่อนปรับแต่ง นำเข้า SCSS Source Codeของ Bootstrap มาไว้ในโฟลเดอร์ frontend/assets/css/bootstrap
+// ก่อนปรับแต่ง นำเข้า SCSS Source Code ของ Bootstrap มาไว้ในโฟลเดอร์ frontend/assets/css/bootstrap

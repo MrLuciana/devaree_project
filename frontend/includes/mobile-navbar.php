@@ -23,7 +23,7 @@
                     } else {
                         echo '<i class="bi bi-person-fill nav__icon"></i>';
                     } ?>
-                    <span class="nav__name"><?php echo isset($_SESSION['profile']) ? $_SESSION['profile']->name : 'ผู้ใช้'; ?></span>
+                    <span class="nav__name"><?php echo isset($_SESSION['profile']) ? $_SESSION['profile']->cus_fname . ' ' . $_SESSION['profile']->cus_lname  : 'ผู้ใช้'; ?></span>
                 </a>
             </li>
         </ul>

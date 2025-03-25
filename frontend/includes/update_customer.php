@@ -18,7 +18,6 @@ $gender = $_POST['gender'];
 $birthDate = $_POST['birthDate'];
 $phone = $_POST['phone'];
 $email = $_POST['email'];
-$address = $_POST['address'];
 
 // Sanitize the input data
 $firstName = htmlspecialchars($firstName);
@@ -26,17 +25,16 @@ $lastName = htmlspecialchars($lastName);
 $gender = htmlspecialchars($gender);
 $phone = htmlspecialchars($phone);
 $email = filter_var($email, FILTER_SANITIZE_EMAIL);
-$address = htmlspecialchars($address);
 
 // Validate the input data (add more validation as needed)
-if (empty($firstName) || empty($lastName) || empty($gender) || empty($phone) || empty($email) || empty($address)) {
+if (empty($firstName) || empty($lastName) || empty($gender) || empty($phone)) {
   echo json_encode(['status' => 'error', 'message' => 'All fields are required']);
   exit();
 }
 
 // Update the customer information in the database
-$stmt = $conn->prepare("UPDATE customers SET cus_fname = ?, cus_lname = ?, cus_gender = ?, cus_birthdate = ?, cus_phone = ?, cus_email = ?, cus_address = ? WHERE cus_lineID = ?");
-$stmt->bind_param("ssssssss", $firstName, $lastName, $gender, $birthDate, $phone, $email, $address, $lineID);
+$stmt = $conn->prepare("UPDATE customers SET cus_fname = ?, cus_lname = ?, cus_gender = ?, cus_birthdate = ?, cus_phone = ?, cus_email = ? WHERE cus_lineID = ?");
+$stmt->bind_param("sssssss", $firstName, $lastName, $gender, $birthDate, $phone, $email, $lineID);
 
 if ($stmt->execute()) {
   // Fetch updated user data
