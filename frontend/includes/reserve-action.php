@@ -171,17 +171,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
     // Get service price
-    $service_query = "SELECT ser_price1 FROM services WHERE ser_id = ?";
+    $service_query = "SELECT ser_price1, ser_price2, ser_price3 FROM services WHERE ser_id = ?";
     $stmt = $conn->prepare($service_query);
     $stmt->bind_param("i", $ser_id);
     $stmt->execute();
     $service_result = $stmt->get_result();
     $service_row = $service_result->fetch_assoc();
-    $service_price = $service_row['ser_price1'];
+    $price1 = $service_row['ser_price1'];
+    $price2 = $service_row['ser_price2'];
+    $price3 = $service_row['ser_price3'];
     $stmt->close();
 
+    // Determine service price based on duration
+    if ($duration === 1) {
+      $service_price = $price1;
+    } else if ($duration === 2) {
+      $service_price = $price2;
+    } else {
+      $service_price = $price3;
+    }
+
     // Calculate total price
-    $total_price = $service_price * $duration;
+    $total_price = $service_price;
 
     // Insert booking into database
     $booking_query = "INSERT INTO bookings (cus_id, ser_id, emp_id, pac_id, boo_date, boo_res_time, boo_ser_hours, boo_amount, boo_notes, boo_method, boo_status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'pending')";

@@ -98,12 +98,12 @@ $customerPhone = $_SESSION['customer']['cus_phone'] ?? '';
                   <option value="">---เลือกบริการ---</option>
                   <?php
                   try {
-                    $sql = "SELECT * FROM services WHERE ser_active = 'yes' ORDER BY ser_id DESC";
+                    $sql = "SELECT ser_id, ser_name, ser_price1, ser_price2, ser_price3 FROM services WHERE ser_active = 'yes' ORDER BY ser_id DESC";
                     $result = $conn->query($sql);
 
                     if ($result && $result->num_rows > 0) {
                       while ($row = $result->fetch_assoc()) {
-                        echo "<option value='{$row['ser_id']}' data-price='{$row['ser_price1']}'>{$row['ser_name']}</option>";
+                        echo "<option value='{$row['ser_id']}' data-price1='{$row['ser_price1']}' data-price2='{$row['ser_price2']}' data-price3='{$row['ser_price3']}'>{$row['ser_name']}</option>";
                       }
                     }
                   } catch (Exception $e) {
@@ -135,7 +135,13 @@ $customerPhone = $_SESSION['customer']['cus_phone'] ?? '';
               <!-- Duration -->
               <div class="mb-3">
                 <label for="duration" class="form-label">ระยะเวลา (ชั่วโมง) <span class="text-danger">*</span></label>
-                <input type="number" class="form-control" id="duration" name="duration" min="1" value="1" required>
+                <!-- <input type="number" class="form-control" id="duration" name="duration" min="1" value="1" required> -->
+                <select name="duration" id="duration" class="form-select" required disabled>
+                  <option value="">---เลือกจำนวนชั่วโมง---</option>
+                  <option value="1">1 ชั่วโมง</option>
+                  <option value="2">2 ชั่วโมง</option>
+                  <option value="3">3 ชั่วโมง</option>
+                </select>
                 <div class="invalid-feedback">กรุณาระบุระยะเวลา</div>
               </div>
 
@@ -255,6 +261,15 @@ $customerPhone = $_SESSION['customer']['cus_phone'] ?? '';
           },
         },
       });
+
+      // Enable duration select when service is selected
+      $("#ser_id").on("change", function() {
+        if ($(this).val()) {
+          $("#duration").prop("disabled", false);
+        } else {
+          $("#duration").prop("disabled", true);
+        }
+      });
     });
     $(document).ready(function() {
 
@@ -267,10 +282,23 @@ $customerPhone = $_SESSION['customer']['cus_phone'] ?? '';
         const durationInput = $("#duration");
 
         const serviceName = serviceSelect.find("option:selected").text() || "-";
-        const servicePrice = parseFloat(serviceSelect.find("option:selected").data("price")) || 0;
-        const duration = parseInt(durationInput.val()) || 1;
+        const selectedTime = $("#reserve_time").val();
+        let servicePrice = 0;
+        const price1 = parseFloat(serviceSelect.find("option:selected").data("price1")) || 0;
+        const price2 = parseFloat(serviceSelect.find("option:selected").data("price2")) || 0;
+        const price3 = parseFloat(serviceSelect.find("option:selected").data("price3")) || 0;
 
-        const totalPrice = servicePrice * duration;
+        const duration = parseInt(durationInput.val()) || 1;
+        if (duration === 1) {
+          servicePrice = price1;
+        } else if (duration === 2) {
+          servicePrice = price2;
+        } else {
+          servicePrice = price3;
+        }
+        // const duration = parseInt(durationInput.val()) || 1;
+
+        const totalPrice = servicePrice;
 
         $("#summary_service").text(serviceName);
         $("#service_price").text(servicePrice.toLocaleString());
@@ -380,6 +408,7 @@ $customerPhone = $_SESSION['customer']['cus_phone'] ?? '';
                 $("#special_requests").val('');
                 updatePriceSummary();
                 validateForm();
+                window.location.href = "index.php?page=user"; // Redirect to user page
               });
             } else {
               // Show error message
