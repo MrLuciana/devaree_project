@@ -29,9 +29,7 @@ if ($result->num_rows > 0) { ?>
                 <tr class="text-center">
                     <th scope="col" style="width: 3%;">รหัส</th>
                     <th scope="col" style="width: 10%;">ชื่อแพ็กเกจ</th>
-                    <th scope="col" style="width: 15%;">รายละเอียด</th>
                     <th scope="col" style="width: 10%;">ราคา</th>
-                    <th scope="col" style="width: 10%;">ชั่วโมง/นาที</th>
                     <th scope="col" style="width: 8%;">หมวดหมู่</th>
                     <th scope="col" style="width: 5%;">สถานะ</th>
                     <th scope="col" style="width: 15%;">จัดการ</th>
@@ -40,14 +38,12 @@ if ($result->num_rows > 0) { ?>
             <tbody>
                 <?php
                 while ($row = $result->fetch_assoc()) { ?>
-                    <tr>
+                    <tr class="text-center">
                         <td><?php echo htmlspecialchars($row["pac_code"]); ?></td>
                         <td><?php echo htmlspecialchars($row["pac_name"]); ?></td>
-                        <td><?php echo htmlspecialchars($row["pac_description"]); ?></td>
-                        <td class="text-end"><?php echo number_format($row["pac_price1"]); ?></td>
-                        <td class="text-end"><?php echo htmlspecialchars($row["pac_hour"]); ?></td>
-                        <td class="text-center"><?php echo htmlspecialchars($row["cat_name"]); ?></td>
-                        <td class="text-center">
+                        <td><?php echo number_format($row["pac_price1"]); ?></td>
+                        <td><?php echo htmlspecialchars($row["cat_name"]); ?></td>
+                        <td>
                             <?php
                             $active = ($row['pac_active'] == 'yes') ? 'yes' : 'no'; // ตรวจสอบค่า active
                             ?>
@@ -57,7 +53,7 @@ if ($result->num_rows > 0) { ?>
                                 <?php echo ($active == 'yes') ? 'เปิด' : 'ปิด'; ?>
                             </button>
                         </td>
-                        <td class="text-center">
+                        <td>
                             <button class="btn btn-info btn-sm" onclick="packageModalDetail('<?php echo $row['pac_id']; ?>');"><i class="fas fa-eye"></i></button>
                             <button data-toggle="modal" data-target="#IModal" class="btn btn-primary btn-sm" onclick="packageModalEdit('<?php echo $row['pac_id']; ?>','แก้ไขข้อมูล');"><i class="fas fa-edit"></i></button>
                             <button class="btn btn-danger btn-sm" onclick="packageModalDelete('<?php echo $row['pac_id']; ?>');"><i class="fas fa-trash"></i></button>
