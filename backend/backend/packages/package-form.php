@@ -6,14 +6,19 @@ $sql = "SELECT pac_code FROM packages ORDER BY pac_code DESC LIMIT 1";
 $stmt = $conn->prepare($sql);
 $stmt->execute();
 $result = $stmt->get_result();
-$lastCode = $result->fetch_assoc()['pac_code'] ?? 'SERV000'; // ถ้าไม่มีรหัสใช้ค่าเริ่มต้น
+$lastCode = $result->fetch_assoc()['pac_code'] ?? 'PACK000'; // Fix: Changed from SERV000 to PACK000
 $stmt->close();
 
 // สร้างรหัสใหม่
-$numberPart = (int)substr($lastCode, 4); // ตัดตัวอักษร 'PACK' ออก
-$newNumberPart = str_pad($numberPart + 1, 3, '0', STR_PAD_LEFT); // เพิ่มเลข +1 และเติม 0 ซ้าย
+$numberPart = (int)substr($lastCode, 4); 
+$newNumberPart = str_pad($numberPart + 1, 3, '0', STR_PAD_LEFT);
 $newpackageCode = 'PACK' . $newNumberPart;
 
+// ดึงบริการทั้งหมดที่มีสถานะ active
+$sqlServices = "SELECT ser_id, ser_name FROM services WHERE ser_active = 'yes'";
+$stmtServices = $conn->prepare($sqlServices);
+$stmtServices->execute();
+$services = $stmtServices->get_result();
 ?>
 
 <div class="modal-body" style="padding: 30px 15px 20px 15px;">
@@ -59,8 +64,16 @@ $newpackageCode = 'PACK' . $newNumberPart;
 
     <div class="row mt-3 mb-3">
         <div class="col">
-            <label for="description">รายละเอียด</label>
-            <input onkeyup="checkNull();" type="text" id="description" class="form-control">
+            <label for="services">เลือกบริการที่รวมอยู่ในแพ็กเกจ</label>
+            <select id="services" name="services[]" multiple class="form-control" onchange="updateDescription()">
+                <?php while($service = $services->fetch_assoc()): ?>
+                    <option value="<?php echo htmlspecialchars($service['ser_id']); ?>">
+                        <?php echo htmlspecialchars($service['ser_name']); ?>
+                    </option>
+                <?php endwhile; ?>
+            </select>
+            <small>กด Ctrl หรือ Shift เพื่อเลือกหลายบริการ</small>
+            <input type="hidden" id="description" name="description">
         </div>
     </div>
 
@@ -76,11 +89,27 @@ $newpackageCode = 'PACK' . $newNumberPart;
 </div>
 
 <script>
+    function updateDescription() {
+        const selectedServices = [];
+        const serviceSelect = document.getElementById('services');
+        
+        // Get all selected options
+        for (let i = 0; i < serviceSelect.options.length; i++) {
+            if (serviceSelect.options[i].selected) {
+                selectedServices.push(serviceSelect.options[i].text);
+            }
+        }
+        
+        // Combine selected services with comma separator
+        document.getElementById('description').value = selectedServices.join(', ');
+        checkNull();
+    }
+
     function checkNull() {
         const code = document.getElementById('code').value.trim();
         const name = document.getElementById('name').value.trim();
         const description = document.getElementById('description').value.trim();
-        const cat_id = document.getElementById('cat_id').value; // ไม่ต้อง trim
+        const cat_id = document.getElementById('cat_id').value;
         const price1 = document.getElementById('price1').value.trim();
         const hour = document.getElementById('hour').value.trim();
 
@@ -99,6 +128,7 @@ $newpackageCode = 'PACK' . $newNumberPart;
         document.getElementById('name').value = "";
         document.getElementById('price1').value = "";
         document.getElementById('hour').value = "";
+        document.getElementById('services').selectedIndex = -1;
         document.getElementById('description').value = "";
         document.getElementById('cat_id').value = "";
         document.getElementById('btnSubmit').disabled = true;
@@ -129,4 +159,9 @@ $newpackageCode = 'PACK' . $newNumberPart;
             }
         });
     }
+    
+    // Initialize the event listener for hour input when page loads
+    document.addEventListener("DOMContentLoaded", function() {
+        timeInput();
+    });
 </script>
